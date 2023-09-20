@@ -10,12 +10,10 @@
           <div class="col-sm-6">
             <h1>Admin List</h1>
           </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Simple Tables</li>
-            </ol>
+          <div class="col-sm-6" style="text-align: right">
+            <a href="{{ url('admin/admin/add') }}" class="btn btn-primary">Add new admin</a> 
           </div>
+     
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -28,62 +26,37 @@
           <div class="col-md-12"> 
             <!-- /.card -->
 
+            @include('_message')
+
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Striped Full Width Table</h3>
+                <h3 class="card-title">Admin List</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Task</th>
-                      <th>Progress</th>
-                      <th style="width: 40px">Label</th>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Created Date</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody> 
+                    @foreach($getRecord as $value)
                     <tr>
-                      <td>1.</td>
-                      <td>Update software</td>
+                      <td>{{ $value->id }}</td>
+                      <td>{{ $value->name }}</td>
+                      <td>{{ $value->email }}</td>
+                      <td>{{ $value->created_at }}</td>
                       <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                        </div>
+                        <a href="{{ url('admin/admin/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ url('admin/admin/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
                       </td>
-                      <td><span class="badge bg-danger">55%</span></td>
                     </tr>
-                    <tr>
-                      <td>2.</td>
-                      <td>Clean database</td>
-                      <td>
-                        <div class="progress progress-xs">
-                          <div class="progress-bar bg-warning" style="width: 70%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-warning">70%</span></td>
-                    </tr>
-                    <tr>
-                      <td>3.</td>
-                      <td>Cron job running</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-primary" style="width: 30%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-primary">30%</span></td>
-                    </tr>
-                    <tr>
-                      <td>4.</td>
-                      <td>Fix and squish bugs</td>
-                      <td>
-                        <div class="progress progress-xs progress-striped active">
-                          <div class="progress-bar bg-success" style="width: 90%"></div>
-                        </div>
-                      </td>
-                      <td><span class="badge bg-success">90%</span></td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
