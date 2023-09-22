@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Hash; 
 
 class AdminController extends Controller
 {
@@ -59,6 +59,6 @@ class AdminController extends Controller
         $user->is_delete = 1;
         $user->save();
         
-        return redirect('admin/admin/list')->with('success', 'Admin successfully deleted.');
+        return redirect()->back()->with('success', 'Admin successfully deleted.');
     }
 }
