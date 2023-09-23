@@ -26,7 +26,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" value="{{ $getRecord->name  }}" name="name" placeholder="Name">
+                    <input type="text" class="form-control" value="{{ old('name', $getRecord->name)   }}" name="name" placeholder="Name">
                   </div> 
                   <div class="form-group">
                     <label>Status</label>
