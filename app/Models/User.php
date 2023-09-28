@@ -46,6 +46,12 @@ class User extends Authenticatable
     static public function getSingle($id){
         return self::find($id);
     }
+    static public function getEmailSingle($email){
+        return User::where('email', '=', $email)->first();
+    }
+    static public function getTokenSingle($remember_token){
+        return User::where('remember_token', '=', $remember_token)->first();
+    } 
     static public function getAdmin(){
         $return = self::select('users.*')
                         ->where('user_type', '=',1)
@@ -65,13 +71,59 @@ class User extends Authenticatable
 
         return $return;
     }
-    static public function getEmailSingle($email){
-        return User::where('email', '=', $email)->first();
-    }
-    static public function getTokenSingle($remember_token){
-        return User::where('remember_token', '=', $remember_token)->first();
-    } 
     
+    
+    static public function getTeacher(){
+        $return = self::select('users.*')
+                        ->where('user_type', '=',2)
+                        ->where('is_delete', '=',0);
+                        if(!empty(Request::get('name'))){
+                            $return = $return->where('users.name', 'like', '%'. Request::get('name'). '%');
+                        }
+                        if(!empty(Request::get('last_name'))){
+                            $return = $return->where('users.last_name', 'like', '%'. Request::get('last_name'). '%');
+                        }
+                        if(!empty(Request::get('email'))){
+                            $return = $return->where('users.email', 'like', '%'. Request::get('email'). '%');
+                        } 
+                        if(!empty(Request::get('gender'))){
+                            $return = $return->where('users.gender', 'like', '%'. Request::get('gender'). '%');
+                        }   
+                        if(!empty(Request::get('mobile_number'))){
+                            $return = $return->where('users.mobile_number', 'like', '%'. Request::get('mobile_number'). '%');
+                        }  
+                        if(!empty(Request::get('marital_status'))){
+                            $return = $return->where('users.marital_status', 'like', '%'. Request::get('marital_status'). '%');
+                        }   
+                        if(!empty(Request::get('address'))){
+                            $return = $return->where('users.address', 'like', '%'. Request::get('address'). '%');
+                        }   
+                        if(!empty(Request::get('admission_date'))){
+                            $return = $return->whereDate('users.admission_date', '=', Request::get('admission_date'));
+                        }   
+                        if(!empty(Request::get('created_at'))){
+                            $return = $return->whereDate('users.created_at', '=', Request::get('created_at'));
+                        }
+                        if(!empty(Request::get('status'))){
+                            $status = (Request::get('status') == 100) ? 0 : 1;
+                            $return = $return->where('users.status', '=', $status);
+                        }
+
+                    
+        $return = $return->orderBy('id', 'desc')
+                        ->paginate(5);
+
+        return $return;
+    }
+    static public function getTeacherClass(){
+        $return = self::select('users.*')
+                        ->where('users.user_type', '=',2)
+                        ->where('users.is_delete', '=',0)
+                        ->orderBy('id', 'desc')
+                        ->get();
+
+        return $return;
+    }
     static public function getParent(){
         $return = self::select('users.*')
                         ->where('user_type', '=',4)
@@ -167,7 +219,7 @@ class User extends Authenticatable
     
         return $return;
     }
-
+ 
     static public function getSearchStudent(){ 
         if(!empty(Request::get('id')) || !empty(Request::get('name')) || !empty(Request::get('last_name')) || !empty(Request::get('email'))){
                     $return = self::select('users.*', 'class.name as class_name', 'parent.name as parent_name')

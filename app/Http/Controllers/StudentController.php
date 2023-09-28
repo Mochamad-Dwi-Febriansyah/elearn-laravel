@@ -52,8 +52,7 @@ class StudentController extends Controller
             $file->move('upload/profile/', $filename);
 
             $student->profile_pic = $filename;
-        }
-        
+        }     
         $student->caste = trim($request->caste);
         $student->religion = trim($request->religion);
         $student->mobile_number = trim($request->mobile_number);
