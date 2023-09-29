@@ -67,4 +67,5 @@ class SubjectController extends Controller
         $data['header_title'] = "Student Subject";
         return view('parent.my_student_subject', $data);
     }
+    
 }

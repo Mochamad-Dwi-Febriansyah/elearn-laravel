@@ -9,10 +9,7 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>My Student</h1>
-          </div>
-          <div class="col-sm-6" style="text-align: right">
-            <a href="{{ url('admin/parent/add') }}" class="btn btn-primary">Add new parent</a> 
-          </div>
+          </div> 
      
         </div>
       </div><!-- /.container-fluid -->
