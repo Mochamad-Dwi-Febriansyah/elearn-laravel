@@ -131,13 +131,17 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('admin/assign_class_teacher/edit_single/{id}', [AssignClassTeacherController::class, 'update_single']);
     Route::get('admin/assign_class_teacher/delete/{id}', [AssignClassTeacherController::class, 'delete']);
  
-    //admin url
+    //exam url
     Route::get('admin/examinations/exam/list', [ExaminationsController::class, 'exam_list']);
     Route::get('admin/examinations/exam/add', [ExaminationsController::class, 'exam_add']);
     Route::post('admin/examinations/exam/add', [ExaminationsController::class, 'exam_insert']);
     Route::get('admin/examinations/exam/edit/{id}', [ExaminationsController::class, 'exam_edit']);
     Route::post('admin/examinations/exam/edit/{id}', [ExaminationsController::class, 'exam_update']);
     Route::get('admin/examinations/exam/delete/{id}', [ExaminationsController::class, 'exam_delete']);
+
+    //exam schedule url
+    Route::get('admin/examinations/exam_schedule', [ExaminationsController::class, 'exam_schedule']);
+    Route::post('admin/examinations/exam_schedule_insert', [ExaminationsController::class, 'exam_schedule_insert']);
 });
 Route::group(['middleware' => 'teacher'], function() {
     Route::get('teacher/dashboard', [DashboardController::class, 'dashboard']);
@@ -169,6 +173,9 @@ Route::group(['middleware' => 'student'], function() {
 
     // my subject
     Route::get('student/my_timetable', [ClassTimetableController::class, 'MyTimetable']);
+
+    // my subject
+    Route::get('student/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetable']);
 
     // account
     Route::get('student/account', [UserController::class, 'MyAccount']);

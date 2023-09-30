@@ -221,6 +221,12 @@
                     <p>Exam</p>
                   </a>
                 </li> 
+                <li class="nav-item">
+                  <a href="{{ url('admin/examinations/exam_schedule') }}" class="nav-link  @if(Request::segment(3) == 'exam_schedule') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Exam Schedule</p>
+                  </a>
+                </li> 
               </ul>
             </li> 
 
@@ -303,7 +309,15 @@
               <a href="{{ url('student/my_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_timetable') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
-                  My TImetable
+                  My Timetable
+                </p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="{{ url('student/my_exam_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_exam_timetable') active @endif">
+                <i class="nav-icon far fa-user"></i>
+                <p>
+                  My Exam Timetable
                 </p>
               </a>
             </li> 
