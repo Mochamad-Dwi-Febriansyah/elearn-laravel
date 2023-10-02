@@ -14,6 +14,7 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\AssignClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
+use App\Http\Controllers\CalendarController;
 
 
 /*
@@ -159,28 +160,36 @@ Route::group(['middleware' => 'teacher'], function() {
 
     // my student & subject
     Route::get('teacher/my_class_subject', [AssignClassTeacherController::class, 'MyClassSubject']); 
-    Route::get('/teacher/my_class_subject/class_timetable/{class_id}/{subject_id}', [ClassTimetableController::class, 'MyTimetableTeacher']);
+    Route::get('teacher/my_class_subject/class_timetable/{class_id}/{subject_id}', [ClassTimetableController::class, 'MyTimetableTeacher']);
+    
+    // my_exam_timetable
+    Route::get('teacher/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetableTeacher']);
+
+
 });
 Route::group(['middleware' => 'student'], function() {
     Route::get('student/dashboard', [DashboardController::class, 'dashboard']); 
 
-    // change password
-    Route::get('student/change_password', [UserController::class, 'change_password']);
-    Route::post('student/change_password', [UserController::class, 'update_change_password']);
     
     // my subject
     Route::get('student/my_subject', [SubjectController::class, 'MySubject']);
-
+    
     // my subject
     Route::get('student/my_timetable', [ClassTimetableController::class, 'MyTimetable']);
-
-    // my subject
+    
+    // my_exam_timetable
     Route::get('student/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetable']);
-
+    
     // account
     Route::get('student/account', [UserController::class, 'MyAccount']);
     Route::post('student/account', [UserController::class, 'UpdateMyAccountStudent']);
+    
+    // change password
+    Route::get('student/change_password', [UserController::class, 'change_password']);
+    Route::post('student/change_password', [UserController::class, 'update_change_password']);
 
+    // my_calendar
+    Route::get('student/my_calendar', [CalendarController::class, 'MyCalendar']);
 });
 Route::group(['middleware' => 'parent'], function() {
     Route::get('parent/dashboard', [DashboardController::class, 'dashboard']); 
@@ -195,6 +204,9 @@ Route::group(['middleware' => 'parent'], function() {
     Route::post('parent/account', [UserController::class, 'UpdateMyAccountParent']);
 
     Route::get('parent/my_student/subject/{student_id}', [SubjectController::class, 'ParentStudentSubject']);
+
+    Route::get('parent/my_student/exam_timetable/{student_id}', [ExaminationsController::class, 'ParentMyExamTimetable']);
+
     Route::get('/parent/my_student/subject/class_timetable/{class_id}/{subject_id}/{student_id}', [ClassTimetableController::class, 'MyTimetableParent']);
     
     Route::get('parent/my_student', [ParentController::class, 'MyStudentParent']);
