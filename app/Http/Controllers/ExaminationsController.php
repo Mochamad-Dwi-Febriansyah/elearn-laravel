@@ -9,6 +9,7 @@ use App\Models\ClassModel;
 use App\Models\User;
 use App\Models\ClassSubjectModel;
 use App\Models\ExamScheduleModel;
+use App\Models\MarksRegisterModel;
 use Illuminate\Support\Facades\Auth;
 
 class ExaminationsController extends Controller
@@ -60,6 +61,7 @@ class ExaminationsController extends Controller
         }
         
     }
+   
     public function exam_schedule(Request $request){
         $data['getClass'] = ClassModel::getClass();
         $data['getExam'] = ExamModel::getExam();
@@ -98,6 +100,81 @@ class ExaminationsController extends Controller
         $data['header_title'] = "Exam Schedule";
         return view('admin.examinations.exam_schedule', $data);
     }
+
+    public function marks_register(Request $request){
+        $data['getClass'] = ClassModel::getClass();
+        $data['getExam'] = ExamModel::getExam();
+        
+        if(!empty($request->get('exam_id')) || !empty($request->get('class_id'))){
+            $data['getSubject'] = ExamScheduleModel::getSubject($request->get('exam_id'),$request->get('class_id'));
+            $data['getStudent'] = User::getStudentClass($request->get('class_id'));
+            
+            
+        }
+        
+        $data['header_title'] = "Marks Register";
+        return view('admin.examinations.marks_register', $data);
+    }
+    public function submit_mark_register(Request $request){
+        if(!empty($request->mark)){
+            foreach ($request->mark as $mark) {
+                $class_work = !empty($mark['class_work']) ? $mark['class_work'] : 0;
+                $home_work = !empty($mark['home_work']) ? $mark['home_work'] : 0;
+                $test_work = !empty($mark['test_work']) ? $mark['test_work'] : 0;
+                $exam = !empty($mark['exam']) ? $mark['exam'] : 0;
+
+                $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id,$request->exam_id,$request->class_id, $mark['subject_id']);
+                if(!empty($getMark)){
+                    $save = $getMark;
+                }else{ 
+                    $save               = new MarksRegisterModel;
+                    $save->created_by    = Auth::user()->id;
+                }
+                $save->student_id   = $request->student_id;
+                $save->exam_id      = $request->exam_id;
+                $save->class_id     = $request->class_id;
+                $save->student_id   = $request->student_id;
+                $save->subject_id   = $mark['subject_id']; 
+                $save->class_work   = $class_work;
+                $save->home_work    = $home_work;
+                $save->test_work    = $test_work;
+                $save->exam         = $exam;
+                $save->save();
+            }
+        }
+        $json['message'] = "Marks Register Successfully saved";
+        echo json_encode($json);
+    }
+
+    public function single_submit_mark_register(Request $request){ 
+        $class_work = !empty($request->class_work) ? $request->class_work : 0;
+        $home_work = !empty($request->home_work) ? $request->home_work : 0;
+        $test_work = !empty($request->test_work) ? $request->test_work : 0;
+        $exam = !empty($request->exam) ? $request->exam : 0;
+
+        $getMark = MarksRegisterModel::CheckAlreadyMark($request->student_id,$request->exam_id,$request->class_id, $request->subject_id);
+        if(!empty($getMark)){
+            $save = $getMark;
+        }else{ 
+            $save               = new MarksRegisterModel;
+            $save->created_by    = Auth::user()->id;
+        }
+        $save->student_id   = $request->student_id;
+        $save->exam_id      = $request->exam_id;
+        $save->class_id     = $request->class_id;
+        $save->student_id   = $request->student_id;
+        $save->subject_id   = $request->subject_id;
+        $save->class_work   = $class_work;
+        $save->home_work    = $home_work;
+        $save->test_work    = $test_work;
+        $save->exam         = $exam;
+        $save->save();
+        
+        $json['message'] = "Marks Register Successfully saved";
+        echo json_encode($json);
+    
+    }
+
     public function exam_schedule_insert(Request $request){
         ExamScheduleModel::deleteRecord($request->exam_id, $request->class_id);
         if(!empty($request->schedule)){

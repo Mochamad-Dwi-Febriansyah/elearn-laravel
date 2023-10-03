@@ -235,6 +235,15 @@ class User extends Authenticatable
     
         return $return;
     }
+    static public function getStudentClass($class_id){
+        return self::select('users.id', 'users.name','users.last_name')
+                        ->where('users.user_type', '=',3)
+                        ->where('users.is_delete', '=',0)
+                        ->where('users.class_id', '=',$class_id)
+                        ->orderBy('users.id', 'desc')
+                        ->get();
+    
+    }
  
     static public function getSearchStudent(){ 
         if(!empty(Request::get('id')) || !empty(Request::get('name')) || !empty(Request::get('last_name')) || !empty(Request::get('email'))){

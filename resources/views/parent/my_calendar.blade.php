@@ -17,7 +17,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>My Calendar</h1>
+            <h1>My Calendar <span style="color: blue">( {{ $getStudent->name }} {{ $getStudent->last_name }} )</span></h1>
           </div> 
         </div>
       </div><!-- /.container-fluid -->
@@ -43,7 +43,7 @@
 @section('script')
 <script src={{ url('dist/fullcalendar/index.global.js') }}></script>
 <script type="text/javascript">
-    var events = new Array();
+    var events = new Array(); 
 
     @foreach($getMyTimetable as $value)
         @foreach($value['week'] as $week)
