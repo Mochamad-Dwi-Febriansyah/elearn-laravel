@@ -6,11 +6,13 @@ use App\Models\AssignClassTeacherModel;
 use Illuminate\Http\Request;
 use App\Models\ExamModel;
 use App\Models\ClassModel;
-use App\Models\User;
+use App\Models\User; 
 use App\Models\ClassSubjectModel;
 use App\Models\ExamScheduleModel;
+use App\Models\MarksGradeModel;
 use App\Models\MarksRegisterModel;
 use Illuminate\Support\Facades\Auth;
+use Psy\CodeCleaner\FunctionContextPass;
 
 class ExaminationsController extends Controller
 {
@@ -248,6 +250,51 @@ class ExaminationsController extends Controller
         return redirect()->back()->with('success', 'Exam Schedule successfully Saved');
     }
 
+    public function marks_grade(){ 
+        $data['getRecord'] = MarksGradeModel::getRecord();
+        $data['header_title'] = "Marks Grade";
+        return view('admin.examinations.marks_grade.list', $data);
+    }
+    public function marks_grade_add(){ 
+        $data['header_title'] = "Add New Marks Grade";
+        return view('admin.examinations.marks_grade.add', $data);
+    }
+    public function marks_grade_insert(Request $request){
+        $mark = new MarksGradeModel;
+        $mark->name = trim($request->name);
+        $mark->percent_from = trim($request->percent_from);
+        $mark->percent_to = trim($request->percent_to);
+        $mark->created_by = Auth::user()->id;
+        $mark->save();
+        
+        return redirect('admin/examinations/marks_grade')->with('success', 'Marks Grade successfully created');
+    } 
+    public function marks_grade_edit($id){
+        $data['getRecord'] = MarksGradeModel::getSingle($id);
+        if(!empty($data['getRecord'])){
+            $data['header_title'] = "Edit Marks Grade";
+            return view('admin.examinations.marks_grade.edit', $data);
+        }else{
+            abort(404);
+        }
+    }
+    public function marks_grade_update($id, Request $request){ 
+        $mark = MarksGradeModel::getSingle($id);
+        $mark->name = trim($request->name);
+        $mark->percent_from = trim($request->percent_from);
+        $mark->percent_to = trim($request->percent_to);
+        $mark->created_by = Auth::user()->id;
+        $mark->save();
+        
+        return redirect('admin/examinations/marks_grade')->with('success', 'Marks Grade  successfully updated.');
+    }
+    public function marks_grade_delete($id){
+        $save = MarksGradeModel::getSingle($id); 
+        $save->delete();
+        
+        return redirect()->back()->with('success', 'Marks Grade successfully deleted.');
+    }
+    
     // student side
     public function MyExamTimetable(Request $request){
         $class_id = Auth::user()->class_id; 
@@ -411,5 +458,6 @@ class ExaminationsController extends Controller
         $data['header_title'] = "My Exam Result";
         return view('parent.my_exam_result', $data);
     }
+ 
 
 }

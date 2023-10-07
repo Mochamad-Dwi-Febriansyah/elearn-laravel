@@ -15,6 +15,7 @@ use App\Http\Controllers\AssignClassTeacherController;
 use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\AttendanceController;
 
 
 /*
@@ -147,8 +148,22 @@ Route::group(['middleware' => 'admin'], function() {
     // marks_register
     Route::get('admin/examinations/marks_register', [ExaminationsController::class, 'marks_register']);
     Route::post('admin/examinations/submit_mark_register', [ExaminationsController::class, 'submit_mark_register']);
-
+    
     Route::post('admin/examinations/single_submit_mark_register', [ExaminationsController::class, 'single_submit_mark_register']);
+    
+    //mrarks grade url
+    Route::get('admin/examinations/marks_grade', [ExaminationsController::class, 'marks_grade']);
+    Route::get('admin/examinations/marks_grade/add', [ExaminationsController::class, 'marks_grade_add']);
+    Route::post('admin/examinations/marks_grade/add', [ExaminationsController::class, 'marks_grade_insert']);
+    Route::get('admin/examinations/marks_grade/edit/{id}', [ExaminationsController::class, 'marks_grade_edit']);
+    Route::post('admin/examinations/marks_grade/edit/{id}', [ExaminationsController::class, 'marks_grade_update']);
+    Route::get('admin/examinations/marks_grade/delete/{id}', [ExaminationsController::class, 'marks_grade_delete']);
+
+    // attendance
+    Route::get('admin/attendance/student', [AttendanceController::class, 'AttendanceStudent']);
+    Route::post('admin/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
+    Route::get('admin/attendance/report', [AttendanceController::class, 'AttendanceReport']);
+
 
 });
 Route::group(['middleware' => 'teacher'], function() {
@@ -180,6 +195,11 @@ Route::group(['middleware' => 'teacher'], function() {
         Route::post('teacher/submit_mark_register', [ExaminationsController::class, 'submit_mark_register']);
 
         Route::post('teacher/single_submit_mark_register', [ExaminationsController::class, 'single_submit_mark_register']);
+
+    // attendance
+    Route::get('teacher/attendance/student', [AttendanceController::class, 'AttendanceStudentTeacher']);
+    Route::post('teacher/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
+    Route::get('teacher/attendance/report', [AttendanceController::class, 'AttendanceReportTeacher']);
 
 });
 Route::group(['middleware' => 'student'], function() {
