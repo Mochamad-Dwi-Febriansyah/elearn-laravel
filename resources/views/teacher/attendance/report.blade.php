@@ -27,7 +27,7 @@
               <form method="GET" action=""> 
                 <div class="card-body">
                   <div class="row"> 
-                    <div class="form-group col-md-1">
+                    <div class="form-group col-md-2">
                         <label>Student ID</label>
                       <input type="text" name="student_id" placeholder="Student ID" value="{{ Request::get('student_id') }}" class="form-control">
                     </div>  
@@ -49,10 +49,14 @@
                       </select>
                     </div>  
                     <div class="form-group col-md-2">
-                      <label>Attendance Date</label>
-                    <input type="date" name="attendance_date" value="{{ Request::get('attendance_date') }}" class="form-control">
+                      <label>Start Attendance Date</label>
+                    <input type="date" name="start_attendance_date" value="{{ Request::get('start_attendance_date') }}" class="form-control">
                     </div>  
-                    <div class="form-group col-md-1">
+                    <div class="form-group col-md-2">
+                      <label>End Attendance Date</label>
+                    <input type="date" name="end_attendance_date" value="{{ Request::get('end_attendance_date') }}" class="form-control">
+                    </div>   
+                    <div class="form-group col-md-2">
                       <label>Attendance Type</label>
                       <select name="attendance_type" class="form-control">
                             <option value="">Select</option>

@@ -16,6 +16,7 @@ use App\Http\Controllers\ClassTimetableController;
 use App\Http\Controllers\ExaminationsController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CommunicateController;
 
 
 /*
@@ -163,7 +164,14 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/attendance/student', [AttendanceController::class, 'AttendanceStudent']);
     Route::post('admin/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
     Route::get('admin/attendance/report', [AttendanceController::class, 'AttendanceReport']);
-
+    
+    // communicate
+    Route::get('admin/communicate/notice_board', [CommunicateController::class, 'NoticeBoard']);
+    Route::get('admin/communicate/notice_board/add', [CommunicateController::class, 'AddNoticeBoard']);
+    Route::post('admin/communicate/notice_board/add', [CommunicateController::class, 'InsertNoticeBoard']);
+    Route::get('admin/communicate/notice_board/edit/{id}', [CommunicateController::class, 'EditNoticeBoard']);
+    Route::post('admin/communicate/notice_board/edit/{id}', [CommunicateController::class, 'UpdateNoticeBoard']);
+    Route::get('admin/communicate/notice_board/delete/{id}', [CommunicateController::class, 'DeleteNoticeBoard']);
 
 });
 Route::group(['middleware' => 'teacher'], function() {
@@ -190,16 +198,19 @@ Route::group(['middleware' => 'teacher'], function() {
     // my_exam_timetable
     Route::get('teacher/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetableTeacher']);
 
-        // marks_register
-        Route::get('teacher/marks_register', [ExaminationsController::class, 'marks_register_teacher']);
-        Route::post('teacher/submit_mark_register', [ExaminationsController::class, 'submit_mark_register']);
+    // marks_register
+    Route::get('teacher/marks_register', [ExaminationsController::class, 'marks_register_teacher']);
+    Route::post('teacher/submit_mark_register', [ExaminationsController::class, 'submit_mark_register']);
 
-        Route::post('teacher/single_submit_mark_register', [ExaminationsController::class, 'single_submit_mark_register']);
+    Route::post('teacher/single_submit_mark_register', [ExaminationsController::class, 'single_submit_mark_register']);
 
     // attendance
     Route::get('teacher/attendance/student', [AttendanceController::class, 'AttendanceStudentTeacher']);
     Route::post('teacher/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
     Route::get('teacher/attendance/report', [AttendanceController::class, 'AttendanceReportTeacher']);
+
+    // my_notice_board
+    Route::get('teacher/my_notice_board', [CommunicateController::class, 'MyNoticeBoardTeacher']);
 
 });
 Route::group(['middleware' => 'student'], function() {
@@ -228,6 +239,12 @@ Route::group(['middleware' => 'student'], function() {
 
     // my_exam_result
     Route::get('student/my_exam_result', [ExaminationsController::class, 'MyExamResult']);
+
+    // my_attendance
+    Route::get('student/my_attendance', [AttendanceController::class, 'MyAttendanceStudent']);
+
+    // my_notice_board
+    Route::get('student/my_notice_board', [CommunicateController::class, 'MyNoticeBoardStudent']);
 });
 Route::group(['middleware' => 'parent'], function() {
     Route::get('parent/dashboard', [DashboardController::class, 'dashboard']); 
@@ -246,11 +263,17 @@ Route::group(['middleware' => 'parent'], function() {
     Route::get('parent/my_student/exam_timetable/{student_id}', [ExaminationsController::class, 'ParentMyExamTimetable']);
 
     Route::get('parent/my_student/calendar/{student_id}', [CalendarController::class, 'MyCalendarParent']);
-
+    
     Route::get('parent/my_student/exam_result/{student_id}', [ExaminationsController::class, 'ParentMyExamResult']);
-
+    
     Route::get('/parent/my_student/subject/class_timetable/{class_id}/{subject_id}/{student_id}', [ClassTimetableController::class, 'MyTimetableParent']);
     
     Route::get('parent/my_student', [ParentController::class, 'MyStudentParent']);
+    
+    Route::get('parent/my_student/attendance/{student_id}', [AttendanceController::class, 'MyAttendanceParent']);
+
+      // my_notice_board
+      Route::get('parent/my_notice_board', [CommunicateController::class, 'MyNoticeBoardParent']);
+      Route::get('parent/my_student_notice_board', [CommunicateController::class, 'MyStudentNoticeBoardParent']);
     
 });

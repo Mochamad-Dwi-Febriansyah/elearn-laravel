@@ -63,10 +63,28 @@ class AttendanceController extends Controller
         foreach($getClass as $value){
             $classarray[] = $value->class_id;
         }
-
+        
         $data['getClass'] = $getClass;
         $data['getRecord'] = StudentAttendanceModel::getRecordTeacher($classarray);
         $data['header_title'] = "Attendance Report";  
         return view('teacher.attendance.report', $data);
     }
+    
+    // student side
+    public function MyAttendanceStudent(){ 
+        $data['getClass'] = StudentAttendanceModel::getClassStudent(Auth::user()->id);
+        $data['getRecord'] = StudentAttendanceModel::getRecordStudent(Auth::user()->id);
+        $data['header_title'] = "My Attendance";  
+        return view('student.my_attendance', $data);
+    }
+    
+    // student side
+    public function MyAttendanceParent($student_id){
+        $data['getStudent'] = User::getSingle($student_id);
+        $data['getClass'] = StudentAttendanceModel::getClassStudent($student_id);
+        $data['getRecord'] = StudentAttendanceModel::getRecordStudent($student_id);
+        $data['header_title'] = "My Attendance";  
+        return view('parent.my_attendance', $data);
+    }
+
 }
