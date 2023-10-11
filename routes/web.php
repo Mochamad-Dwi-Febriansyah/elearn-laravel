@@ -172,7 +172,10 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/communicate/notice_board/edit/{id}', [CommunicateController::class, 'EditNoticeBoard']);
     Route::post('admin/communicate/notice_board/edit/{id}', [CommunicateController::class, 'UpdateNoticeBoard']);
     Route::get('admin/communicate/notice_board/delete/{id}', [CommunicateController::class, 'DeleteNoticeBoard']);
-
+    
+    Route::get('admin/communicate/send_email', [CommunicateController::class, 'SendEmail']);
+    Route::post('admin/communicate/send_email', [CommunicateController::class, 'SendEmailUser']);
+    Route::get('admin/communicate/search_user', [CommunicateController::class, 'SearchUser']);
 });
 Route::group(['middleware' => 'teacher'], function() {
     Route::get('teacher/dashboard', [DashboardController::class, 'dashboard']);

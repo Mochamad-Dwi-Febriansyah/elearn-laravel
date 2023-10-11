@@ -1,4 +1,14 @@
 @extends('layouts.app')
+
+@section('style')
+    <link rel="stylesheet" href="{{ url('plugins/select2/css/select2.min.css') }}">
+    <style type="text/css">
+        .select2-container .select2-selection--single{
+            height: 40px;
+        }
+    </style>
+@endsection
+
 @section('content')
  
 <div class="content-wrapper" style="min-height: 1345.6px;"> 
@@ -16,21 +26,20 @@
       <div class="container-fluid">
         <div class="row"> 
           <div class="col-md-12"> 
+            @include('_message')
             <div class="card card-primary">  
               <form method="POST" action="">
                 @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" class="form-control" name="title" required placeholder="Title">
+                    <label>Subject</label>
+                    <input type="text" class="form-control" name="subject" required placeholder="Subject">
                   </div>
                   <div class="form-group">
-                    <label>Notice Date</label>
-                    <input type="date" class="form-control" name="notice_date" required>
-                  </div>
-                  <div class="form-group">
-                    <label>Publish Date</label>
-                    <input type="date" class="form-control" name="publish_date" required>
+                    <label>Minimal</label>
+                    <select class="form-control select2" name="user_id" style="width: 100%;">
+                        <option value="">Select</option>
+                    </select>
                   </div>
                   <div class="form-group">
                     <label style="display: block">Message To</label>
@@ -61,9 +70,30 @@
 
 <script src="{{ url('dist/js/pages/dashboard.js') }}"></script>
 <script src="{{ url('plugins/summernote/summernote-bs4.min.js') }}"></script>
+<script src="{{url ('plugins/select2/js/select2.full.min.js') }}"></script>
 
     <script  type="text/javascript"> 
           $(function () {
+
+
+            $('.select2').select2({
+                ajax: {
+                    url: '{{ url('admin/communicate/search_user') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (data) {
+                        return {
+                            search: data.term,
+                        };
+                    },
+                    processResults: function (response) {
+                        return {
+                            results:response
+                        };
+                    },
+                }
+            });
+
             $('#compose-textarea').summernote({
               height : 200, 
             })
