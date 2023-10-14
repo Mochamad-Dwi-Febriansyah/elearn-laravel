@@ -301,7 +301,13 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Homework</p>
                   </a>
-                </li>      
+                </li> 
+                <li class="nav-item">
+                  <a href="{{ url('admin/homework/homework_report') }}" class="nav-link  @if(Request::segment(3) == 'homework_report') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Homework Report</p>
+                  </a>
+                </li>         
               </ul>
             </li> 
 
@@ -411,7 +417,7 @@
                     <i class="far fa-circle nav-icon"></i>
                     <p>Homework</p>
                   </a>
-                </li>      
+                </li>     
               </ul>
             </li> 
            
@@ -511,6 +517,14 @@
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   My Homework
+                </p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="{{ url('student/my_submited_homework') }}" class="nav-link  @if(Request::segment(2) == 'my_submited_homework') active @endif">
+                <i class="nav-icon far fa-user"></i>
+                <p>
+                  My Submited Homework
                 </p>
               </a>
             </li> 

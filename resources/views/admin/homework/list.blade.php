@@ -31,7 +31,7 @@
                     <div class="row">
                       <div class="form-group col-md-2">
                         <label>Class</label>
-                        <input type="text" class="form-control" name="class_name" value="{{ Request::get('class') }}" placeholder="Class">
+                        <input type="text" class="form-control" name="class_name" value="{{ Request::get('class_name') }}" placeholder="Class Name">
                       </div>
                       <div class="form-group col-md-2">
                         <label>Subject</label>
@@ -109,6 +109,7 @@
                             <td>
                                 <a href="{{ url('admin/homework/homework/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
                                 <a href="{{ url('admin/homework/homework/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+                                <a href="{{ url('admin/homework/homework/submitted/'.$value->id) }}" class="btn btn-success">Submitted Homework</a>
                             </td>
                         </tr>
                     @empty

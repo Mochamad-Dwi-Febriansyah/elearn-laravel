@@ -87,12 +87,14 @@
                           <td>{{ $value->height }}</td>
                           <td>{{ $value->weight }}</td> 
                         <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td> 
-                        <td style="width: 500px">
-                            <a class="btn btn-success btn-sm" href="{{ url('parent/my_student/subject/'.$value->id) }}">Subject</a>
-                            <a class="btn btn-primary btn-sm" href="{{ url('parent/my_student/exam_timetable/'.$value->id) }}">Exam Timetable</a>
-                            <a class="btn btn-primary btn-sm" href="{{ url('parent/my_student/exam_result/'.$value->id) }}">Exam Result</a>
-                            <a class="btn btn-warning btn-sm" href="{{ url('parent/my_student/calendar/'.$value->id) }}">Calendar</a>
-                            <a class="btn btn-primary btn-sm" href="{{ url('parent/my_student/attendance/'.$value->id) }}">Attendance</a>
+                        <td style="min-width: 300px">
+                            <a style="margin-bottom: 10px" class="btn btn-success btn-sm" href="{{ url('parent/my_student/subject/'.$value->id) }}">Subject</a>
+                            <a style="margin-bottom: 10px" class="btn btn-primary btn-sm" href="{{ url('parent/my_student/exam_timetable/'.$value->id) }}">Exam Timetable</a>
+                            <a style="margin-bottom: 10px" class="btn btn-primary btn-sm" href="{{ url('parent/my_student/exam_result/'.$value->id) }}">Exam Result</a>
+                            <a style="margin-bottom: 10px" class="btn btn-warning btn-sm" href="{{ url('parent/my_student/calendar/'.$value->id) }}">Calendar</a>
+                            <a style="margin-bottom: 10px" class="btn btn-primary btn-sm" href="{{ url('parent/my_student/attendance/'.$value->id) }}">Attendance</a>
+                            <a style="margin-bottom: 10px" class="btn btn-primary btn-sm" href="{{ url('parent/my_student/homework/'.$value->id) }}">Homework</a>
+                            <a style="margin-bottom: 10px" class="btn btn-primary btn-sm" href="{{ url('parent/my_student/submitted_homework/'.$value->id) }}">Submitted Homework</a>
                         </td>
                       </tr>
                       @endforeach

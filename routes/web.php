@@ -186,6 +186,10 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/homework/homework/edit/{id}', [HomeworkController::class, 'edit']);
     Route::post('admin/homework/homework/edit/{id}', [HomeworkController::class, 'update']);
     Route::get('admin/homework/homework/delete/{id}', [HomeworkController::class, 'delete']);
+    
+    Route::get('admin/homework/homework/submitted/{id}', [HomeworkController::class, 'submitted']); 
+
+    Route::get('admin/homework/homework_report', [HomeworkController::class, 'homework_report']);
 
 });
 Route::group(['middleware' => 'teacher'], function() {
@@ -235,6 +239,8 @@ Route::group(['middleware' => 'teacher'], function() {
     Route::post('teacher/homework/homework/edit/{id}', [HomeworkController::class, 'UpdateTeacher']);
     Route::get('teacher/homework/homework/delete/{id}', [HomeworkController::class, 'delete']);
 
+    Route::get('teacher/homework/homework/submitted/{id}', [HomeworkController::class, 'SubmittedTeacher']);
+
 });
 Route::group(['middleware' => 'student'], function() {
     Route::get('student/dashboard', [DashboardController::class, 'dashboard']); 
@@ -271,6 +277,12 @@ Route::group(['middleware' => 'student'], function() {
  
      // homework
      Route::get('student/my_homework', [HomeworkController::class, 'HomeworkStudent']);
+     Route::get('student/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomework']);
+     Route::post('student/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomeworkInsert']);
+
+     // submit homework
+     Route::get('student/my_submited_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
+
 });
 Route::group(['middleware' => 'parent'], function() {
     Route::get('parent/dashboard', [DashboardController::class, 'dashboard']); 
@@ -301,5 +313,7 @@ Route::group(['middleware' => 'parent'], function() {
       // my_notice_board
       Route::get('parent/my_notice_board', [CommunicateController::class, 'MyNoticeBoardParent']);
       Route::get('parent/my_student_notice_board', [CommunicateController::class, 'MyStudentNoticeBoardParent']);
-    
+      
+      Route::get('parent/my_student/homework/{student_id}', [HomeworkController::class, 'HomeworkStudentParent']);
+      Route::get('parent/my_student/submitted_homework/{student_id}', [HomeworkController::class, 'SubmittedHomeworkStudentParent']);
 });
