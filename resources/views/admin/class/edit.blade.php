@@ -29,6 +29,10 @@
                     <input type="text" class="form-control" value="{{ old('name', $getRecord->name)   }}" name="name" placeholder="Name">
                   </div> 
                   <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" class="form-control" name="amount"  value="{{ old('amount', $getRecord->amount) }}" placeholder="Amount">
+                  </div> 
+                  <div class="form-group">
                     <label>Status</label>
                     <select name="status" id="" class="form-control">
                       <option {{ ($getRecord->status == 0) ? 'selected' : ''}} value="0">Active</option>

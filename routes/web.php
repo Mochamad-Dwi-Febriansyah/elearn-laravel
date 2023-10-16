@@ -18,6 +18,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CommunicateController;
 use App\Http\Controllers\HomeworkController;
+use App\Http\Controllers\FeesCollectionController;
 
 
 /*
@@ -190,6 +191,9 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/homework/homework/submitted/{id}', [HomeworkController::class, 'submitted']); 
 
     Route::get('admin/homework/homework_report', [HomeworkController::class, 'homework_report']);
+    
+    // fees collection 
+    Route::get('admin/fees_collection/collect_fees', [FeesCollectionController::class, 'collect_fees']);
 
 });
 Route::group(['middleware' => 'teacher'], function() {

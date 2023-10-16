@@ -21,6 +21,7 @@ class ClassController extends Controller
 
         $save = new ClassModel;
         $save->name = $request->name; 
+        $save->amount = $request->amount; 
         $save->status = $request->status;  
         $save->created_by = Auth::user()->id;  
         $save->save();
@@ -39,6 +40,7 @@ class ClassController extends Controller
     public function update($id, Request $request){
         $save = ClassModel::getSingle($id);
         $save->name = $request->name;
+        $save->amount = $request->amount; 
         $save->status = $request->status;   
         $save->save();
         

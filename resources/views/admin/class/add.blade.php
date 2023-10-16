@@ -25,8 +25,12 @@
                 @csrf
                 <div class="card-body">
                   <div class="form-group">
-                    <label>Name</label>
+                    <label>Class Name</label>
                     <input type="text" class="form-control" name="name"  value="{{ old('name') }}" placeholder="Name">
+                  </div> 
+                  <div class="form-group">
+                    <label>Amount ($)</label>
+                    <input type="number" class="form-control" name="amount"  value="{{ old('amount') }}" placeholder="Amount">
                   </div> 
                   <div class="form-group">
                     <label>Status</label>
