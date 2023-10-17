@@ -46,6 +46,12 @@ class User extends Authenticatable
     static public function getSingle($id){
         return self::find($id);
     }
+    static public function getSingleClass($id){
+        return self::select('users.*', 'class.amount' ,'class.name as class_name')
+                        ->join('class', 'class.id', '=', 'users.class_id')
+                        ->where('users.id', '=', $id)
+                        ->first();
+    }
     static public function SearchUser($search){
         $return = self::select('users.*')
         ->where(function($query) use ($search) {
@@ -56,6 +62,10 @@ class User extends Authenticatable
         ->get();
 
         return $return;
+    }
+
+    static public function getPaidAmount($student_id, $class_id){
+        return StudentAddFeesModel::getPaidAmount($student_id, $class_id);
     }
     static public function getEmailSingle($email){
         return User::where('email', '=', $email)->first();
