@@ -298,6 +298,8 @@ Route::group(['middleware' => 'student'], function() {
      // submit homework
      Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);
      Route::post('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudentPayment']);
+     Route::get('student/paypal/payment-error', [FeesCollectionController::class, 'PaymentError']);
+     Route::get('student/paypal/payment-success', [FeesCollectionController::class, 'PaymentSuccess']);
 
 });
 Route::group(['middleware' => 'parent'], function() {

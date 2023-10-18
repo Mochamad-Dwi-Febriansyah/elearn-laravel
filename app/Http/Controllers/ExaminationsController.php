@@ -11,8 +11,7 @@ use App\Models\ClassSubjectModel;
 use App\Models\ExamScheduleModel;
 use App\Models\MarksGradeModel;
 use App\Models\MarksRegisterModel;
-use Illuminate\Support\Facades\Auth;
-use Psy\CodeCleaner\FunctionContextPass;
+use Illuminate\Support\Facades\Auth; 
 
 class ExaminationsController extends Controller
 {

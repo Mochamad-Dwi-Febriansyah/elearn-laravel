@@ -13,13 +13,15 @@ class UserController extends Controller
 {
 
     public function Setting(){
-        $data['getRecord'] = SettingModel::getSingle();
+        $data['getRecord'] = SettingModel::getSingle(); 
         $data['header_title'] = "Setting";
         return view('admin.setting', $data);
     }
-    public function UpdateSetting(Request $request){
+    public function UpdateSetting(Request $request){ 
          $setting = SettingModel::getSingle();
          $setting->paypal_email = trim($request->paypal_email);
+         $setting->stripe_key = trim($request->stripe_key);
+         $setting->stripe_secret = trim($request->stripe_secret);
          $setting->save();
 
          return redirect()->back()->with('success', 'Setting successfully updated.');
