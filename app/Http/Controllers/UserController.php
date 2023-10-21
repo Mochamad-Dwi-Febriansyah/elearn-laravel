@@ -22,6 +22,30 @@ class UserController extends Controller
          $setting->paypal_email = trim($request->paypal_email);
          $setting->stripe_key = trim($request->stripe_key);
          $setting->stripe_secret = trim($request->stripe_secret);
+         if(!empty($request->file('logo'))){
+            if(!empty($setting->getLogo())){
+                unlink('upload/setting/'.$setting->logo);
+            }
+            $ext = $request->file('logo')->getClientOriginalExtension();
+            $file = $request->file('logo');
+            $randomStr = date('Ymdhis').Str::random(20);
+            $logo = strtolower($randomStr).'.'.$ext;
+            $file->move('upload/setting/', $logo);
+
+            $setting->logo = $logo;
+        } 
+         if(!empty($request->file('favicon_icon'))){
+            if(!empty($setting->getFavicon())){
+                unlink('upload/setting/'.$setting->favicon_icon);
+            }
+            $ext = $request->file('favicon_icon')->getClientOriginalExtension();
+            $file = $request->file('favicon_icon');
+            $randomStr = date('Ymdhis').Str::random(20);
+            $favicon_icon = strtolower($randomStr).'.'.$ext;
+            $file->move('upload/setting/', $favicon_icon);
+
+            $setting->favicon_icon = $favicon_icon;
+        } 
          $setting->save();
 
          return redirect()->back()->with('success', 'Setting successfully updated.');

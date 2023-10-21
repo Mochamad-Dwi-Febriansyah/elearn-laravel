@@ -67,6 +67,7 @@
                   <thead>
                     <tr>
                       <th>#</th>
+                      <th>Profil Pic</th>
                       <th>Name</th>
                       <th>Email</th>
                       <th>Created Date</th>
@@ -77,12 +78,18 @@
                     @foreach($getRecord as $value)
                     <tr>
                       <td>{{ $value->id }}</td>
+                      <td>
+                        @if (!empty($value->getProfileDirect())) 
+                          <img src="{{ $value->getProfileDirect() }}" style="height: 50px; width: 50px; border-radius: 50px" alt="">
+                        @endif
+                      </td>
                       <td>{{ $value->name }}</td>
                       <td>{{ $value->email }}</td>
                       <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
                       <td>
                         <a href="{{ url('admin/admin/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
                         <a href="{{ url('admin/admin/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+                        <a href="{{ url('chat?receiver_id='. base64_encode($value->id)) }}" class="btn btn-success">Send Message</a>
                       </td>
                     </tr>
                     @endforeach

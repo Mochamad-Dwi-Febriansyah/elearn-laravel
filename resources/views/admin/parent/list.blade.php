@@ -117,8 +117,8 @@
                     <tr>
                       <td>{{ $value->id }}</td>
                       <td>
-                        @if (!empty($value->getProfile())) 
-                          <img src="{{ $value->getProfile() }}" style="height: 50px; width: 50px; border-radius: 50px" alt="">
+                        @if (!empty($value->getProfileDirect())) 
+                          <img src="{{ $value->getProfileDirect() }}" style="height: 50px; width: 50px; border-radius: 50px" alt="">
                         @endif
                       </td>
                       <td>{{ $value->name }} {{ $value->last_name }}</td>
@@ -129,10 +129,11 @@
                       <td>{{ $value->address }}</td>      
                       <td>{{ ($value->status == 0) ? 'Active' : 'Inactive' }}</td>
                       <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
-                      <td style="min-width: 150px">
+                      <td style="min-width: 300px">
                         <a href="{{ url('admin/parent/edit/'.$value->id) }}" class="btn btn-primary btn-sm">Edit</a>
                         <a href="{{ url('admin/parent/delete/'.$value->id) }}" class="btn btn-danger btn-sm">Delete</a>
                         <a href="{{ url('admin/parent/my-student/'.$value->id) }}" class="btn btn-primary btn-sm">My Student</a>
+                        <a href="{{ url('chat?receiver_id='. base64_encode($value->id)) }}" class="btn btn-success btn-sm">Send Message</a>
                       </td>
                     </tr>
                     @endforeach

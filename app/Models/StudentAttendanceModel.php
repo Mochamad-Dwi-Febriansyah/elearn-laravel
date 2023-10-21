@@ -115,6 +115,22 @@ class StudentAttendanceModel extends Model
       
        
     }
+    static public function getRecordStudentCount($student_id){ 
+         $return = StudentAttendanceModel::select('student_attendance.id')
+            ->join('class', 'class.id', '=','student_attendance.class_id')
+            ->where('student_attendance.student_id', '=', $student_id)
+            ->count(); 
+            return $return; 
+       
+    }
+    static public function getRecordStudentParentCount($student_ids){ 
+         $return = StudentAttendanceModel::select('student_attendance.id')
+            ->join('class', 'class.id', '=','student_attendance.class_id')
+            ->whereIn('student_attendance.student_id', $student_ids)
+            ->count(); 
+            return $return; 
+       
+    }
     static public function getClassStudent($student_id){
     
         return  StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name')

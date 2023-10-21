@@ -132,6 +132,42 @@ class HomeworkModel extends Model
                                     ->paginate(20);
         return $return;
     }
+    static public function getRecordStudentCount($class_id, $student_id){ 
+        $return = HomeworkModel::select('homework.id')
+                                    ->join('users','users.id', '=','homework.created_by')
+                                    ->join('class','class.id', '=','homework.class_id')
+                                    ->join('subject','subject.id', '=','homework.subject_id')
+                                    ->where('homework.class_id' ,'=', $class_id)
+                                    ->where('homework.is_delete', '=', 0)
+
+                                    ->whereNotIn('homework.id', function($query) use ($student_id) {
+                                        $query->select('homework_submit.homework_id')
+                                                    ->from('homework_submit')
+                                                    ->where('homework_submit.student_id', '=', $student_id);
+                                    }); 
+
+        $return = $return->orderBy('homework.id', 'desc')
+                                    ->count();
+        return $return;
+    }
+    static public function getRecordStudentParentCount($class_ids, $student_ids){ 
+        $return = HomeworkModel::select('homework.id')
+                                    ->join('users','users.id', '=','homework.created_by')
+                                    ->join('class','class.id', '=','homework.class_id')
+                                    ->join('subject','subject.id', '=','homework.subject_id')
+                                    ->whereIn('homework.class_id', $class_ids)
+                                    ->where('homework.is_delete', '=', 0)
+
+                                    ->whereNotIn('homework.id', function($query) use ($student_ids) {
+                                        $query->select('homework_submit.homework_id')
+                                                    ->from('homework_submit')
+                                                    ->whereIn('homework_submit.student_id', $student_ids);
+                                    }); 
+
+        $return = $return->orderBy('homework.id', 'desc')
+                                    ->count();
+        return $return;
+    }
     public function getDocument(){
         if(!empty($this->document_file && file_exists('upload/homework/'.$this->document_file) )){
             return url('upload/homework/'.$this->document_file);

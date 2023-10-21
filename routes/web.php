@@ -19,6 +19,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CommunicateController;
 use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\FeesCollectionController;
+use App\Http\Controllers\ChatController;
 
 
 /*
@@ -44,9 +45,11 @@ Route::post('forgot-password', [AuthController::class, 'PostForgotPassword']);
 Route::get('reset/{token}', [AuthController::class, 'reset']);
 Route::post('reset/{token}', [AuthController::class, 'PostReset']);
  
-Route::get('admin/admin/list', function() {
-    return view('admin.admin.list');
+Route::group(['middleware' => 'common'], function() {
+    Route::get('chat', [ChatController::class, 'chat']);
+    Route::post('submit_message', [ChatController::class, 'submit_message']);
 });
+
 
 Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
@@ -294,7 +297,7 @@ Route::group(['middleware' => 'student'], function() {
      Route::post('student/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomeworkInsert']);
 
      // submit homework
-     Route::get('student/my_submited_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
+     Route::get('student/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
 
      // submit homework
      Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);

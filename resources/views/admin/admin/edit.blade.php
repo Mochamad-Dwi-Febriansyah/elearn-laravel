@@ -21,7 +21,7 @@
           <!-- left column -->
           <div class="col-md-12"> 
             <div class="card card-primary">  
-              <form method="POST" action="">
+              <form method="POST" action="" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                   <div class="form-group">
@@ -35,9 +35,17 @@
                   </div>
                   <div class="form-group">
                     <label>Password</label>
-                    <input type="text" class="form-control" name="password" required placeholder="Password">
+                    <input type="text" class="form-control" name="password" placeholder="Password">
                     <p>Due you to change password so please add new password</p>
                   </div>  
+                </div>
+                <div class="form-group">
+                  <label>Profile Pic <span style="color: red"></span></label>
+                  <input type="file" class="form-control" name="profile_pic">
+                  <div style="color:red">{{ $errors->first('profile_pic') }}</div>
+                  @if(!empty($getRecord->getProfile()))
+                    <img src="{{ $getRecord->getProfile() }}" style="width:100px" alt="">
+                  @endif
                 </div>
                 <!-- /.card-body -->
 

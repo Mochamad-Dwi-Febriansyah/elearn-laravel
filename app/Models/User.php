@@ -364,13 +364,63 @@ class User extends Authenticatable
         return $return; 
 
     }
+    static public function getMyStudentCount($parent_id){  
+        $return = self::select('users.id')
+        ->join('users as parent', 'parent.id', '=','users.parent_id', 'left')
+                    ->join('class', 'class.id','=', 'users.class_id', 'left')
+                    ->where('users.user_type', '=',3)
+                    ->where('users.parent_id', '=',$parent_id)
+                    ->where('users.is_delete', '=',0)    
+                    ->count();
+
+        return $return;  
+    }
+    static public function getMyStudentIds($parent_id){
+        $return = self::select('users.id')
+                    ->join('users as parent', 'parent.id', '=','users.parent_id', 'left')
+                    ->join('class', 'class.id','=', 'users.class_id', 'left')
+                    ->where('users.user_type', '=',3)
+                    ->where('users.parent_id', '=',$parent_id)
+                    ->where('users.is_delete', '=',0)   
+                    ->orderBy('users.id', 'desc') 
+                    ->get();
+
+        $student_ids = array();
+        foreach($return as $value){
+            $student_ids[] = $value->id;
+        }
+        return $student_ids; 
+    }
+    static public function getMyStudentClassIds($parent_id){
+        $return = self::select('users.class_id')
+                    ->join('users as parent', 'parent.id', '=','users.parent_id', 'left')
+                    ->join('class', 'class.id','=', 'users.class_id')
+                    ->where('users.user_type', '=',3)
+                    ->where('users.parent_id', '=',$parent_id)
+                    ->where('users.is_delete', '=',0)   
+                    ->orderBy('users.id', 'desc') 
+                    ->get();
+
+        $class_ids = array();
+        foreach($return as $value){
+            $class_ids[] = $value->class_id;
+        }
+        return $class_ids; 
+    }
 
 
     public function getProfile(){
         if(!empty($this->profile_pic) && file_exists('upload/profile/'.$this->profile_pic)){
             return url('upload/profile/'.$this->profile_pic);
         }else{
-            return "";
+            return '';
+        }
+    }
+    public function getProfileDirect(){
+        if(!empty($this->profile_pic) && file_exists('upload/profile/'.$this->profile_pic)){
+            return url('upload/profile/'.$this->profile_pic);
+        }else{
+            return url('upload/profile/dummy-profile.jpg');
         }
     }
     static public function getAttendance($student_id, $class_id, $attendance_date){
