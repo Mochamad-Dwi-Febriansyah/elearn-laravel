@@ -20,7 +20,9 @@ class ChatController extends Controller
                 return redirect()->back()->with('error', 'Due to some please try again');
                 exit();
             }
-            $data['getReceiver'] = User::getSingle($receiver_id); 
+            $data['getReceiver'] = User::getSingle($receiver_id);
+            $data['getChat'] = ChatModel::getChat($receiver_id, $sender_id);
+            // dd($data['getChat']);
         }
         return view('chat.list', $data);
     }
@@ -31,8 +33,15 @@ class ChatController extends Controller
         $chat->message = $request->message;
         $chat->created_date = time();
         $chat->save();
+        
+        $getChat = ChatModel::where('id', '=', $chat->id)->get();
 
-        $json['success'] = true;
-        echo json_encode($json);
+        return response()->json([
+            "status" => true,
+            "success" => view('chat._single', [
+                "getChat" => $getChat
+            ])->render(),
+        ], 200);
+    
     }
 }

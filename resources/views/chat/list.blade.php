@@ -328,12 +328,18 @@
                 contentType: false,
                 dataType: 'json',
                 success: function(data){
-
+                    $('#AppendMessage').append(data.success);
+                    $('#ClearMessage').val('');
+                    scrolldown();
                 },
                 error: function(data){
 
                 }, 
             });
         });
+        function scrolldown() {
+            $('.chat-history').animate({scrollTop: $('.chat-history').prop("scrollHeight")+300000}, 500);
+        }
+        scrolldown();
     </script>
 @endsection
