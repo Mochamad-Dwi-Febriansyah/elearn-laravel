@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 
 class ChatModel extends Model
 {
@@ -41,6 +42,14 @@ class ChatModel extends Model
         ->join('users as sender', 'sender.id' , '=', 'chat.sender_id')
         ->join('users as receiver', 'receiver.id' , '=', 'chat.receiver_id');
         
+        if(!empty(Request::get('search'))){
+            $search = Request::get('search');
+            $getuserchat = $getuserchat->where(function($query) use($search) {
+                $query->where('sender.name', 'like', '%'.$search.'%')
+                        ->orWhere('receiver.name', 'like', '%'.$search.'%');
+            });
+        }
+
         $getuserchat = $getuserchat->whereIn('chat.id', function($query) use($user_id){
             $query->selectRaw('max(chat.id)')->from('chat')
             ->where('chat.status', '<' ,2)
@@ -63,6 +72,7 @@ class ChatModel extends Model
             $data['message'] = $value->message;
             $data['created_date'] = $value->created_date;
             $data['user_id'] = $value->connect_user_id;
+            $data['is_online'] = $value->getConnectUser->OnlineUer();
             $data['name'] = $value->getConnectUser->name.' '. $value->getConnectUser->last_name;
             $data['profile_pic'] = $value->getConnectUser->getProfileDirect();
             $data['messagecount'] = $value->CountMessage($value->connect_user_id, $user_id);

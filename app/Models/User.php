@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -45,6 +46,10 @@ class User extends Authenticatable
     ];
     static public function getSingle($id){
         return self::find($id);
+    }
+
+    public function OnlineUer(){
+        return Cache::has('OnlineUer'.$this->id);
     }
     static public function getTotalUser($user_type){
         return  self::select('users.id')

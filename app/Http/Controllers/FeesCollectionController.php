@@ -10,8 +10,7 @@ use App\Models\SettingModel;
 use App\Models\User;
 use App\Models\StudentAddFeesModel; 
 use Stripe\Stripe;
-use Illuminate\Support\Facades\Session;
-use Stripe\Product;
+use Illuminate\Support\Facades\Session; 
 
 class FeesCollectionController extends Controller
 { 
