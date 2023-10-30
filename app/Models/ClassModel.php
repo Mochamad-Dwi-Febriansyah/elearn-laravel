@@ -47,4 +47,5 @@ class ClassModel extends Model
                                 ->where('class.status', '=', 0) 
                                 ->count(); 
     }
+  
 }
