@@ -53,6 +53,14 @@
                   @endif
                 </div>
                 <!-- /.card-body -->
+                <div class="form-group">
+                  <label>School Name</label>
+                  <input type="text" class="form-control" name="school_name" value="{{ $getRecord->school_name  }}">
+                </div>
+                <div class="form-group">
+                  <label>Exam Description</label>
+                  <textarea name="exam_description" cols="30" rows="10" class="form-control">{{ $getRecord->exam_description }}</textarea>
+                </div>
 
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Save</button>
