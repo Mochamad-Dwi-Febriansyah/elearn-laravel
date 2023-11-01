@@ -153,6 +153,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::post('admin/examinations/exam/edit/{id}', [ExaminationsController::class, 'exam_update']);
     Route::get('admin/examinations/exam/delete/{id}', [ExaminationsController::class, 'exam_delete']);
 
+    Route::get('admin/my_exam_result/print', [ExaminationsController::class, 'MyExamResultPrint']);
+
     //exam schedule url
     Route::get('admin/examinations/exam_schedule', [ExaminationsController::class, 'exam_schedule']);
     Route::post('admin/examinations/exam_schedule_insert', [ExaminationsController::class, 'exam_schedule_insert']);
@@ -206,6 +208,8 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/fees_collection/collect_fees_report', [FeesCollectionController::class, 'collect_fees_report']);
     Route::get('admin/fees_collection/collect_fees/add_fees/{student_id}', [FeesCollectionController::class, 'collect_fees_add']);
     Route::post('admin/fees_collection/collect_fees/add_fees/{student_id}', [FeesCollectionController::class, 'collect_fees_insert']);
+
+    Route::post('admin/fees_collection/export_collect_fees_report', [FeesCollectionController::class, 'export_collect_fees_report']);
     
     
 
@@ -233,6 +237,8 @@ Route::group(['middleware' => 'teacher'], function() {
     
     // my_exam_timetable
     Route::get('teacher/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetableTeacher']);
+
+    Route::get('teacher/my_exam_result/print', [ExaminationsController::class, 'MyExamResultPrint']);
 
     // marks_register
     Route::get('teacher/marks_register', [ExaminationsController::class, 'marks_register_teacher']);
@@ -330,6 +336,8 @@ Route::group(['middleware' => 'parent'], function() {
     Route::get('parent/my_student/calendar/{student_id}', [CalendarController::class, 'MyCalendarParent']);
     
     Route::get('parent/my_student/exam_result/{student_id}', [ExaminationsController::class, 'ParentMyExamResult']);
+
+    Route::get('parent/my_exam_result/print', [ExaminationsController::class, 'MyExamResultPrint']);
     
     Route::get('/parent/my_student/subject/class_timetable/{class_id}/{subject_id}/{student_id}', [ClassTimetableController::class, 'MyTimetableParent']);
     
