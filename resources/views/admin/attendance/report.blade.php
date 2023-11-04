@@ -22,7 +22,7 @@
           <div class="col-md-12">  
             <div class="card">  
               <div class="card-header">
-                <h3 class="card-title">Search Attendance Report</h3>
+                <h3 class="card-title">Search Attendance Report</h3> 
               </div>
               <form method="GET" action=""> 
                 <div class="card-body">
@@ -78,6 +78,17 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Attendance list</h3>
+                    <form style="float: right" action="{{ url('admin/attendance/report_export_excel') }}" method="post">
+                      @csrf
+                      <input type="hidden" name="student_id" value="{{ Request::get('student_id') }}">
+                      <input type="hidden" name="student_name" value="{{ Request::get('student_name') }}">
+                      <input type="hidden" name="student_last_name" value="{{ Request::get('student_last_name') }}">
+                      <input type="hidden" name="class_id" value="{{ Request::get('class_id') }}">
+                      <input type="hidden" name="start_attendance_date" value="{{ Request::get('start_attendance_date') }}">
+                      <input type="hidden" name="end_attendance_date" value="{{ Request::get('end_attendance_date') }}">
+                      <input type="hidden" name="attendance_type" value="{{ Request::get('attendance_type') }}">
+                      <button class="btn btn-primary">Export Excel</button>
+                    </form>
                 </div>
                 <div class="card-body p-0" style="overflow: auto">
                     <table class="table table-striped">

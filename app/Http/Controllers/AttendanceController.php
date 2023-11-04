@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\StudentAttendanceModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportAttendance;
 
 class AttendanceController extends Controller
 {
@@ -45,6 +47,10 @@ class AttendanceController extends Controller
         $data['getRecord'] = StudentAttendanceModel::getRecord();
         $data['header_title'] = "Attendance Report";  
         return view('admin.attendance.report', $data);
+    }
+
+    public function AttendanceReportExportExcel(Request $request){
+        return Excel::download(new ExportAttendance,  'AttendanceReport_'.date('d-m-Y').'.xls');
     }
     
     // teacher side
