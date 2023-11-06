@@ -8,10 +8,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User; 
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportParent;
 
 
 class ParentController extends Controller
 {
+    public function export_excel(Request $request){
+        return Excel::download(new ExportParent,  'Parent_'.date('d-m-Y').'.xls');
+    }
     public function list(){
         $data['getRecord'] = User::getParent();
         $data['header_title'] = "Parent List";

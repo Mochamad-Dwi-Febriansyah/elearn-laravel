@@ -112,7 +112,24 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Student List</h3> 
+                <h3 class="card-title">Student List</h3>
+                <form action="{{ url('admin/student/export_excel') }}" method="post" style="float: right">
+                  @csrf
+                  <input type="hidden" name="name" value="{{ Request::get('name') }}">
+                  <input type="hidden" name="last_name" value="{{ Request::get('last_name') }}">
+                  <input type="hidden" name="email" value="{{ Request::get('email') }}">
+                  <input type="hidden" name="admission_number" value="{{ Request::get('admission_number') }}">
+                  <input type="hidden" name="roll_number" value="{{ Request::get('roll_number') }}">
+                  <input type="hidden" name="gender" value="{{ Request::get('gender') }}">
+                  <input type="hidden" name="class" value="{{ Request::get('class') }}">
+                  <input type="hidden" name="caste" value="{{ Request::get('caste') }}">
+                  <input type="hidden" name="religion" value="{{ Request::get('religion') }}">
+                  <input type="hidden" name="mobile_number" value="{{ Request::get('mobile_number') }}">
+                  <input type="hidden" name="blood_group" value="{{ Request::get('blood_group') }}">
+                  <input type="hidden" name="admission_date" value="{{ Request::get('admission_date') }}">
+                  <input type="hidden" name="date" value="{{ Request::get('date') }}">
+                  <button class="btn btn-primary">Export Excel</button>
+                </form>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0" style="overflow: auto">

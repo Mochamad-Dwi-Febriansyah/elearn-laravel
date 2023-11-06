@@ -99,7 +99,7 @@
                         <td>{{ date('d-m-Y', strtotime($value->submission_date)) }}</td>
                         <td>
                             @if (!empty($value->getDocument()))
-                                <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Dwonload</a>
+                                <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Download</a>
                             @endif
                         </td>
                         <td>{!! $value->description !!}</td>

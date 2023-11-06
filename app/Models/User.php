@@ -105,7 +105,7 @@ class User extends Authenticatable
     }
     
     
-    static public function getTeacher(){
+    static public function getTeacher($remove_pagination = 0){
         $return = self::select('users.*')
                         ->where('user_type', '=',2)
                         ->where('is_delete', '=',0);
@@ -142,8 +142,12 @@ class User extends Authenticatable
                         }
 
                     
-        $return = $return->orderBy('id', 'desc')
-                        ->paginate(5);
+        $return = $return->orderBy('id', 'desc');
+        if(!empty($remove_pagination)){
+            $return = $return->get();
+        }else{
+            $return = $return->paginate(50);
+        } 
 
         return $return;
     }
@@ -187,7 +191,7 @@ class User extends Authenticatable
 
         return $return;
     }
-    static public function getParent(){
+    static public function getParent($remove_pagination = 0){
         $return = self::select('users.*')
                         ->where('user_type', '=',4)
                         ->where('is_delete', '=',0);
@@ -221,12 +225,16 @@ class User extends Authenticatable
                         }
 
                     
-        $return = $return->orderBy('id', 'desc')
-                        ->paginate(5);
+        $return = $return->orderBy('id', 'desc');
+        if(!empty($remove_pagination)){
+            $return = $return->get();
+        }else{
+            $return = $return->paginate(50);
+        } 
 
         return $return;
     }
-    static public function getStudent(){
+    static public function getStudent($remove_pagination = 0){
         $return = self::select('users.*', 'class.name as class_name', 'parent.name as parent_name', 'parent.last_name as parent_last_name')
                         ->join('users as parent', 'parent.id', '=','users.parent_id' , 'left')
                         ->join('class', 'class.id','=', 'users.class_id', 'left')
@@ -277,8 +285,12 @@ class User extends Authenticatable
                             $return = $return->where('users.status', '=', $status);
                         }
 
-        $return = $return->orderBy('users.id', 'desc')
-                        ->paginate(5);
+        $return = $return->orderBy('users.id', 'desc'); 
+                        if(!empty($remove_pagination)){
+                            $return = $return->get();
+                        }else{
+                            $return = $return->paginate(50);
+                        } 
     
         return $return;
     }

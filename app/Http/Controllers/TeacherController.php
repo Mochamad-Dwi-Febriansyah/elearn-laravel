@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Str;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportTeacher;
 
 class TeacherController extends Controller
 {
+    public function export_excel(Request $request){
+        return Excel::download(new ExportTeacher,  'Teacher_'.date('d-m-Y').'.xls');
+    }
     public function list(){
         $data['getRecord'] = User::getTeacher();
         $data['header_title'] = "Teacher List";

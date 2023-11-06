@@ -101,7 +101,7 @@
                         <td>{{ date('d-m-Y', strtotime($value->getHomework->submission_date)) }}</td>
                         <td>
                             @if (!empty($value->getHomework->getDocument()))
-                                <a href="{{ $value->getHomework->getDocument() }}" class="btn btn-primary" download>Dwonload</a>
+                                <a href="{{ $value->getHomework->getDocument() }}" class="btn btn-primary" download>Download</a>
                             @endif
                         </td>
                         <td>{!! $value->getHomework->description !!}</td> 
@@ -109,7 +109,7 @@
 
                         <td>
                             @if (!empty($value->getDocument()))
-                                <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Dwonload</a>
+                                <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Download</a>
                             @endif
                         </td>
                         <td>{!! $value->description !!}</td> 

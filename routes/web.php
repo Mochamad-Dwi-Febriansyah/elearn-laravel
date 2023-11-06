@@ -71,6 +71,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/teacher/edit/{id}', [TeacherController::class, 'edit']);
     Route::post('admin/teacher/edit/{id}', [TeacherController::class, 'update']);
     Route::get('admin/teacher/delete/{id}', [TeacherController::class, 'delete']);
+    Route::post('admin/teacher/export_excel', [TeacherController::class, 'export_excel']);
     
     // student url
     Route::get('admin/student/list', [StudentController::class, 'list']);
@@ -79,6 +80,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/student/edit/{id}', [StudentController::class, 'edit']);
     Route::post('admin/student/edit/{id}', [StudentController::class, 'update']);
     Route::get('admin/student/delete/{id}', [StudentController::class, 'delete']);
+    Route::post('admin/student/export_excel', [StudentController::class, 'export_excel']);
 
     // parent url
     Route::get('admin/parent/list', [ParentController::class, 'list']);
@@ -90,6 +92,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/parent/my-student/{id}', [ParentController::class, 'myStudent']);
     Route::get('admin/parent/assign_student_parent/{student_id}/{parent_id}', [ParentController::class, 'AssignStudentParent']);
     Route::get('admin/parent/assign_student_parent_delete/{student_id}', [ParentController::class, 'AssignStudentParentDelete']);
+    Route::post('admin/parent/export_excel', [ParentController::class, 'export_excel']);
     
     // class url
     Route::get('admin/class/list', [ClassController::class, 'list']);

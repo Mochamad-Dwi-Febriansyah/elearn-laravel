@@ -8,9 +8,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User; 
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportStudent;
 
 class StudentController extends Controller
 {
+    public function export_excel(Request $request){
+        return Excel::download(new ExportStudent,  'Student_'.date('d-m-Y').'.xls');
+    }
     public function list(){
         $data['getRecord'] = User::getStudent();
         $data['header_title'] = "Student List";
