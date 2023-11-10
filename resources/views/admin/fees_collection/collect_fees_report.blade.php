@@ -93,7 +93,7 @@
                   <button type="submit" class="btn btn-primary">Export Excel</button>
                 </form>
               </div> 
-              <div class="card-body p-0">
+              <div class="card-body p-0" style="overflow-x:auto;">
                 <table class="table table-striped">
                   <thead>
                     <tr>

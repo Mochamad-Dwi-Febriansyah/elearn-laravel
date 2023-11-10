@@ -60,7 +60,7 @@
                         </div> 
                       <div class="form-group col-md-3">  
                         <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>
-                        <a href="{{ url('student/my_homework') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
+                        <a href="{{ url('student/homework/my_homework') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
                       </div> 
                     </div>
                   </div> 
@@ -73,7 +73,7 @@
               <div class="card-header">
                 <h3 class="card-title">Submited Homework List</h3>
               </div> 
-              <div class="card-body p-0">
+              <div class="card-body p-0" style="overflow-x:auto;">
                 <table class="table table-striped">
                   <thead>
                     <tr>

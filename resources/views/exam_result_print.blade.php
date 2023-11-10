@@ -103,7 +103,7 @@
 
         <br>
 
-        <div>
+        <div style="overflow-x:auto;">
             <table class="table-bg">
                 <thead>
                 <tr> 

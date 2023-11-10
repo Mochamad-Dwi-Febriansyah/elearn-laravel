@@ -417,39 +417,39 @@
                 </p>
               </a>
             </li> 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ url('student/fees_collection') }}" class="nav-link  @if(Request::segment(2) == 'fees_collection') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   Fees Collection
                 </p>
               </a>
-            </li> 
+            </li>  --}}
             <li class="nav-item">
               <a href="{{ url('student/my_calendar') }}" class="nav-link  @if(Request::segment(2) == 'my_calendar') active @endif">
-                <i class="nav-icon far fa-user"></i>
+                <i class="nav-icon far fa-calendar-alt"></i>
                 <p>
                   My Calendar
                 </p>
               </a>
             </li> 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ url('student/my_subject') }}" class="nav-link  @if(Request::segment(2) == 'my_subject') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   My Subject
                 </p>
               </a>
-            </li> 
+            </li>  --}}
             <li class="nav-item">
               <a href="{{ url('student/my_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_timetable') active @endif">
-                <i class="nav-icon far fa-user"></i>
+                <i class="nav-icon fas fa-columns"></i>
                 <p>
                   My Timetable
                 </p>
               </a>
             </li> 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ url('student/my_exam_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_exam_timetable') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
@@ -464,24 +464,49 @@
                   My Exam Result
                 </p>
               </a>
-            </li> 
+            </li>  --}}
             <li class="nav-item">
               <a href="{{ url('student/my_attendance') }}" class="nav-link  @if(Request::segment(2) == 'my_attendance') active @endif">
-                <i class="nav-icon far fa-user"></i>
+                <i class="nav-icon fas fa-edit"></i>
                 <p>
                   My Attendance
                 </p>
               </a>
             </li> 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ url('student/my_notice_board') }}" class="nav-link  @if(Request::segment(2) == 'my_notice_board') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   My Notice Board
                 </p>
               </a>
+            </li>  --}}
+            
+            <li class="nav-item @if(Request::segment(2) == 'homework') menu-is-opening menu-open @endif">
+              <a href="#" class="nav-link @if(Request::segment(2) == 'homework') active @endif">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Homework
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ url('student/homework/my_homework') }}" class="nav-link  @if(Request::segment(3) == 'my_homework') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>My Homework</p>
+                  </a>
+                </li>   
+                <li class="nav-item">
+                  <a href="{{ url('student/homework/my_submitted_homework') }}" class="nav-link  @if(Request::segment(3) == 'my_submitted_homework') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>My Submited Homework</p>
+                  </a>
+                </li>   
+              </ul>
             </li> 
-            <li class="nav-item">
+
+            {{-- <li class="nav-item">
               <a href="{{ url('student/my_homework') }}" class="nav-link  @if(Request::segment(2) == 'my_homework') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
@@ -496,8 +521,33 @@
                   My Submited Homework
                 </p>
               </a>
+            </li>  --}}
+
+            <li class="nav-item @if(Request::segment(2) == 'setting') menu-is-opening menu-open @endif">
+              <a href="#" class="nav-link @if(Request::segment(2) == 'setting') active @endif">
+                <i class="nav-icon fas fa-chart-pie"></i>
+                <p>
+                  Setting
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ url('student/setting/account') }}" class="nav-link  @if(Request::segment(3) == 'account') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>My Account</p>
+                  </a>
+                </li>   
+                <li class="nav-item">
+                  <a href="{{ url('student/setting/change_password') }}" class="nav-link  @if(Request::segment(3) == 'change_password') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Change Password</p>
+                  </a>
+                </li>   
+              </ul>
             </li> 
-            <li class="nav-item">
+
+            {{-- <li class="nav-item">
               <a href="{{ url('student/account') }}" class="nav-link  @if(Request::segment(2) == 'account') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
@@ -512,7 +562,8 @@
                   Change Password
                 </p>
               </a>
-            </li> 
+            </li>  --}}
+
           @elseif(Auth::user()->user_type == 4)
             <li class="nav-item">
               <a href="{{ url('parent/dashboard') }}" class="nav-link">

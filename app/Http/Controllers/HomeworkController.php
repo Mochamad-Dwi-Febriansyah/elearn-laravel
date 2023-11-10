@@ -225,7 +225,7 @@ class HomeworkController extends Controller
         }
         $homework->save();
 
-        return redirect('student/my_homework')->with('success', 'Homework successfully Submitted');
+        return redirect('student/homework/my_homework')->with('success', 'Homework successfully Submitted');
     }
     public function HomeworkSubmitedStudent(){
         $data['getRecord'] = HomeworkSubmitModel::getRecordStudent(Auth::user()->id);

@@ -275,50 +275,52 @@ Route::group(['middleware' => 'student'], function() {
 
     
     // my subject
-    Route::get('student/my_subject', [SubjectController::class, 'MySubject']);
+    // Route::get('student/my_subject', [SubjectController::class, 'MySubject']);
     
     // my subject
     Route::get('student/my_timetable', [ClassTimetableController::class, 'MyTimetable']);
     
     // my_exam_timetable
-    Route::get('student/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetable']);
+    // Route::get('student/my_exam_timetable', [ExaminationsController::class, 'MyExamTimetable']);
     
     // account
-    Route::get('student/account', [UserController::class, 'MyAccount']);
-    Route::post('student/account', [UserController::class, 'UpdateMyAccountStudent']);
+    Route::get('student/setting/account', [UserController::class, 'MyAccount']);
+    Route::post('student/setting/account', [UserController::class, 'UpdateMyAccountStudent']);
     
     // change password
-    Route::get('student/change_password', [UserController::class, 'change_password']);
-    Route::post('student/change_password', [UserController::class, 'update_change_password']);
+    Route::get('student/setting/change_password', [UserController::class, 'change_password']);
+    Route::post('student/setting/change_password', [UserController::class, 'update_change_password']);
 
     // my_calendar
     Route::get('student/my_calendar', [CalendarController::class, 'MyCalendar']);
 
     // my_exam_result
-    Route::get('student/my_exam_result', [ExaminationsController::class, 'MyExamResult']);
-    Route::get('student/my_exam_result/print', [ExaminationsController::class, 'MyExamResultPrint']);
+    // Route::get('student/my_exam_result', [ExaminationsController::class, 'MyExamResult']);
+    // Route::get('student/my_exam_result/print', [ExaminationsController::class, 'MyExamResultPrint']);
 
     // my_attendance
     Route::get('student/my_attendance', [AttendanceController::class, 'MyAttendanceStudent']);
 
     // my_notice_board
-    Route::get('student/my_notice_board', [CommunicateController::class, 'MyNoticeBoardStudent']);
+    // Route::get('student/my_notice_board', [CommunicateController::class, 'MyNoticeBoardStudent']);
  
      // homework
-     Route::get('student/my_homework', [HomeworkController::class, 'HomeworkStudent']);
-     Route::get('student/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomework']);
-     Route::post('student/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomeworkInsert']);
+    //  Route::get('student/my_homework', [HomeworkController::class, 'HomeworkStudent']);
+     Route::get('student/homework/my_homework', [HomeworkController::class, 'HomeworkStudent']);
+     Route::get('student/homework/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomework']);
+     Route::post('student/homework/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomeworkInsert']);
 
      // submit homework
-     Route::get('student/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
+    //  Route::get('student/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
+     Route::get('student/homework/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
 
-     // submit homework
-     Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);
-     Route::post('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudentPayment']);
-     Route::get('student/paypal/payment-error', [FeesCollectionController::class, 'PaymentError']);
-     Route::get('student/paypal/payment-success', [FeesCollectionController::class, 'PaymentSuccess']);
-     Route::get('student/stripe/payment-error', [FeesCollectionController::class, 'PaymentError']);
-     Route::get('student/stripe/payment-success', [FeesCollectionController::class, 'PaymentSuccessStripe']);
+     // fees_collection
+    //  Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);
+    //  Route::post('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudentPayment']);
+    //  Route::get('student/paypal/payment-error', [FeesCollectionController::class, 'PaymentError']);
+    //  Route::get('student/paypal/payment-success', [FeesCollectionController::class, 'PaymentSuccess']);
+    //  Route::get('student/stripe/payment-error', [FeesCollectionController::class, 'PaymentError']);
+    //  Route::get('student/stripe/payment-success', [FeesCollectionController::class, 'PaymentSuccessStripe']);
 
 });
 Route::group(['middleware' => 'parent'], function() {

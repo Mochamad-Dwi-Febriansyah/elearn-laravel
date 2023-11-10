@@ -72,7 +72,7 @@
               <div class="card-header">
                 <h3 class="card-title">Notice Board List</h3>
               </div> 
-              <div class="card-body p-0">
+              <div class="card-body p-0" style="overflow-x:auto;">
                 <table class="table table-striped">
                   <thead>
                     <tr>

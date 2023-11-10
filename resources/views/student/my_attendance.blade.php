@@ -72,9 +72,9 @@
                     <table class="table table-striped">
                         <thead>
                             <tr> 
-                                <td>Class Name</td>
+                                <th>Class Name</th>
                                 <th>Attendance</th>
-                                <th>Attendance Date</th> 
+                                <th>Attendance Date</th>
                                 <th>Created Date</th>
                             </tr>
                         </thead>

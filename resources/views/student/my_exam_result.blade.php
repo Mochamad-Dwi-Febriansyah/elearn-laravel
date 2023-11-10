@@ -24,7 +24,7 @@
                     <h3 class="card-title">{{ $value['exam_name'] }}</h3>
                     <a href="{{ url('student/my_exam_result/print?exam_id='.$value['exam_id'].'&student_id='.Auth::user()->id) }}" target="_blank" class="btn btn-primary btn-sm" style="float: right">Print</a>
                     </div> 
-                    <div class="card-body p-0">
+                    <div class="card-body p-0" style="overflow-x:auto;">
                     <table class="table table-striped">
                         <thead>
                         <tr> 
