@@ -413,7 +413,7 @@
               <a href="{{ url('student/dashboard') }}" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
-                  Dashboard 
+                  Beranda
                 </p>
               </a>
             </li> 
@@ -425,14 +425,14 @@
                 </p>
               </a>
             </li>  --}}
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ url('student/my_calendar') }}" class="nav-link  @if(Request::segment(2) == 'my_calendar') active @endif">
                 <i class="nav-icon far fa-calendar-alt"></i>
                 <p>
                   My Calendar
                 </p>
               </a>
-            </li> 
+            </li>  --}}
             {{-- <li class="nav-item">
               <a href="{{ url('student/my_subject') }}" class="nav-link  @if(Request::segment(2) == 'my_subject') active @endif">
                 <i class="nav-icon far fa-user"></i>
@@ -441,14 +441,14 @@
                 </p>
               </a>
             </li>  --}}
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ url('student/my_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_timetable') active @endif">
                 <i class="nav-icon fas fa-columns"></i>
                 <p>
                   My Timetable
                 </p>
               </a>
-            </li> 
+            </li>  --}}
             {{-- <li class="nav-item">
               <a href="{{ url('student/my_exam_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_exam_timetable') active @endif">
                 <i class="nav-icon far fa-user"></i>
@@ -469,7 +469,7 @@
               <a href="{{ url('student/my_attendance') }}" class="nav-link  @if(Request::segment(2) == 'my_attendance') active @endif">
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
-                  My Attendance
+                  Kehadiran
                 </p>
               </a>
             </li> 
@@ -486,7 +486,7 @@
               <a href="#" class="nav-link @if(Request::segment(2) == 'homework') active @endif">
                 <i class="nav-icon fas fa-table"></i>
                 <p>
-                  Homework
+                  Penugasan
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
@@ -494,13 +494,13 @@
                 <li class="nav-item">
                   <a href="{{ url('student/homework/my_homework') }}" class="nav-link  @if(Request::segment(3) == 'my_homework') active @endif">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>My Homework</p>
+                    <p>Tugas</p>
                   </a>
                 </li>   
                 <li class="nav-item">
                   <a href="{{ url('student/homework/my_submitted_homework') }}" class="nav-link  @if(Request::segment(3) == 'my_submitted_homework') active @endif">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>My Submited Homework</p>
+                    <p>Pengumpulan Tugas</p>
                   </a>
                 </li>   
               </ul>
@@ -527,7 +527,7 @@
               <a href="#" class="nav-link @if(Request::segment(2) == 'setting') active @endif">
                 <i class="nav-icon fas fa-chart-pie"></i>
                 <p>
-                  Setting
+                  Pengaturan
                   <i class="fas fa-angle-left right"></i>
                 </p>
               </a>
@@ -535,13 +535,13 @@
                 <li class="nav-item">
                   <a href="{{ url('student/setting/account') }}" class="nav-link  @if(Request::segment(3) == 'account') active @endif">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>My Account</p>
+                    <p>Akun</p>
                   </a>
                 </li>   
                 <li class="nav-item">
                   <a href="{{ url('student/setting/change_password') }}" class="nav-link  @if(Request::segment(3) == 'change_password') active @endif">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Change Password</p>
+                    <p>Ubah Password</p>
                   </a>
                 </li>   
               </ul>
@@ -619,7 +619,7 @@
             <a href="{{ url('logout') }}" class="nav-link">
               <i class="nav-icon far fa-user"></i>
               <p>
-                Logout
+                Keluar
               </p>
             </a>
           </li> 
