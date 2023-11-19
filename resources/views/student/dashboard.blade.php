@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0">Dashboard</h1>
+          <h1 class="m-0">Beranda</h1>
         </div> 
       </div> 
     </div> 
@@ -54,7 +54,7 @@
           <div class="small-box bg-primary">
             <div class="inner">
               <h3>{{ $TotalHomeWork }}</h3> 
-              <p>Total HomeWork</p>
+              <p>Jumlah Tugas</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -66,7 +66,7 @@
           <div class="small-box bg-success">
             <div class="inner">
               <h3>{{ $TotalSubmittedHomeWork }}</h3> 
-              <p>Total Submitted HomeWork</p>
+              <p>Jumlah Pengiriman Tugas</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -78,7 +78,7 @@
           <div class="small-box bg-warning">
             <div class="inner">
               <h3>{{ $TotalAttendance }}</h3> 
-              <p>Total Attendance</p>
+              <p>Jumlah Kehadiran</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>

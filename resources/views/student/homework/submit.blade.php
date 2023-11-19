@@ -13,7 +13,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Submit My Homework</h1>
+            <h1>Kirim Tugas</h1>
           </div> 
         </div>
       </div> 
@@ -29,17 +29,17 @@
                 @csrf
                 <div class="card-body"> 
                   <div class="form-group">
-                    <label>Document</label>
+                    <label>Berkas</label>
                     <input type="file" class="form-control" name="document_file" required>
                   </div> 
                   <div class="form-group">
-                    <label>Description <span style="color: red">*</span></label>
+                    <label>Deskripsi <span style="color: red">*</span></label>
                     <textarea id="compose-textarea" name="description" class="form-control" style="height: 300px">
                     </textarea>
                   </div>
                 </div> 
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Kirim</button>
                 </div>
               </form>
             </div> 

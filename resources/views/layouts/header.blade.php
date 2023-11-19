@@ -26,9 +26,10 @@
 
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="javascript:;" class="brand-link" style="text-align: center">
+    <a href="javascript:;" class="brand-link d-flex justify-content-center" style="text-align: center">
       @if (!empty($getHeaderSetting->getLogo()))    
-        <img style="width: auto; height: 60px; border-radius: 5px" src="{{ $getHeaderSetting->getLogo() }}" alt=""> 
+        <img style="width: auto; height: 40px; border-radius: 5px" src="{{ $getHeaderSetting->getLogo() }}" alt="">
+        <p style="margin: auto 0; padding: 5px; font-weight: 200">Ok3 Learning</p>
       @else
         <span class="brand-text font-weight-light" style="font-weight: bold !important; font-size: 20px">School</span>
       @endif
@@ -38,12 +39,13 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img style="width: 40px; height: 40px" src="{{ Auth::user()->getProfiledirect()  }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
+      <div class="user-panel py-3 d-flex bg-custom-image " style="padding: 0 16px;">
+        <div class="image" style="display: flex; justify-content: center; align-items: center">
+          <img style="width: 30px; height: 30px;" src="{{ Auth::user()->getProfiledirect()  }}" class="img-circle elevation-2" alt="{{ Auth::user()->name }}">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          <p style="margin-bottom: 0; color: #c2c7d0; font-size: 0.8rem">22670145</p>
         </div>
       </div>
 
@@ -525,7 +527,7 @@
 
             <li class="nav-item @if(Request::segment(2) == 'setting') menu-is-opening menu-open @endif">
               <a href="#" class="nav-link @if(Request::segment(2) == 'setting') active @endif">
-                <i class="nav-icon fas fa-chart-pie"></i>
+                <i class="nav-icon fas fa-cog"></i>
                 <p>
                   Pengaturan
                   <i class="fas fa-angle-left right"></i>
@@ -617,7 +619,7 @@
  
           <li class="nav-item">
             <a href="{{ url('logout') }}" class="nav-link">
-              <i class="nav-icon far fa-user"></i>
+              <i class="nav-icon fas fa-power-off"></i>
               <p>
                 Keluar
               </p>

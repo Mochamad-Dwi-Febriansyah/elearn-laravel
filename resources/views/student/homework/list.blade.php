@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>My Homework</h1>
+            <h1>Tugas</h1>
           </div>
         </div>
       </div> 
@@ -19,9 +19,9 @@
         <div class="row">  
           <div class="col-md-12">   
          
-            <div class="card">  
+            {{-- <div class="card">  
                 <div class="card-header">
-                  <h3 class="card-title">Search My Homework</h3>
+                  <h3 class="card-title">Search Tugas</h3>
                 </div>
                 <form method="GET" action=""> 
                   <div class="card-body">
@@ -65,28 +65,28 @@
                     </div>
                   </div> 
                 </form>
-              </div>
+            </div> --}}
 
             @include('_message')
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Homework List</h3>
+                <h3 class="card-title">Daftar Tugas</h3>
               </div> 
               <div class="card-body p-0"  style="overflow-x:auto;">
                 <table class="table table-striped">
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Class</th>
-                      <th>Subject</th>
-                      <th>Homework Date</th>
-                      <th>Submission To</th>
-                      <th>Document</th>
-                      <th>Description</th>
-                      <th>Created By</th>
-                      <th>Created Date</th>
-                      <th>Action</th>
+                      <th>Kelas</th>
+                      <th>Mata Pelajaran</th>
+                      <th>Tanggal Tugas</th>
+                      <th>Tenggat Pengumpulan</th>
+                      <th>Berkas</th>
+                      <th>Deskripsi</th>
+                      <th>Dibuat Oleh</th>
+                      <th>Dibuat tanggal</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody> 
@@ -99,19 +99,19 @@
                         <td>{{ date('d-m-Y', strtotime($value->submission_date)) }}</td>
                         <td>
                             @if (!empty($value->getDocument()))
-                                <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Download</a>
+                                <a href="{{ $value->getDocument() }}" class="btn btn-primary btn-sm" download>unduh</a>
                             @endif
                         </td>
                         <td>{!! $value->description !!}</td>
                         <td>{{ $value->created_by_name }}</td>
                         <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                         <td>
-                            <a href="{{ url('student/homework/my_homework/submit_homework/'.$value->id) }}" class="btn btn-primary">Submit Homework</a>
+                            <a href="{{ url('student/homework/my_homework/submit_homework/'.$value->id) }}" class="btn btn-primary">Kirim Tugas</a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="100%">Record not found</td>
+                        <td colspan="100%">Tidak ada Record</td>
                     </tr>
                 @endforelse
                   </tbody>
