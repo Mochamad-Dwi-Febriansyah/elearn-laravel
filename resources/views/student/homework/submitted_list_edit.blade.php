@@ -47,8 +47,8 @@
                   <div class="form-group">
                     <label>Berkas</label>
                     <input type="file" class="form-control" name="document_file" required>
-                    @if (!empty($getRecord->getDocument()))
-                    <a href="{{ $getRecord->getDocument() }}" class="btn btn-primary" download>{{ $getRecord->getDocument() }}</a>
+                    @if (!empty($getRecord->getDocument())) 
+                    {{ $getRecord->getDocument() }} 
                      @endif
                   </div> 
                   <div class="form-group">
