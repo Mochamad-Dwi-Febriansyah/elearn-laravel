@@ -44,6 +44,10 @@
                     </select>
                   </div> 
                   <div class="form-group">
+                    <label>Tugas Title <span style="color: red">*</span></label>
+                    <input type="text" class="form-control" name="tugas_title" required>
+                  </div> 
+                  <div class="form-group">
                     <label>Homework Date <span style="color: red">*</span></label>
                     <input type="date" class="form-control" name="homework_date" required>
                   </div> 
@@ -52,8 +56,12 @@
                     <input type="date" class="form-control" name="submission_date" required>
                   </div> 
                   <div class="form-group">
+                    <label>Submission Limits <span style="color: red"></span></label>
+                    <input type="date" class="form-control" name="submission_limits">
+                  </div> 
+                  <div class="form-group">
                     <label>Document</label>
-                    <input type="file" class="form-control" name="document_file" required>
+                    <input type="file" class="form-control" name="document_file">
                   </div> 
                   <div class="form-group">
                     <label>Description <span style="color: red">*</span></label>

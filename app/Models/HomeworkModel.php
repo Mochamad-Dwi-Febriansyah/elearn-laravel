@@ -13,6 +13,15 @@ class HomeworkModel extends Model
     static public function getSingle($id){
         return self::find($id);
     }
+
+    static public function getSingleRecord($id){
+        $return = HomeworkModel::select('homework.*', 'class.name as class_name', 'subject.name as subject_name', 'users.name as created_by_name')
+        ->join('users','users.id', '=','homework.created_by')
+        ->join('class','class.id', '=','homework.class_id')
+        ->join('subject','subject.id', '=','homework.subject_id')
+        ->find($id);
+        return $return;
+    }
     static public function getRecord(){
         $return = HomeworkModel::select('homework.*', 'class.name as class_name', 'subject.name as subject_name', 'users.name as created_by_name')
                                     ->join('users','users.id', '=','homework.created_by')

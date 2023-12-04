@@ -80,32 +80,52 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      {{-- <th>#</th> --}}
                       <th>Class</th>
                       <th>Subject</th>
+                      <th>Homework Title</th>
                       <th>Homework Date</th>
                       <th>Submission To</th>
+                      <th>Submission Limits</th>
                       <th>Document</th>
-                      <th>Created By</th>
-                      <th>Created Date</th>
+                      {{-- <th>Created By</th> --}}
+                      {{-- <th>Created Date</th> --}}
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody> 
                     @forelse ($getRecord as $value)
                         <tr>
-                            <td>{{ $value->id }}</td>
+                            {{-- <td>{{ $value->id }}</td> --}}
                             <td>{{ $value->class_name }}</td>
                             <td>{{ $value->subject_name }}</td>
+                            <td>{{ $value->tugas_title }}</td>
                             <td>{{ date('d-m-Y', strtotime($value->homework_date)) }}</td>
-                            <td>{{ date('d-m-Y', strtotime($value->submission_date)) }}</td>
+                            <td>
+                              @if ( date('d-m-Y', strtotime($value->submission_date)) <= date('d-m-Y') && date('d-m-Y', strtotime($value->submission_limits)) >= date('d-m-Y') )
+                              <span class="bg-success" style="padding: 2px 5px; border-radius: 5px">{{ date('d-m-Y', strtotime($value->submission_date)) }}</span>
+                              @elseif ( date('d-m-Y', strtotime($value->submission_date)) > date('d-m-Y') && date('d-m-Y', strtotime($value->submission_limits)) >= date('d-m-Y') )
+                              <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ date('d-m-Y', strtotime($value->submission_date)) }}</span>
+                              @else
+                              <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ date('d-m-Y', strtotime($value->submission_date)) }}</span>
+                              @endif 
+                            </td> 
+                            <td>
+                              @if ( date('d-m-Y', strtotime($value->submission_limits)) >= date('d-m-Y') && date('d-m-Y', strtotime($value->submission_date)) <= date('d-m-Y')) 
+                              <span class="bg-success" style="padding: 2px 5px; border-radius: 5px">{{ date('d-m-Y', strtotime($value->submission_limits)) }}</span>
+                              @elseif ( date('d-m-Y', strtotime($value->submission_limits)) > date('d-m-Y') && date('d-m-Y', strtotime($value->submission_date)) >= date('d-m-Y') )
+                              <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ date('d-m-Y', strtotime($value->submission_limits)) }}</span>
+                              @else
+                              <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ date('d-m-Y', strtotime($value->submission_limits)) }}</span>
+                              @endif
+                            </td>
                             <td>
                                 @if (!empty($value->getDocument()))
-                                    <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Dwonload</a>
+                                    <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Download</a>
                                 @endif
                             </td>
-                            <td>{{ $value->created_by_name }}</td>
-                            <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
+                            {{-- <td>{{ $value->created_by_name }}</td> --}}
+                            {{-- <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td> --}}
                             <td>
                                 <a href="{{ url('teacher/homework/homework/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
                                 <a href="{{ url('teacher/homework/homework/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>

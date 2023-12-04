@@ -29,7 +29,7 @@
     <a href="javascript:;" class="brand-link d-flex justify-content-center" style="text-align: center">
       @if (!empty($getHeaderSetting->getLogo()))    
         <img style="width: auto; height: 40px; border-radius: 5px" src="{{ $getHeaderSetting->getLogo() }}" alt="">
-        <p style="margin: auto 0; padding: 5px; font-weight: 200">Ok3 Learning</p>
+        <p style="margin: auto 0; padding: 5px; font-weight: 200">SIBel</p>
       @else
         <span class="brand-text font-weight-light" style="font-weight: bold !important; font-size: 20px">School</span>
       @endif
@@ -45,7 +45,7 @@
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-          <p style="margin-bottom: 0; color: #c2c7d0; font-size: 0.8rem">22670145</p>
+          <p style="margin-bottom: 0; color: #c2c7d0; font-size: 0.8rem">{{ Auth::user()->nis }}</p>
         </div>
       </div>
 
@@ -443,14 +443,14 @@
                 </p>
               </a>
             </li>  --}}
-            {{-- <li class="nav-item">
+            <li class="nav-item">
               <a href="{{ url('student/my_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_timetable') active @endif">
                 <i class="nav-icon fas fa-columns"></i>
                 <p>
-                  My Timetable
+                  Jadwal
                 </p>
               </a>
-            </li>  --}}
+            </li> 
             {{-- <li class="nav-item">
               <a href="{{ url('student/my_exam_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_exam_timetable') active @endif">
                 <i class="nav-icon far fa-user"></i>

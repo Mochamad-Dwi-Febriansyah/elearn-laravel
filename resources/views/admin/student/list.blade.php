@@ -113,6 +113,11 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Student List</h3>
+                <form action="{{ url('admin/student/import_excel') }}" method="post" style="float: right"  enctype="multipart/form-data">
+                  @csrf
+                  <input type="file" name="filexls" id="">
+                  <button type="submit">upload</button>
+                </form>
                 <form action="{{ url('admin/student/export_excel') }}" method="post" style="float: right">
                   @csrf
                   <input type="hidden" name="name" value="{{ Request::get('name') }}">
@@ -139,8 +144,11 @@
                       <th>#</th>
                       <th>Profil Pic</th>
                       <th>Student Name</th>
-                      <th>Parent Name</th>
-                      <th>Email</th>
+                      {{-- <th>Parent Name</th> --}}
+                      {{-- <th>Email</th> --}}
+                      <th>Nis</th>
+                      {{-- <th>tgl lhr</th> --}}
+                      {{-- <th>Pw</th> --}}
                       <th>Admisson Number</th>
                       <th>Roll Number</th>
                       <th>Class</th>
@@ -168,8 +176,16 @@
                         @endif
                       </td>
                       <td>{{ $value->name }} {{ $value->last_name }}</td> 
-                      <td>{{ $value->parent_name }} {{ $value->parent_last_name }}</td> 
-                      <td>{{ $value->email }}</td>
+                      {{-- <td>{{ $value->parent_name }} {{ $value->parent_last_name }}</td>  --}}
+                      {{-- <td>{{ $value->email }}</td> --}}
+                      <td>{{ $value->nis }}</td>
+                      {{-- <td>
+                        @if (!empty($value->date_of_birth))
+                          {{ date('d-m-Y', strtotime($value->date_of_birth))  }}
+                        @endif
+                      </td>
+                  
+                      <td>{{ $pw }}</td> --}}
                       <td>{{ $value->admission_number }}</td>
                       <td>{{ $value->roll_number }}</td>
                       <td>{{ $value->class_name }}</td>
@@ -202,7 +218,7 @@
                   </tbody>
                 </table>
                 <div style="padding: 10px; float: right">
-                  {{-- {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!} --}}
+                  {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                 </div>
 
               </div>

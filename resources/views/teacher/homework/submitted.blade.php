@@ -64,22 +64,42 @@
                       <th>#</th>
                       <th>Student Name</th>  
                       <th>Document</th> 
-                      <th>Deskription</th>
+                      <th>Description</th>
                       <th>Created Date</th> 
+                      <th>Nilai</th>
+                      <th>Submission Late</th> 
                     </tr>
                   </thead>
                   <tbody> 
                     @forelse ($getRecord as $value) 
                     <tr>
                         <td>{{ $value->id }}</td>
-                        <td>{{ $value->first_name }} {{ $value->last_name }}</td>
+                        <td>{{ $value->users_name }} {{ $value->last_name }}</td>
                         <td>
                             @if (!empty($value->getDocument()))
-                                <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Dwonload</a>
+                                <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Download</a>
                             @endif
                         </td>
                         <td>{!! $value->description !!}</td>
                         <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
+                        <td>
+                          <form  class="EditNilai" name="post" homework_id="{{ $value->id }}">
+                            @csrf
+                            <div class="row"> 
+                              <div class="form-group d-flex">
+                                <input type="number" name="nilai" class="form-control" style="width: 75px" max="100" min="0" value="{{ $value->nilai }}">
+                                <button type="submit"   class="btn btn-primary btn-sm" style="margin-left: 3px">edit</button>
+                              </div>
+                            </div>
+                          </form>
+                        </td>
+                        <td style="white-space: nowrap;">
+                          @if ($value->submission_late == '-')
+                            {{ $value->submission_late }}
+                          @else
+                            <span class="bg-danger" style="padding: 2px 5px;border-radius: 5px">{{ $value->submission_late }}</span>
+                          @endif 
+                        </td>
                     </tr>
                     @empty
                         <tr>
@@ -98,4 +118,26 @@
       </div> 
     </section> 
   </div> 
+@endsection
+
+@section('script')
+<script type="text/javascript">
+  $('.EditNilai').submit(function(e) {
+    e.preventDefault(); 
+    var homework_id = $(this).attr('homework_id');
+    // console.log(homework_id);
+    $.ajax({
+      type : "POST",
+      url : "{{ url('teacher/homework/homework/submitted/edit_nilai/') }}" + "/"+ homework_id,
+      data : $(this).serialize(),
+      dataType : "json",
+      success : function(data) {
+        alert(data.message);
+        location.reload();
+      }
+
+    });
+  });
+   
+</script>
 @endsection

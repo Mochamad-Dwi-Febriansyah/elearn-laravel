@@ -85,6 +85,7 @@
                       <th>Subject</th>
                       <th>Homework Date</th>
                       <th>Submission To</th>
+                      <th>Submission Limits</th>
                       <th>Document</th>
                       <th>Created By</th>
                       <th>Created Date</th>
@@ -99,6 +100,7 @@
                             <td>{{ $value->subject_name }}</td>
                             <td>{{ date('d-m-Y', strtotime($value->homework_date)) }}</td>
                             <td>{{ date('d-m-Y', strtotime($value->submission_date)) }}</td>
+                            <td>{{ date('d-m-Y', strtotime($value->submission_limits)) }}</td>
                             <td>
                                 @if (!empty($value->getDocument()))
                                     <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Dwonload</a>

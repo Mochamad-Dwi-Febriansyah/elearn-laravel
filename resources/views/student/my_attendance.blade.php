@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>My Attendance <span style="color: blue;">( Total : {{ $getRecord->total() }} )</span></h1>
+            <h1>Kehadiran Saya <span style="color: blue;">( Total : {{ $getRecord->total() }} )</span></h1>
           </div>
      
         </div>
@@ -23,30 +23,30 @@
  
             <div class="card">  
               <div class="card-header">
-                <h3 class="card-title">Search My Attendance</h3>
+                <h3 class="card-title">Search Kehadiran Saya</h3>
               </div>
               <form method="GET" action=""> 
                 <div class="card-body">
                   <div class="row">  
                     <div class="form-group col-md-2">
-                      <label>Class</label>
+                      <label>Kelas</label>
                       <select name="class_id" class="form-control">
-                        <option value="">Select</option>
+                        <option value="">Pilih</option>
                         @foreach ($getClass as $class)
                             <option {{ (Request::get('class_id') == $class->class_id) ? 'selected' : '' }} value="{{ $class->class_id }}">{{ $class->class_name }}</option>
                         @endforeach
                       </select>
                     </div>  
                     <div class="form-group col-md-2">
-                      <label>Start Attendance Date</label>
+                      <label>Tanggal Kehadiran awal</label>
                     <input type="date" name="start_attendance_date" value="{{ Request::get('start_attendance_date') }}" class="form-control">
                     </div>  
                     <div class="form-group col-md-2">
-                      <label>End Attendance Date</label>
+                      <label>anggal Kehadiran akhir</label>
                     <input type="date" name="end_attendance_date" value="{{ Request::get('end_attendance_date') }}" class="form-control">
                     </div>  
                     <div class="form-group col-md-2">
-                      <label>Attendance Type</label>
+                      <label>Tipe Kehadiran</label>
                       <select name="attendance_type" class="form-control">
                             <option value="">Select</option>
                             <option {{ (Request::get('attendance_type') == 1) ? 'selected' : '' }} value="1">Present</option>
@@ -56,7 +56,7 @@
                       </select>
                     </div>  
                     <div class="form-group col-md-2">  
-                      <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>
+                      <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Cari</button>
                       <a href="{{ url('student/my_attendance') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
                     </div> 
                   </div>
@@ -66,16 +66,16 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">My Attendance list</h3>
+                    <h3 class="card-title">Daftar Kehadiran</h3>
                 </div>
                 <div class="card-body p-0" style="overflow: auto">
                     <table class="table table-striped">
                         <thead>
                             <tr> 
-                                <th>Class Name</th>
-                                <th>Attendance</th>
-                                <th>Attendance Date</th>
-                                <th>Created Date</th>
+                                <th>Nama Kelas</th>
+                                <th>Kehadiran</th>
+                                <th>Tanggal Kehadiran</th>
+                                <th>Tanggal dibuat</th>
                             </tr>
                         </thead>
                         <tbody> 
@@ -98,7 +98,7 @@
                             </tr>
                           @empty
                             <tr>
-                              <td colspan="100%">Record not found</td>
+                              <td colspan="100%">Tidak ada Record</td>
                             </tr>
                           @endforelse
                         </tbody>

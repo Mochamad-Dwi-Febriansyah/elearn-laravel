@@ -47,8 +47,10 @@ class HomeworkController extends Controller
         $homwork = new HomeworkModel;
         $homwork->class_id = trim($request->class_id);
         $homwork->subject_id = trim($request->subject_id);
+        $homwork->tugas_title = trim($request->tugas_title);
         $homwork->homework_date = trim($request->homework_date);
         $homwork->submission_date = trim($request->submission_date);
+        $homwork->submission_limits = trim($request->submission_limits);
         $homwork->description = trim($request->description);
         $homwork->created_by = Auth::user()->id;
         if(!empty($request->file('document_file'))){ 
@@ -77,8 +79,10 @@ class HomeworkController extends Controller
         $homwork = HomeworkModel::getSingle($id);
         $homwork->class_id = trim($request->class_id);
         $homwork->subject_id = trim($request->subject_id);
+        $homwork->tugas_title = trim($request->tugas_title);
         $homwork->homework_date = trim($request->homework_date);
         $homwork->submission_date = trim($request->submission_date);
+        $homwork->submission_limits = trim($request->submission_limits);
         $homwork->description = trim($request->description);
         if(!empty($request->file('document_file'))){ 
             $ext = $request->file('document_file')->getClientOriginalExtension();
@@ -139,8 +143,10 @@ class HomeworkController extends Controller
         $homwork = new HomeworkModel;
         $homwork->class_id = trim($request->class_id);
         $homwork->subject_id = trim($request->subject_id);
+        $homwork->tugas_title = trim($request->tugas_title);
         $homwork->homework_date = trim($request->homework_date);
         $homwork->submission_date = trim($request->submission_date);
+        $homwork->submission_limits = trim($request->submission_limits);
         $homwork->description = trim($request->description);
         $homwork->created_by = Auth::user()->id;
         if(!empty($request->file('document_file'))){ 
@@ -169,8 +175,10 @@ class HomeworkController extends Controller
         $homwork = HomeworkModel::getSingle($id);
         $homwork->class_id = trim($request->class_id);
         $homwork->subject_id = trim($request->subject_id);
+        $homwork->tugas_title = trim($request->tugas_title);
         $homwork->homework_date = trim($request->homework_date);
         $homwork->submission_date = trim($request->submission_date);
+        $homwork->submission_limits = trim($request->submission_limits);
         $homwork->description = trim($request->description);
         if(!empty($request->file('document_file'))){ 
             $ext = $request->file('document_file')->getClientOriginalExtension();
@@ -197,12 +205,31 @@ class HomeworkController extends Controller
             abort(404);
         }
     }
+    public function SubmittedTeacherEditNilai($homework_id, Request $request){
+        $save = HomeworkSubmitModel::getSIngle($homework_id);
+        $save->nilai = $request->nilai;
+        $save->save();
+
+        $json['message'] = "Sukses Mengedit Nilai"; 
+        echo json_encode($json);    
+    }
 
     // student side
     public function HomeworkStudent(){
         $data['getRecord'] = HomeworkModel::getRecordStudent(Auth::user()->class_id, Auth::user()->id);
         $data['header_title'] = "My Homework";
         return view('student.homework.list', $data);
+    }
+    // public function HomeworkStudentDetail($id){
+    //     $data['getRecord'] = HomeworkModel::getSingle($id);
+    //     $data['header_title'] = "My Detail Homework";
+    //     return view('student.homework.list_detail', $data);
+    // } 
+    public function HomeworkStudentDetail($homework_id){
+        $data['getRecord'] = HomeworkModel::getSingleRecord($homework_id); 
+        $data['header_title'] = "Submit My Homework";
+        // dd($data['getRecord']);
+        return view('student.homework.list_detail', $data);
     }
     public function SubmitHomework($homework_id){
         $data['getRecord'] = HomeworkModel::getSingle($homework_id);
@@ -220,9 +247,10 @@ class HomeworkController extends Controller
             $randomStr = date('Ymdhis').Str::random(20);
             $filename = strtolower($randomStr).'.'.$ext;
             $file->move('upload/homework/', $filename);
-
+            
             $homework->document_file = $filename;
         }
+        $homework->submission_late = $request->submission_late;
         $homework->save();
 
         return redirect('student/homework/my_homework')->with('success', 'Homework successfully Submitted');
@@ -231,6 +259,11 @@ class HomeworkController extends Controller
         $data['getRecord'] = HomeworkSubmitModel::getRecordStudent(Auth::user()->id);
         $data['header_title'] = "My Submited Homework";
         return view('student.homework.submitted_list', $data);
+    }
+    public function HomeworkSubmitedStudentDetail($submitted_id){
+        $data['getRecord'] = HomeworkSubmitModel::getSingleRecord($submitted_id);
+        $data['header_title'] = "My Submited Homework"; 
+        return view('student.homework.submitted_list_detail', $data);
     }
     
     // parent side

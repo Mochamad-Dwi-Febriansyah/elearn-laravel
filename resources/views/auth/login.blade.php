@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Log in</title>
+  <title>SIBel</title>
   @php
       $getHeaderSetting = App\Models\SettingModel::getSingle();
   @endphp
@@ -22,7 +22,7 @@
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
           <div class="card-header text-center">
-            <a href="" class="h1"><b>OK3</b>Learn</a>
+            <a href="" class="h1"><b>SI</b>bel</a>
           </div>
           <div class="card-body">
             <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
@@ -32,7 +32,7 @@
             <form action="{{ url('login') }}" method="POST">
                 @csrf
               <div class="input-group mb-3">
-                <input type="email" class="form-control"  name="email" placeholder="Email">
+                <input type="text" class="form-control"  name="username" placeholder="Nisn/Email">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-envelope"></span>
@@ -52,13 +52,13 @@
                   <div class="icheck-primary">
                     <input type="checkbox" id="remember" name="remember">
                     <label for="remember">
-                      Remember Me
+                     Ingat Saya
                     </label>
                   </div>
                 </div>
                 <!-- /.col -->
                 <div class="col-4">
-                  <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                  <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                 </div>
                 <!-- /.col -->
               </div>
@@ -67,7 +67,7 @@
             <!-- /.social-auth-links -->
       
             <p class="mb-1">
-              <a href="{{ url('forgot-password') }}">I forgot my password</a>
+              <a href="{{ url('forgot-password') }}">saya lupa password</a>
             </p> 
           </div>
           <!-- /.card-body -->

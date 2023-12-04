@@ -77,50 +77,47 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      {{-- <th>#</th> --}}
-                      {{-- <th>Kelas</th> --}}
+                      <th>#</th>
+                      <th>Kelas</th>
                       <th>Mata Pelajaran</th>
-                      <th>Judul Tugas</th>
                       <th>Tanggal Tugas</th>
-                      {{-- <th>Tanggal Pengumpulan</th>
-                      <th>Batas Pengumpulan</th> --}}
-                      {{-- <th>Berkas</th> --}}
+                      <th>Tanggal Pengumpulan</th>
+                      <th>Batas Pengumpulan</th>
+                      <th>Berkas</th>
                       <th>Deskripsi</th>
-                      {{-- <th>Dibuat tanggal</th> --}}
+                      <th>Dibuat tanggal</th>
 
-                      {{-- <th>Pengiriman Berkas</th>  --}}
-                      {{-- <th>Pengiriman Deskripsi</th>  --}}
+                      <th>Pengiriman Berkas</th> 
+                      <th>Pengiriman Deskripsi</th> 
                       <th >Pengiriman Tanggal</th> 
                       <th>Nilai</th>
                       <th>Pegiriman Telat</th>
-                      <th>Aksi</th>
   
                     </tr>
                   </thead>
                   <tbody> 
                     @forelse ($getRecord as $value)
                     <tr>
-                        {{-- <td style="background-color:rgb(246, 228, 228) ">{{ $value->id }}</td> --}}
-                        {{-- <td style="background-color:rgb(246, 228, 228) ">{{ $value->class_name }}</td> --}}
-                        <td style="">{{ $value->subject_name }}</td>
-                        <td style="">{{ $value->getHomework->tugas_title }}</td>
-                        <td style="">{{ date('d-m-Y', strtotime($value->getHomework->homework_date)) }}</td>
-                        {{-- <td style="">{{ date('d-m-Y', strtotime($value->getHomework->submission_date)) }}</td>
-                        <td style="">{{ date('d-m-Y', strtotime($value->getHomework->submission_limits)) }}</td> --}}
-                        {{-- <td style="">
+                        <td style="background-color:rgb(246, 228, 228) ">{{ $value->id }}</td>
+                        <td style="background-color:rgb(246, 228, 228) ">{{ $value->class_name }}</td>
+                        <td style="background-color:rgb(246, 228, 228) ">{{ $value->subject_name }}</td>
+                        <td style="background-color:rgb(246, 228, 228) ">{{ date('d-m-Y', strtotime($value->getHomework->homework_date)) }}</td>
+                        <td style="background-color:rgb(246, 228, 228) ">{{ date('d-m-Y', strtotime($value->getHomework->submission_date)) }}</td>
+                        <td style="background-color:rgb(246, 228, 228) ">{{ date('d-m-Y', strtotime($value->getHomework->submission_limits)) }}</td>
+                        <td style="background-color:rgb(246, 228, 228) ">
                             @if (!empty($value->getHomework->getDocument()))
                                 <a href="{{ $value->getHomework->getDocument() }}" class="btn btn-primary" download>Unduh</a>
                             @endif
-                        </td> --}}
-                        <td style=" min-width: 250px">{!! $value->getHomework->description !!}</td> 
-                        {{-- <td style="">{{ date('d-m-Y', strtotime($value->getHomework->created_at)) }}</td> --}}
+                        </td>
+                        <td style="background-color:rgb(246, 228, 228) ">{!! $value->getHomework->description !!}</td> 
+                        <td style="background-color:rgb(246, 228, 228) ">{{ date('d-m-Y', strtotime($value->getHomework->created_at)) }}</td>
 
-                        {{-- <td>
+                        <td>
                             @if (!empty($value->getDocument()))
                                 <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Unduh</a>
                             @endif
-                        </td> --}}
-                        {{-- <td style=" min-width: 250px">>{!! $value->description !!}</td>  --}}
+                        </td>
+                        <td>{!! $value->description !!}</td> 
                         <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                         <td>
                           @if ($value->nilai >= 76 && $value->nilai <= 100) 
@@ -128,20 +125,15 @@
                           @elseif ($value->nilai < 76 && $value->nilai > 0)
                             <span  class="bg-danger" style="border-radius: 14px; padding: 3px 7px">{{ $value->nilai }}</span>
                             @elseif ($value->nilai == 0)
-                            <span class="bg-warning" style="border-radius: 5px; padding: 3px 7px;white-space: nowrap;">Belum</span><br>
-                            <span class="bg-warning" style="border-radius: 5px; padding: 3px 7px;white-space: nowrap;">dinilai</span>
+                            <span class="bg-warning" style="border-radius: 5px; padding: 3px 7px;white-space: nowrap;">Belum di Nilai</span>
                           @endif
                         </td>
                         <td style="white-space: nowrap;">
                           @if ($value->submission_late == '-')
-                            <span class="bg-success" style="padding: 2px 5px;border-radius: 5px">Terimakasih</span><br>
-                            <span class="bg-success" style="padding: 2px 5px;border-radius: 5px">Anda sesuai waktu</span>
+                            <span class="bg-success" style="padding: 2px 5px;border-radius: 5px">Terimakasih Anda Mengirimkan sesuai waktu</span>
                           @else
                             <span class="bg-danger" style="padding: 2px 5px;border-radius: 5px">{{ $value->submission_late }}</span>
                           @endif 
-                        </td>
-                        <td>
-                          <a href="{{ url('student/homework/my_submitted_homework/'.$value->id) }}" class="btn btn-primary btn-sm">Detail</a>
                         </td>
                          
                     </tr>

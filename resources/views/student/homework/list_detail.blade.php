@@ -6,11 +6,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        {{-- <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Tugas</h1>
           </div>
-        </div>
+        </div> --}}
       </div> 
     </section>
  
@@ -70,44 +70,57 @@
             @include('_message')
 
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Daftar Tugas</h3>
-              </div> 
-              <div class="card-body p-3"  style="overflow-y:auto;">
-                <table class="table" > 
-                  <tbody> 
-                    @forelse ($getRecord as $value)  
-                    <tr>
-                      <th> 
-                          <img src="{{ url('dist/img/icon.svg') }}" alt="" style="margin-right: 0.5rem">
-                        <a href="{{ url('student/homework/my_homework/'.$value->id) }}">
-                          @if ($value->tugas_title == NULL)
-                           Tugas 
-                          @else
-                          {{ $value->tugas_title }}
-                          @endif
-                        </a> 
-                          <div style="float: right;">
-                            dibuat {{ date('d-m-Y', strtotime($value->created_at)) }}
-                          </div>
-                      </th>
-                    </tr>
-                    <tr>
-                      <td class="pl-5" style="max-width: 300px">{!! $value->description !!}</td>
-                    </tr>  
-                    <td class="m-4 p-4 border-0"></td>
-                @empty 
-                    <tr>
-                        <td colspan="100%">Tidak ada Record</td>
-                    </tr>
-                @endforelse
-                  </tbody >
-                </table>
-                <div style="padding: 10px; float: right">
-                    {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                </div>
-              </div> 
+              <div class="card-header d-flex flex-column">
+                <h1 class="card-title py-3" style="font-size: 2.8rem; font-weight: 300">{{ $getRecord->subject_name }}</h1>
+                <span class="card-title pb-2" style="font-size: 1.4rem;"><a href="{{ url('student/homework/my_homework') }}">My homework</a> /  
+                  @if ($getRecord->tugas_title == NULL)
+                  Tugas 
+                 @else
+                 {{ $getRecord->tugas_title }}
+                 @endif
+                </span>
+              </div>  
             </div> 
+            <?php date_default_timezone_set('Asia/Jakarta'); ?>
+            <div class="card">
+              <div class="card-header d-flex flex-column">
+                <h1 class="card-title py-3" style="font-size: 2.3rem; font-weight: 300">{{ $getRecord->tugas_title }}</h1>
+                <span class="card-title pb-2" style="font-size: 1.2rem; border-bottom: 1px solid #dee2e6">
+                  <p class="m-0"><b>Dibuka : </b> 
+                    @if ( date('d-m-Y', strtotime($getRecord->submission_date)) <= date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') )
+                    <span class="bg-success" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span>
+                    @elseif ( date('d-m-Y', strtotime($getRecord->submission_date)) > date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') )
+                    <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span>
+                    @else
+                    <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span>
+                    @endif 
+                    </p>
+                  <p  class="m-0"><b>Ditutup : </b> 
+                    @if ( date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_date)) <= date('d-m-Y')) 
+                    <span class="bg-success" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span>
+                    @elseif ( date('d-m-Y', strtotime($getRecord->submission_limits)) > date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_date)) >= date('d-m-Y') )
+                    <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span>
+                    @else
+                    <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span>
+                    @endif
+                  </p>
+                </span>
+                <div class="py-3" style="font-size: 1.2rem">
+                  <p >
+                    {!! $getRecord->description !!}
+                  </p>
+                </div>
+                <div class="py-3" style="font-size: 1.2rem">
+                  @if ( date('d-m-Y H:i:s', strtotime($getRecord->submission_date)) > date('d-m-Y H:i:s'))
+                  <a class="btn btn-secondary" >Kirim Tugas</a>
+                  @else
+                  <a href="{{ url('student/homework/my_homework/submit_homework/'.$getRecord->id) }}" class="btn btn-primary">Kirim Tugas</a>
+                  @endif  
+                </div>
+
+              </div>  
+            </div> 
+
           </div> 
         </div>
       </div> 

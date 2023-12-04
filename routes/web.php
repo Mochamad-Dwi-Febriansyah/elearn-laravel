@@ -80,6 +80,7 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/student/edit/{id}', [StudentController::class, 'edit']);
     Route::post('admin/student/edit/{id}', [StudentController::class, 'update']);
     Route::get('admin/student/delete/{id}', [StudentController::class, 'delete']);
+    Route::post('admin/student/import_excel', [StudentController::class, 'import_excel']);
     Route::post('admin/student/export_excel', [StudentController::class, 'export_excel']);
 
     // parent url
@@ -268,6 +269,7 @@ Route::group(['middleware' => 'teacher'], function() {
     Route::get('teacher/homework/homework/delete/{id}', [HomeworkController::class, 'delete']);
 
     Route::get('teacher/homework/homework/submitted/{id}', [HomeworkController::class, 'SubmittedTeacher']);
+    Route::post('teacher/homework/homework/submitted/edit_nilai/{id_user}', [HomeworkController::class, 'SubmittedTeacherEditNilai']);
 
 });
 Route::group(['middleware' => 'student'], function() {
@@ -307,12 +309,14 @@ Route::group(['middleware' => 'student'], function() {
      // homework
     //  Route::get('student/my_homework', [HomeworkController::class, 'HomeworkStudent']);
      Route::get('student/homework/my_homework', [HomeworkController::class, 'HomeworkStudent']);
+     Route::get('student/homework/my_homework/{id}', [HomeworkController::class, 'HomeworkStudentDetail']);
      Route::get('student/homework/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomework']);
      Route::post('student/homework/my_homework/submit_homework/{id}', [HomeworkController::class, 'SubmitHomeworkInsert']);
 
      // submit homework
     //  Route::get('student/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
      Route::get('student/homework/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
+     Route::get('student/homework/my_submitted_homework/{id}', [HomeworkController::class, 'HomeworkSubmitedStudentDetail']);
 
      // fees_collection
     //  Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);

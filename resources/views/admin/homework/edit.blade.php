@@ -54,6 +54,10 @@
                     <input type="date" value="{{ $getRecord->submission_date }}" class="form-control" name="submission_date" required>
                   </div> 
                   <div class="form-group">
+                    <label>Submission Limits <span style="color: red"></span></label>
+                    <input type="date" value="{{ $getRecord->submission_limits }}" class="form-control" name="submission_limits">
+                  </div> 
+                  <div class="form-group">
                     <label>Document</label>
                     <input type="file" class="form-control" name="document_file">
                     @if (!empty($getRecord->getDocument()))

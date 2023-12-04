@@ -10,9 +10,14 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportStudent;
+use App\Imports\ImportUser;
 
 class StudentController extends Controller
 {
+    public function import_excel(Request $request){  
+        Excel::import(new ImportUser, $request->file('filexls')); 
+        return redirect('/admin/student/list')->with('success', 'All good!');
+    }
     public function export_excel(Request $request){
         return Excel::download(new ExportStudent,  'Student_'.date('d-m-Y').'.xls');
     }

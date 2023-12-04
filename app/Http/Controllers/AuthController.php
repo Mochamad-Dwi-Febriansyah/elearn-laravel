@@ -32,7 +32,7 @@ class AuthController extends Controller
     public function AuthLogin(Request $request){
         // dd($request->all());
         $remember = !empty($request->remember) ? true : false;
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password], $remember)){
+        if(Auth::attempt(['email' => $request->username, 'password' => $request->password], $remember)){
             if(Auth::user()->user_type == 1){
                 return redirect('admin/dashboard');
             }
@@ -45,8 +45,12 @@ class AuthController extends Controller
             else if(Auth::user()->user_type == 4){
                 return redirect('parent/dashboard');
             }
+        }else if(Auth::attempt(['nis' => $request->username, 'password' => $request->password], $remember)){
+            if(Auth::user()->user_type == 3){
+                return redirect('student/dashboard');
+            }
         }else{
-            return redirect()->back()->with('error', 'Please enter current email all password');
+            return redirect()->back()->with('error', 'Silakan masukkan email saat ini semua kata sandi');
         }
     
     }
@@ -61,9 +65,9 @@ class AuthController extends Controller
             $user->save();
             Mail::to($user->email)->send(new ForgotPasswordMail($user));
 
-            return redirect()->back()->with('success', 'Please Check your email and reset your password.');
+            return redirect()->back()->with('success', 'Silakan Periksa email Anda dan setel ulang kata sandi Anda.');
         }else{
-            return redirect()->back()->with('error', 'Email not found in the system.');
+            return redirect()->back()->with('error', 'Email tidak ditemukan di sistem.');
         }
     }
 
@@ -83,9 +87,9 @@ class AuthController extends Controller
             $user->remember_token = Str::random(30);
             $user->save();
 
-            return redirect('/')->with('success', "Password successfully reset");
+            return redirect('/')->with('success', "Kata sandi berhasil disetel ulang");
         }else{
-            return redirect()->back()->with('error', "Password and Confirm password does not match");
+            return redirect()->back()->with('error', "Kata Sandi dan Konfirmasi Kata Sandi tidak cocok");
         }
     }
 

@@ -10,6 +10,17 @@ class HomeworkSubmitModel extends Model
 {
     use HasFactory;
     protected $table = 'homework_submit';
+    static public function getSingle($id){
+        return self::find($id);
+    }
+    static public function getSingleRecord($submitted_id){
+        $return = HomeworkSubmitModel::select('homework_submit.*', 'class.name as class_name', 'subject.name as subject_name')
+        ->join('homework','homework.id', '=','homework_submit.homework_id') 
+        ->join('class','class.id', '=','homework.class_id') 
+        ->join('subject','subject.id', '=','homework.subject_id')
+        ->find($submitted_id);
+        return $return;
+    }
     static public function getHomeworkReport(){
         $return = HomeworkSubmitModel::select('homework_submit.*', 'class.name as class_name', 'subject.name as subject_name', 'users.name as first_name', 'users.last_name')
                     ->join('users','users.id', '=','homework_submit.student_id') 

@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>My Timetable</h1>
+            <h1>Jadwal</h1>
           </div> 
         </div>
       </div><!-- /.container-fluid -->
@@ -36,10 +36,10 @@
                       <table class="table table-striped"> 
                         <thead>
                             <tr>
-                                <th>Week</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Room Number</th>
+                                <th>Hari</th>
+                                <th>Waktu Mulai</th>
+                                <th>Waktu Selesai</th>
+                                <th>Ruang Nomor</th>
                             </tr>
                         </thead>
                         <tbody> 

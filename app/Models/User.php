@@ -20,9 +20,37 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'parent_id',
+        'nis',
         'name',
+        'last_name',
         'email',
+        'email_verified_at',
         'password',
+        'remember_token',
+        'admission_number',
+        'roll_number',
+        'class_id',
+        'gender',
+        'date_of_birth',
+        'caste',
+        'religion',
+        'mobile_number',
+        'admission_date',
+        'profile_pic',
+        'blood_group',
+        'height',
+        'weight',
+        'occupation',
+        'address',
+        'marital_status',
+        'permanent_address',
+        'qualification',
+        'work_experience',
+        'note',
+        'user_type',
+        'is_delete',
+        'status',
     ];
 
     /**
@@ -257,7 +285,7 @@ class User extends Authenticatable
                             $return = $return->where('users.roll_number', 'like', '%'. Request::get('roll_number'). '%');
                         }
                         if(!empty(Request::get('class'))){
-                            $return = $return->where('users.name', 'like', '%'. Request::get('class'). '%');
+                            $return = $return->where('class.name', 'like', '%'. Request::get('class'). '%');
                         }
                         if(!empty(Request::get('gender'))){
                             $return = $return->where('users.gender', 'like', '%'. Request::get('gender'). '%');
@@ -289,7 +317,7 @@ class User extends Authenticatable
                         if(!empty($remove_pagination)){
                             $return = $return->get();
                         }else{
-                            $return = $return->paginate(50);
+                            $return = $return->paginate(25);
                         } 
     
         return $return;
