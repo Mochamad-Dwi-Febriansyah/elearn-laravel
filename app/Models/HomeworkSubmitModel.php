@@ -14,7 +14,7 @@ class HomeworkSubmitModel extends Model
         return self::find($id);
     }
     static public function getSingleRecord($submitted_id){
-        $return = HomeworkSubmitModel::select('homework_submit.*', 'class.name as class_name', 'subject.name as subject_name')
+        $return = HomeworkSubmitModel::select('homework_submit.*', 'class.name as class_name', 'subject.name as subject_name', 'homework.submission_limits as homework_submission_limits')
         ->join('homework','homework.id', '=','homework_submit.homework_id') 
         ->join('class','class.id', '=','homework.class_id') 
         ->join('subject','subject.id', '=','homework.subject_id')

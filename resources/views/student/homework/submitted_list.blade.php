@@ -141,6 +141,7 @@
                           @endif 
                         </td>
                         <td>
+                          <a href="{{ url('student/homework/my_submitted_homework/edit/'.$value->id) }}" class="btn btn-warning btn-sm">Edit</a>
                           <a href="{{ url('student/homework/my_submitted_homework/'.$value->id) }}" class="btn btn-primary btn-sm">Detail</a>
                         </td>
                          

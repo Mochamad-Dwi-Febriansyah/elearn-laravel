@@ -317,6 +317,8 @@ Route::group(['middleware' => 'student'], function() {
     //  Route::get('student/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
      Route::get('student/homework/my_submitted_homework', [HomeworkController::class, 'HomeworkSubmitedStudent']);
      Route::get('student/homework/my_submitted_homework/{id}', [HomeworkController::class, 'HomeworkSubmitedStudentDetail']);
+     Route::get('student/homework/my_submitted_homework/edit/{id}', [HomeworkController::class, 'HomeworkSubmitedStudentEdit']);
+     Route::post('student/homework/my_submitted_homework/edit/{id}', [HomeworkController::class, 'HomeworkSubmitedStudentEditSubmit']);
 
      // fees_collection
     //  Route::get('student/fees_collection', [FeesCollectionController::class, 'CollectFeesStudent']);

@@ -265,6 +265,30 @@ class HomeworkController extends Controller
         $data['header_title'] = "My Submited Homework"; 
         return view('student.homework.submitted_list_detail', $data);
     }
+    public function HomeworkSubmitedStudentEdit($id){
+        $data['getRecord'] = HomeworkSubmitModel::getSingleRecord($id); 
+        // dd($data['getRecord']);
+        $data['header_title'] = "My Submited Homework";
+        return view('student.homework.submitted_list_edit', $data);
+    }
+    public function HomeworkSubmitedStudentEditSubmit(Request $request, $id){
+        $homwork = HomeworkSubmitModel::getSingle($id); 
+        $homwork->submission_late = trim($request->submission_late);
+        if(!empty($request->file('document_file'))){ 
+            $ext = $request->file('document_file')->getClientOriginalExtension();
+            $file = $request->file('document_file');
+            $randomStr = date('Ymdhis').Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $file->move('upload/homework/', $filename);
+            
+            $homwork->document_file = $filename;
+        }
+        $homwork->description = trim($request->description);
+        
+        $homwork->save();
+        
+        return redirect('student/homework/my_submitted_homework')->with('success', 'Homework successfully Updated');
+    }
     
     // parent side
     public function HomeworkStudentParent($student_id){
