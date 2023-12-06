@@ -26,6 +26,7 @@ body{
     /* margin-top: -40px; */
     flex-wrap: wrap;
     flex-direction: column;
+    margin: 0 1rem;
 }
 .landing-page-title .title{
     /* color: var(--oren);  */
