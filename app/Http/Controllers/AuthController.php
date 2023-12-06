@@ -12,6 +12,9 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    public function welcome(){
+        return view('welcome_screen');
+    }
     public function Login(){
         if (!empty(Auth::check())){
             if(Auth::user()->user_type == 1){

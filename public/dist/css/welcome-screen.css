@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
+
+:root{
+    --bg : #fffefd;
+    --oren : #ff6f00;
+    --abu : #9f9f9f;
+    --hijau : #31cf5b;
+}
+
+*{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body{
+    background-color: var(--bg);
+}
+.landing-page-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    /* margin-top: -40px; */
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.landing-page-title .title{
+    /* color: var(--oren);  */
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+.landing-page-title .title-mini{
+    color: var(--oren); 
+    text-shadow: 3px 3px 2px var(--abu);
+    display: inline-block;
+    font-size: 4rem;
+} 
+.sub-title-login {
+    background-color: var(--hijau);
+    color: white;
+    display: inline-block;
+    padding: 0.4rem 2rem;
+    transform: rotate(-9deg);
+    margin:  0;
+    /* transform-origin: 20% ; */
+    transition: .2s;
+    position: absolute; 
+    margin-top: -14px;
+}
+.sub-title-login:hover{
+    transform: rotate(8deg); 
+}
+.sub-title-login a {
+    color: white;
+    font-weight: 500;
+}
+.jargon{
+    margin-top: 4rem;
+}
+
+.table-mandiri{
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    overflow-x: scroll;
+}
+
+th, td{
+    border: 1px solid var(--abu);
+    font-size: .7rem;
+    padding: .3rem .3rem;
+}

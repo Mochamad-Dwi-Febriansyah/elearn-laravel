@@ -37,7 +37,8 @@ use App\Http\Controllers\ChatController;
 //     return view('login');
 // });
 
-Route::get('/', [AuthController::class, 'Login']);
+Route::get('/', [AuthController::class, 'welcome']);
+Route::get('/login', [AuthController::class, 'Login']);
 Route::post('login', [AuthController::class, 'AuthLogin']);
 Route::get('logout', [AuthController::class, 'Logout']);
 Route::get('forgot-password', [AuthController::class, 'forgotpassword']);
