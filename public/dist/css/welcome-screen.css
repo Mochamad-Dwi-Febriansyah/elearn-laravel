@@ -29,7 +29,8 @@ body{
 
 }
 .landing-page-title{
-    margin: 0 1rem;
+    margin: 0 0.5rem;
+    padding: 0  1rem;
 }
 .landing-page-title .title{
     /* color: var(--oren);  */
