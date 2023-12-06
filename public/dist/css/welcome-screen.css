@@ -26,6 +26,9 @@ body{
     /* margin-top: -40px; */
     flex-wrap: wrap;
     flex-direction: column;
+
+}
+.landing-page-title{
     margin: 0 1rem;
 }
 .landing-page-title .title{
