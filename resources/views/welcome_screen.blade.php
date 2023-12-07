@@ -52,14 +52,15 @@
   
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Silahkan Cek</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDqglcAIZIjKFJT7WFRAP1QoTS3KooYL6-Jfeqkte3VrkkQdvp84HzqQdnrERBoAV4lzKvP0KzfrAY/pubhtml" frameborder="0" width="100%" height="400px"></iframe>
+                        {{-- <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDqglcAIZIjKFJT7WFRAP1QoTS3KooYL6-Jfeqkte3VrkkQdvp84HzqQdnrERBoAV4lzKvP0KzfrAY/pubhtml" frameborder="0" width="100%" height="400px"></iframe> --}}
+                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS9619v9gihAFhvT6kS8qMqdwiSQnonFKQYbMxe7Iel4YKr8BMGc477FASGwTSxIQ/pubhtml" frameborder="0" width="100%" height="400px"></iframe>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
