@@ -5,6 +5,7 @@
     --oren : #ff6f00;
     --abu : #9f9f9f;
     --hijau : #31cf5b;
+    --blu : #2E4A9E;
 }
 
 *{
@@ -42,9 +43,11 @@ body{
     text-shadow: 3px 3px 2px var(--abu);
     display: inline-block;
     font-size: 4rem;
+    font-weight: 600;
 } 
 .sub-title-login {
-    background-color: var(--hijau);
+    font-size: 1.4rem;
+    background-color: var(--blu);
     color: white;
     display: inline-block;
     padding: 0.4rem 2rem;
@@ -61,6 +64,7 @@ body{
 .sub-title-login a {
     color: white;
     font-weight: 500;
+    text-decoration: none;
 }
 .jargon{
     margin-top: 4rem;
@@ -70,11 +74,39 @@ body{
     width: 100%;
     margin-top: 1rem;
     border-collapse: collapse;
-    overflow-x: scroll;
+    overflow-x: scroll; 
 }
 
 th, td{
     border: 1px solid var(--abu);
     font-size: .7rem;
     padding: .3rem .3rem;
+}
+
+.img-guru{
+    position: absolute;
+    right: 5%;
+    bottom: 0;  
+}
+
+.img-guru img{
+    width: 300px;
+    height: auto;
+}
+
+ 
+@media screen and (max-width: 1024px){ 
+    .img-guru img{
+        bottom: 0; 
+        width: 200px;
+    } 
+}
+@media screen and (max-width: 866px){
+    .img-guru{ 
+        bottom: 0;  
+    }
+    .img-guru img{
+        width: 130px;
+    }
+
 }

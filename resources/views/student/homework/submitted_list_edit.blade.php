@@ -46,7 +46,7 @@
                   </div> 
                   <div class="form-group">
                     <label>Berkas</label>
-                    <input type="file" class="form-control" name="document_file" required>
+                    <input type="file" class="form-control" name="document_file">
                     @if (!empty($getRecord->getDocument())) 
                     {{ $getRecord->getDocument() }} 
                      @endif

@@ -15,10 +15,19 @@
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}"> 
+  {{-- <style>
+    
+    .bg-loginn{
+        background: url('dist/img/nature-landscape-muted-trees-wallpaper-preview.jpg') ;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+  </style> --}}
 </head>
-<body class="hold-transition login-page">
-    <div class="login-box">
+<body class="hold-transition login-page bg-loginn" >
+    <div class="login-box justify-content-center">
         <!-- /.login-logo -->
         <div class="card card-outline card-primary">
           <div class="card-header text-center">
@@ -32,7 +41,7 @@
             <form action="{{ url('login') }}" method="POST">
                 @csrf
               <div class="input-group mb-3">
-                <input type="text" class="form-control"  name="username" placeholder="Nisn/Email">
+                <input type="text" class="form-control"  name="username" placeholder="Nis/Email">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-envelope"></span>
