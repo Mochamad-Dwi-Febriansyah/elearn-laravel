@@ -50,6 +50,7 @@
             {{-- <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDqglcAIZIjKFJT7WFRAP1QoTS3KooYL6-Jfeqkte3VrkkQdvp84HzqQdnrERBoAV4lzKvP0KzfrAY/pubhtml" frameborder="0" width="100%" height="400px"></iframe> --}}
             {{-- <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDqglcAIZIjKFJT7WFRAP1QoTS3KooYL6-Jfeqkte3VrkkQdvp84HzqQdnrERBoAV4lzKvP0KzfrAY/pubhtml?widget=true&amp;headers=false"></iframe> --}}
   
+            
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
@@ -59,8 +60,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSDqglcAIZIjKFJT7WFRAP1QoTS3KooYL6-Jfeqkte3VrkkQdvp84HzqQdnrERBoAV4lzKvP0KzfrAY/pubhtml" frameborder="0" width="100%" height="400px"></iframe>
-                        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS9619v9gihAFhvT6kS8qMqdwiSQnonFKQYbMxe7Iel4YKr8BMGc477FASGwTSxIQ/pubhtml" frameborder="0" width="100%" height="400px"></iframe>
+                    {{-- <iframe src="https://docs.google.com/spreadsheets/d/1fZ4aas4UknIjU32IW5wndliHRz1-LKZm/edit?usp=sharing&ouid=106414017140429292013&rtpof=true&sd=true" frameborder="0" width="100%" height="500px"></iframe> --}}
+                    <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vS9619v9gihAFhvT6kS8qMqdwiSQnonFKQYbMxe7Iel4YKr8BMGc477FASGwTSxIQ/pubhtml?widget=true&amp;headers=false" width="100%" height="500px"></iframe>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
