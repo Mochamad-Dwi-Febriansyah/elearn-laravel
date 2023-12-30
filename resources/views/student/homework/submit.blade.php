@@ -41,12 +41,12 @@
                           $jarak = $tgl2->diff($tgl1);
                           $submissionlate= $jarak->d . "hari ".$jarak->h . "jam ".$jarak->i . "menit ";
                           ?>
-                    @endif 
+                    @endif
                     <input type="hidden" class="form-control" name="submission_late" value="{{ $submissionlate }}">
                   </div> 
                   <div class="form-group">
                     <label>Berkas</label>
-                    <input type="file" class="form-control" name="document_file" required>
+                    <input type="file" class="form-control" name="document_file">
                   </div> 
                   <div class="form-group">
                     <label>Deskripsi <span style="color: red">*</span></label>

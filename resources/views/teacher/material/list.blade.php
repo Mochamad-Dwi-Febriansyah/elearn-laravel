@@ -8,10 +8,10 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Homework</h1>
+            <h1>Material</h1>
           </div>
           <div class="col-sm-6" style="text-align: right">
-            <a href="{{ url('admin/homework/homework/add') }}" class="btn btn-primary">Add new Homework</a> 
+            <a href="{{ url('teacher/material/material/add') }}" class="btn btn-primary">Add new Material</a> 
           </div> 
         </div>
       </div> 
@@ -22,7 +22,7 @@
         <div class="row">  
           <div class="col-md-12">   
          
-            <div class="card">  
+            {{-- <div class="card">  
                 <div class="card-header">
                   <h3 class="card-title">Search Class</h3>
                 </div>
@@ -68,7 +68,7 @@
                     </div>
                   </div> 
                 </form>
-              </div>
+              </div> --}}
 
             @include('_message')
 
@@ -82,11 +82,10 @@
                     <tr>
                       <th>#</th>
                       <th>Class</th>
-                      <th>Subject</th>
-                      <th>Homework Date</th>
-                      <th>Submission To</th>
-                      <th>Submission Limits</th>
+                      <th>Subject</th> 
+                      <th>Material Title</th> 
                       <th>Document</th>
+                      <th>Description</th>
                       <th>Created By</th>
                       <th>Created Date</th>
                       <th>Action</th>
@@ -97,21 +96,19 @@
                         <tr>
                             <td>{{ $value->id }}</td>
                             <td>{{ $value->class_name }}</td>
-                            <td>{{ $value->subject_name }}</td>
-                            <td>{{ date('d-m-Y', strtotime($value->homework_date)) }}</td>
-                            <td>{{ date('d-m-Y', strtotime($value->submission_date)) }}</td>
-                            <td>{{ date('d-m-Y', strtotime($value->submission_limits)) }}</td>
+                            <td>{{ $value->subject_name }}</td> 
+                            <td>{{ $value->material_title }}</td> 
                             <td>
                                 @if (!empty($value->getDocument()))
                                     <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Download</a>
                                 @endif
-                            </td> 
+                            </td>
+                            <td>{{ $value->description }}</td>
                             <td>{{ $value->created_by_name }}</td>
                             <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                             <td>
-                                <a href="{{ url('admin/homework/homework/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ url('admin/homework/homework/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
-                                <a href="{{ url('admin/homework/homework/submitted/'.$value->id) }}" class="btn btn-success">Submitted Homework</a>
+                                <a href="{{ url('admin/material/material/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ url('admin/material/material/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     @empty

@@ -217,7 +217,7 @@ class HomeworkController extends Controller
     // student side
     public function HomeworkStudent(){
         $data['getRecord'] = HomeworkModel::getRecordStudent(Auth::user()->class_id, Auth::user()->id);
-        $data['header_title'] = "My Homework";
+        $data['header_title'] = "My Homework"; 
         return view('student.homework.list', $data);
     }
     // public function HomeworkStudentDetail($id){
@@ -257,7 +257,7 @@ class HomeworkController extends Controller
     }
     public function HomeworkSubmitedStudent(){
         $data['getRecord'] = HomeworkSubmitModel::getRecordStudent(Auth::user()->id);
-        $data['header_title'] = "My Submited Homework";
+        $data['header_title'] = "My Submited Homework"; 
         return view('student.homework.submitted_list', $data);
     }
     public function HomeworkSubmitedStudentDetail($submitted_id){

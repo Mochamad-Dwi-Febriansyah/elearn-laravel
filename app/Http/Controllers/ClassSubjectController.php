@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class ClassSubjectController extends Controller
 {
     public function list(){
-        $data['getRecord'] = ClassSubjectModel::getRecord();
+        $data['getRecord'] = ClassSubjectModel::getRecord(); 
         $data['header_title'] = "Subject Assign List";
         return view('admin.assign_subject.list', $data);
     }

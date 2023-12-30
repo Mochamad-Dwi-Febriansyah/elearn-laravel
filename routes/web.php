@@ -20,6 +20,8 @@ use App\Http\Controllers\CommunicateController;
 use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\FeesCollectionController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\JurnalController;
 
 
 /*
@@ -206,9 +208,17 @@ Route::group(['middleware' => 'admin'], function() {
     Route::get('admin/homework/homework/delete/{id}', [HomeworkController::class, 'delete']);
     
     Route::get('admin/homework/homework/submitted/{id}', [HomeworkController::class, 'submitted']); 
-
+    
     Route::get('admin/homework/homework_report', [HomeworkController::class, 'homework_report']);
     
+    //material
+    Route::get('admin/material/material', [MaterialController::class, 'material']);
+    Route::get('admin/material/material/add', [MaterialController::class, 'add']);
+    Route::post('admin/material/material/add', [MaterialController::class, 'material_add']); 
+    Route::get('admin/material/material/edit/{id}', [MaterialController::class, 'edit']);
+    Route::post('admin/material/material/edit/{id}', [MaterialController::class, 'update']);
+    Route::get('admin/material/material/delete/{id}', [MaterialController::class, 'delete']);
+
     // fees collection 
     Route::get('admin/fees_collection/collect_fees', [FeesCollectionController::class, 'collect_fees']);
     Route::get('admin/fees_collection/collect_fees_report', [FeesCollectionController::class, 'collect_fees_report']);
@@ -272,6 +282,17 @@ Route::group(['middleware' => 'teacher'], function() {
     Route::get('teacher/homework/homework/submitted/{id}', [HomeworkController::class, 'SubmittedTeacher']);
     Route::post('teacher/homework/homework/submitted/edit_nilai/{id_user}', [HomeworkController::class, 'SubmittedTeacherEditNilai']);
 
+     //material
+     Route::get('teacher/material/material', [MaterialController::class, 'materialTeacher']);
+     Route::get('teacher/material/material/add', [MaterialController::class, 'addTeacher']);
+     Route::post('teacher/material/material/add', [MaterialController::class, 'material_addTeacher']); 
+     Route::get('teacher/material/material/edit/{id}', [MaterialController::class, 'editTeacher']);
+     Route::post('teacher/material/material/edit/{id}', [MaterialController::class, 'updateTeacher']);
+     Route::get('teacher/material/material/delete/{id}', [MaterialController::class, 'deleteTeacher']);
+     
+     //material
+     Route::get('teacher/my_jurnal', [JurnalController::class, 'MyJurnal']);
+
 });
 Route::group(['middleware' => 'student'], function() {
     Route::get('student/dashboard', [DashboardController::class, 'dashboard']); 
@@ -328,6 +349,9 @@ Route::group(['middleware' => 'student'], function() {
     //  Route::get('student/paypal/payment-success', [FeesCollectionController::class, 'PaymentSuccess']);
     //  Route::get('student/stripe/payment-error', [FeesCollectionController::class, 'PaymentError']);
     //  Route::get('student/stripe/payment-success', [FeesCollectionController::class, 'PaymentSuccessStripe']);
+
+    Route::get('student/my_material', [MaterialController::class, 'MyMaterial']); 
+    Route::get('student/my_material/subject={subject_id}', [MaterialController::class, 'MyMaterialDetail']); 
 
 });
 Route::group(['middleware' => 'parent'], function() {

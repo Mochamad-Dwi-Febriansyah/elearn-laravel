@@ -87,13 +87,14 @@
                           {{ $value->tugas_title }}
                           @endif
                         </a> 
-                          <div style="float: right;">
-                            dibuat {{ date('d-m-Y', strtotime($value->created_at)) }}
+                        <div style="float: right;">
+                            <span style="font-size: 0.8em; font-weight: 400; margin-right: 5px">{{ $value->subject_name }}</span>
+                            <span style="font-size: 0.8em">dibuat {{ date('d-m-Y', strtotime($value->created_at)) }}</span>
                           </div>
                       </th>
                     </tr>
                     <tr>
-                      <td class="pl-5" style="max-width: 300px">{!! $value->description !!}</td>
+                      <td class="pl-5" style="max-width: 300px; font-size: .9em; line-height: normal">{!! $value->description !!}</td>
                     </tr>  
                     <td class="m-4 p-4 border-0"></td>
                 @empty 

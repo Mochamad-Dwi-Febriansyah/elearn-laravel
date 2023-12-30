@@ -114,7 +114,7 @@
                                 <a href="{{ $value->getHomework->getDocument() }}" class="btn btn-primary" download>Dwonload</a>
                             @endif
                         </td>
-                        <td>{!! $value->getHomework->description !!}</td> 
+                        <td style="display: block; max-height: 200px; overflow-y: hidden;">{!! $value->getHomework->description !!}</td> 
                         <td>{{ date('d-m-Y', strtotime($value->getHomework->created_at)) }}</td>
 
                         <td>

@@ -265,6 +265,23 @@
                 </li>         
               </ul>
             </li> 
+            <li class="nav-item @if(Request::segment(2) == 'material') menu-is-opening menu-open @endif">
+              <a href="#" class="nav-link @if(Request::segment(2) == 'material') active @endif">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Material
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ url('admin/material/material') }}" class="nav-link  @if(Request::segment(3) == 'material') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Material</p>
+                  </a>
+                </li>  
+              </ul>
+            </li> 
 
             <li class="nav-item">
               <a href="{{ url('admin/account') }}" class="nav-link  @if(Request::segment(2) == 'account') active @endif">
@@ -316,14 +333,14 @@
                 </p>
               </a>
             </li> 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="{{ url('teacher/my_exam_timetable') }}" class="nav-link  @if(Request::segment(2) == 'my_exam_timetable') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   My Exam Timetable
                 </p>
               </a>
-            </li> 
+            </li>  --}}
             <li class="nav-item">
               <a href="{{ url('teacher/my_calendar') }}" class="nav-link  @if(Request::segment(2) == 'my_calendar') active @endif">
                 <i class="nav-icon far fa-user"></i>
@@ -333,13 +350,21 @@
               </a>
             </li> 
             <li class="nav-item">
+              <a href="{{ url('teacher/my_jurnal') }}" class="nav-link  @if(Request::segment(2) == 'my_jurnal') active @endif">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  My Jurnal
+                </p>
+              </a>
+            </li> 
+            {{-- <li class="nav-item">
               <a href="{{ url('teacher/marks_register') }}" class="nav-link  @if(Request::segment(2) == 'marks_register') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   Marks Register
                 </p>
               </a>
-            </li> 
+            </li>  --}}
 
             <li class="nav-item @if(Request::segment(2) == 'attendance') menu-is-opening menu-open @endif">
               <a href="#" class="nav-link @if(Request::segment(2) == 'attendance') active @endif">
@@ -381,6 +406,23 @@
                     <p>Homework</p>
                   </a>
                 </li>     
+              </ul>
+            </li> 
+            <li class="nav-item @if(Request::segment(2) == 'material') menu-is-opening menu-open @endif">
+              <a href="#" class="nav-link @if(Request::segment(2) == 'material') active @endif">
+                <i class="nav-icon fas fa-table"></i>
+                <p>
+                  Material
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ url('teacher/material/material') }}" class="nav-link  @if(Request::segment(3) == 'material') active @endif">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Material</p>
+                  </a>
+                </li>  
               </ul>
             </li> 
            
@@ -472,6 +514,14 @@
                 <i class="nav-icon fas fa-edit"></i>
                 <p>
                   Kehadiran
+                </p>
+              </a>
+            </li> 
+            <li class="nav-item">
+              <a href="{{ url('student/my_material') }}" class="nav-link  @if(Request::segment(2) == 'my_material') active @endif">
+                <i class="nav-icon fas fa-edit"></i>
+                <p>
+                  Materi
                 </p>
               </a>
             </li> 
