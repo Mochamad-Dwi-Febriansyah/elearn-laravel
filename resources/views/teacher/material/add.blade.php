@@ -84,7 +84,7 @@
             });
 
             $('#getClass').change(function() {
-              var class_id = $(this).val();
+              var class_id = $(this).val(); 
               $.ajax({
                     type: "POST",
                     url: "{{ url('teacher/ajax_get_subject') }}",

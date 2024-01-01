@@ -37,6 +37,7 @@ class HomeworkController extends Controller
         $getSubject = ClassSubjectModel::MySubject($class_id);
         $html = '';
         $html .= '<option value="">Select Subject</option>';
+        // dd($getSubject);
         foreach ($getSubject as $value) {
             $html .= '<option value="'.$value->subject_id.'">'.$value->subject_name.'</option>';
         }

@@ -112,7 +112,7 @@ class ExaminationsController extends Controller
             $data['getStudent'] = User::getStudentClass($request->get('class_id'));
             
             
-        }
+        }  
         
         $data['header_title'] = "Marks Register";
         return view('admin.examinations.marks_register', $data);

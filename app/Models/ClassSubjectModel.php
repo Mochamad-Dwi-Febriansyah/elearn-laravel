@@ -57,7 +57,7 @@ return $return;
     }
 
     static public function MySubject($class_id){
-        return self::select('class_subject.*', 'subject.name as subject_name', 'subject.type as subject_type')
+        return self::select('class_subject.*', 'class.name as class_name','subject.name as subject_name', 'subject.type as subject_type')
         ->join('subject', 'subject.id', '=', 'class_subject.subject_id')
         ->join('class', 'class.id', '=', 'class_subject.class_id')
         ->join('users', 'users.id', '=', 'class_subject.created_by')
