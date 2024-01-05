@@ -84,32 +84,34 @@
                       <th>Class</th>
                       <th>Subject</th> 
                       <th>Timetable</th> 
-                      <th>Date</th>
-                      {{-- <th></th> --}}
+                      <th>Date</th> 
                       <th>Kompetensi Dasar</th>
                       <th>Indikator</th>
-                      <th>Point</th>
-                      <th>Created By</th>
-                      <th>Created At</th>
+                      <th>Point</th>  
+                      <th>Siswa Absent</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody> 
-                    @forelse ($getRecord as $value)
+                    @forelse ($getJurnal as $value)
                         <tr>
                             <td>{{ $value->id }}</td>
                             <td>{{ $value->class_name }}</td>
                             <td>{{ $value->subject_name }}</td> 
-                            <td>{{ $value->start_time }}</td>  
+                            <td>{{ $value->week_name }}, {{ $value->timetable_start }}-{{ $value->timetable_end }}</td>  
                             <td>{{ $value->jurnal_date }}</td>
                             <td>{{ $value->kd }}</td>
                             <td>{{ $value->indikator }}</td>
-                            <td>{{ $value->point }}</td>
-                            <td>{{ $value->created_by_name }}</td>
-                            <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
+                            <td>{{ $value->point }}</td> 
                             <td>
-                                <a href="{{ url('admin/material/material/edit/'.$value->id) }}" class="btn btn-primary">Edit</a>
-                                <a href="{{ url('admin/material/material/delete/'.$value->id) }}" class="btn btn-danger">Delete</a>
+                              @foreach ($value->student as $getJurnal)
+                                {{ $getJurnal['student_name'] }}, 
+                              @endforeach
+                            </td>
+                            <td>
+                                <a href="{{ url('teacher/my_jurnal/list/detail/'.$value->id) }}" class="btn btn-sm btn-info">Detail</a>
+                                <a href="{{ url('teacher/my_jurnal/list/edit/'.$value->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ url('teacher/my_jurnal/list/delete/'.$value->id) }}" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>
                     @empty
@@ -119,9 +121,9 @@
                     @endforelse
                   </tbody>
                 </table>
-                <div style="padding: 10px; float: right">
+                {{-- <div style="padding: 10px; float: right">
                     {!! $getRecord->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-                </div>
+                </div> --}}
               </div> 
             </div> 
           </div> 

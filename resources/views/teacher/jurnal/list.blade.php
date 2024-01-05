@@ -64,9 +64,9 @@
                       <label>Student Name Not Present</label><br>
                       <div style="display: flex; flex-direction: row; flex-wrap: wrap;">
                         <div class="mx-2" id="student_id">
-                          <label style="font-weight: normal; margin-right: 8px">
+                          {{-- <label style="font-weight: normal; margin-right: 8px">
                             <input type="checkbox" value="" name="" id="">
-                          </label> 
+                          </label>  --}}
                         </div> 
                       </div>
                     </div>  
@@ -109,6 +109,7 @@
     $(function() {
       $('#getClass').change(function() {
         var class_id = $(this).val();
+        // console.log(class_id);
         $.ajax({
           type: "POST",
           url: "{{ url('teacher/ajax_get_subject') }}",

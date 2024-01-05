@@ -18,7 +18,7 @@
         <div class="container-fluid"> 
             <div class="row">
                 @foreach ($getRecord as $value)     
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-md-4 col-sm-6 col-12">
                     <a href="{{ url('student/my_material/subject='.$value->subject_id) }}">
                         <div class="info-box bg-info">
                             <span class="info-box-icon"><i class="far fa-bookmark"></i></span>

@@ -293,6 +293,7 @@ Route::group(['middleware' => 'teacher'], function() {
      //material
      Route::get('teacher/my_jurnal', [JurnalController::class, 'MyJurnal']);
      Route::get('teacher/my_jurnal/list', [JurnalController::class, 'MyJurnalList']);
+     Route::get('teacher/my_jurnal/list/detail/{id}', [JurnalController::class, 'MyJurnalListDetail']);
      Route::post('teacher/my_jurnal', [JurnalController::class, 'MyJurnalAdd']);
      Route::post('teacher/ajax_get_timetable', [JurnalController::class, 'ajax_get_timetable']);
      Route::post('teacher/ajax_get_student', [JurnalController::class, 'ajax_get_student']);

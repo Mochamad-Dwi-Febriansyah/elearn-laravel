@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\JurnalModelModel;
 use App\Models\ClassSubjectModel;
 use App\Models\AssignClassTeacherModel;
 use App\Models\WeekModel;
 use App\Models\User;
 use App\Models\ClassSubjectTimetableModel;
 use App\Models\JurnalModel;
+use App\Models\JurnalStudentAreAbsentModel;
 use Illuminate\Support\Facades\Auth;
 
 class JurnalController extends Controller
@@ -20,6 +20,8 @@ class JurnalController extends Controller
     //     return view('teacher.jurnal.list', $data);
     // }
     public function MyJurnal(Request $request){
+        $data['getRecord'] = JurnalModel::getRecord();
+        // dd($data['getRecord']);
         $data['getClass'] = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
         
         if(!empty($request->get('class_id')) || !empty($request->get('subject_id'))){
@@ -32,10 +34,47 @@ class JurnalController extends Controller
         return view('teacher.jurnal.list', $data);
     }
     public function MyJurnalList(){
-        $data['getRecord'] = JurnalModel::getRecord();
+        $data['getJurnal'] = JurnalModel::getRecord();
+        $data['getStudentJurnal'] = JurnalStudentAreAbsentModel::getRecord();
+        // dd($data['getStudentJurnal']); 
+        foreach($data['getJurnal'] as $jurnal){
+            $arrJurnalStudent = array();
+            foreach($data['getStudentJurnal'] as $studentJurnal){
+                if($studentJurnal->jurnal_id == $jurnal->id){
+                    $dtst['student_id'] = $studentJurnal->student_id; 
+                    $dtst['student_name'] = $studentJurnal->name.$studentJurnal->last_name; 
+                    $arrJurnalStudent[] = $dtst; 
+                }
+            }  
+            $jurnal->student = $arrJurnalStudent;
+        }
+        // $data['getJurnal']->student = $arrJurnalStudent; 
+        
         $data['header_title'] = "Jurnal List";
         return view('teacher.jurnal.myList', $data);
     }
+    // public function MyJurnalList(){
+    //     $data['getRecord'] = JurnalModel::getRecord();
+    //     dd($data['getRecord']);
+    //     $data['header_title'] = "Jurnal List";
+    //     return view('teacher.jurnal.myList', $data);
+    // }
+    // public function MyJurnalListDetail($id){
+ 
+    //     $data['getJurnal'] = JurnalModel::getSingle($id);
+    //     $data['getStudentJurnal'] = JurnalStudentAreAbsentModel::getRecordStudentByJurnal($data['getJurnal']->id);
+    //     // $data['getJurnal']->student = $data['getStudentJurnal'];
+    //     // dd($data['getStudentJurnal']);
+    //     $arr=array();
+    //     foreach($data['getStudentJurnal'] as $student){
+    //         $dtst['student_id'] = $student->student_id; 
+    //         $dtst['student_name'] = $student->name.$student->last_name; 
+    //         $arr[] = $dtst;
+    //     }
+    //     $data['getJurnal']->student =$arr; 
+    //     // dd($data['getJurnal']);
+    //     return view('teacher.jurnal.myListDetail', $data);
+    // }
    
     public function ajax_get_timetable(Request $request){ 
         $html = '';
@@ -82,9 +121,9 @@ class JurnalController extends Controller
         $getStudent = User::getTeacherStudentGet($class_id);
         // dd($getStudent->count());
         $html = '';
-        $html .= '<label style="font-weight: normal; margin-right: 8px">
-                        <input type="checkbox" value="" name="" id="">
-                </label>';
+        // $html .= '<label style="font-weight: normal; margin-right: 8px">
+        //                 <input type="checkbox" value="" name="" id="">
+        //         </label>';
         foreach($getStudent as $value){
             $html .= '<label style="font-weight: normal; margin-right: 8px">
                             <input type="checkbox" value="'.$value->id.'" name="student_id[]" id="">'.$value->name.$value->last_name.'
@@ -94,32 +133,41 @@ class JurnalController extends Controller
         echo json_encode($json);
     }
     public function MyJurnalAdd(Request $request){
-        // dd($request->all());
+        // dd(date('Ymd'));
+        $getJurnalDateCreate = JurnalModel::getAlreadyDateCreate($request->jurnal_date); 
+        $dateNow = date('Ymd');
+        $tokenAksesJurnal = $dateNow."0".$getJurnalDateCreate; 
+
+        $save = new JurnalModel;
+        $save->token_akses_jurnal = $tokenAksesJurnal;
+        $save->class_id = $request->class_id;
+        $save->subject_id = $request->subject_id;
+        $save->timetable_id = $request->timetable_id;
+        $save->jurnal_date = $request->jurnal_date; 
+        $save->kd = $request->kd;
+        $save->indikator = $request->indikator;
+        $save->point = $request->point;
+        $save->status = 0;
+        $save->created_by = Auth::user()->id;
+        $save->save();
+
         if(!empty($request->student_id)){
+            $getJurnalByToken = JurnalModel::getSingleByTokenAkses($tokenAksesJurnal); 
             foreach($request->student_id as $student_id){
-                $getAlreadyFirst = JurnalModel::getAlreadyFirst($request->class_id, $request->subject_id , $student_id);
+                $getAlreadyFirst = JurnalStudentAreAbsentModel::getAlreadyFirst($getJurnalByToken->id, $student_id);
                 if(!empty($getAlreadyFirst)){
-                    $getAlreadyFirst->status = $request->status;
+                    $getAlreadyFirst->status = 1;
                     $getAlreadyFirst->save();
                 }else{
-                    $save = new JurnalModel;
-                    $save->class_id = $request->class_id;
-                    $save->subject_id = $request->subject_id;
-                    $save->timetable_id = $request->timetable_id;
-                    $save->jurnal_date = $request->jurnal_date;
+                    $save = new JurnalStudentAreAbsentModel;
+                    $save->jurnal_id = $getJurnalByToken->id;
                     $save->student_id = $student_id;
-                    $save->kd = $request->kd;
-                    $save->indikator = $request->indikator;
-                    $save->point = $request->point;
-                    $save->status = $request->status;
-                    $save->created_by = Auth::user()->id;
+                    $save->status = 0;
                     $save->save();
                 }
-
             }
-            return redirect('teacher/my_jurnal')->with('success', "Subject Successfully Assign to Class");
-       }else{
-            return redirect()->back()->with('error', "Due to some error pls try again");
-       }
+            
+        } 
+        return redirect('teacher/my_jurnal')->with('success', "Subject Successfully Add Jurnal");
     }
 }
