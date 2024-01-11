@@ -126,12 +126,27 @@ class HomeworkController extends Controller
     // teacher side
     public function HomeworkTeacher(){
         $class_ids = array(); 
-        $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
+        $record = array();  
+        $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id); 
+        // dd($getClass);
+        // foreach ($getClass as $class) { 
+        //     $class_ids[] = $class->class_id;
+        // }
         foreach ($getClass as $class) {
-            $class_ids[] = $class->class_id;
+            $p = HomeworkModel::getRecordTeacher($class->class_id) ;
+            $record[] = $p;
         }
-        $data['getRecord'] = HomeworkModel::getRecordTeacher($class_ids);
+        // $columns = array_combine($record);
+        // $data['getRecord'] = HomeworkModel::getRecordTeacher($class_ids) ; 
+        // dd($data['getRecord']);
         $data['header_title'] = "Homework List";
+        $data['getRecord'] = array(); 
+        foreach ($record as $rc) {
+            foreach ($rc as $q) {
+                $data['getRecord'][] = $q;
+            }
+        }
+        // dd($data['getRecord']);
         return view('teacher.homework.list', $data);
     }
     public function addTeacher(){ 

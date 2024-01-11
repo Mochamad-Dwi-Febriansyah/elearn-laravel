@@ -90,15 +90,38 @@ class MaterialController extends Controller
     }
 
     //teacher
+    // public function materialTeacher(){
+    //     $class_ids = array(); 
+    //     $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
+    //     foreach ($getClass as $class) {
+    //         $class_ids[] = $class->class_id;
+    //     }  
+    //     $data['getRecord'] = MaterialModel::getRecordTeacher($class_ids);
+        
+    //     $data['header_title'] = "Material List";
+    //     return view('teacher.material.list', $data);
+    // }
     public function materialTeacher(){
         $class_ids = array(); 
+        $record = array();  
+        $data['getRecord'] = array(); 
         $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
+        // foreach ($getClass as $class) {
+        //     $class_ids[] = $class->class_id;
+        // } 
         foreach ($getClass as $class) {
-            $class_ids[] = $class->class_id;
+            $p = MaterialModel::getRecordTeacher($class->class_id);
+            $record[] = $p;
         } 
-        $data['getRecord'] = MaterialModel::getRecordTeacher($class_ids);
+        foreach ($record as $rc) {
+            foreach ($rc as $q) {
+                $data['getRecord'][] = $q;
+            }
+        }
+        // dd($data['getRecord']);
         $data['header_title'] = "Material List";
-        return view('teacher.material.list', $data);
+        return view('teacher.material.list', $data); 
+       
     }
     public function addTeacher(){ 
         $data['getClass'] = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
