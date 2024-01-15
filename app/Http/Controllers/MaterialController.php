@@ -158,7 +158,7 @@ class MaterialController extends Controller
         $data['header_title'] = 'Edit Material';
         return view('teacher.material.edit', $data);
     }
-    public function updateTeacher(Request $request, $id){
+    public function updateTeacher(Request $request, $id){ 
         $homwork = MaterialModel::getSingle($id); 
         $homwork->class_id = trim($request->class_id);
         $homwork->subject_id = trim($request->subject_id);
@@ -180,7 +180,7 @@ class MaterialController extends Controller
         return redirect('teacher/material/material')->with('success', 'Material successfully Updated');
     }
 
-    public function deleteTeacher($id){
+    public function deleteTeacher($id){ 
         $getRecord = MaterialModel::getSingle($id);
         if(!empty($getRecord)){
             $getRecord->is_delete = 1;
