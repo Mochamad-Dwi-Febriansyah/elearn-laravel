@@ -42,7 +42,7 @@
                         <option value="{{ Request::get('subject_id') }}">Select Subject</option> 
                       </select> 
                     </div> 
-                  <div class="form-group col-md-2">
+                  <div class="form-group col-md-3">
                     <label>Timetable<span style="color: red">*</span></label><br>
                     <select name="timetable_id" id="getTimetable"  class="form-control">
                       <option value="{{ Request::get('timetable_id') }}">Select Timetable</option> 

@@ -57,7 +57,7 @@ class StudentAttendanceModel extends Model
     }
     static public function getRecordTeacher($class_ids){
         if(!empty($class_ids)){
-            $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdby.name as created_name')
+            $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdBy.name as created_name')
             ->join('class', 'class.id', '=','student_attendance.class_id')
             ->join('subject', 'subject.id', '=','student_attendance.subject_id')
             ->join('users as student', 'student.id', '=','student_attendance.student_id')

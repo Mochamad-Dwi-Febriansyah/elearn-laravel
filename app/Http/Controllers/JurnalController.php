@@ -79,7 +79,7 @@ class JurnalController extends Controller
         // dd($data['getJurnal']);
         
         $data['header_title'] = "Jurnal List";
-        return view('teacher.jurnal.Mylist', $data);
+        return view('teacher.jurnal.myList', $data);
     }
     // public function MyJurnalList(){
     //     $data['getRecord'] = JurnalModel::getRecord();
