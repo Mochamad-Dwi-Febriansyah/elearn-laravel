@@ -17,7 +17,7 @@ class StudentAttendanceModel extends Model
         return StudentAttendanceModel::where('class_id','=',$class_id)->where('subject_id','=',$subject_id)->where('timetable_id','=',$timetable_id)->where('attendance_date','=',$attendance_date)->first();
     }
     static public function getRecord($remove_pagination = 0){
-        $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdby.name as created_name')
+        $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdBy.name as created_name')
                                 ->join('class', 'class.id', '=','student_attendance.class_id')
                                 ->join('users as student', 'student.id', '=','student_attendance.student_id')
                                 ->join('users as createdBy', 'createdBy.id', '=','student_attendance.created_by');
@@ -120,7 +120,7 @@ class StudentAttendanceModel extends Model
        
     }
     static public function getRecordTeacherClassSubjectBaru($class_id, $subject_id){ 
-            $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdby.name as created_name')
+            $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdBy.name as created_name')
             ->join('class', 'class.id', '=','student_attendance.class_id')
             ->join('subject', 'subject.id', '=','student_attendance.subject_id')
             ->join('users as student', 'student.id', '=','student_attendance.student_id')
@@ -138,7 +138,7 @@ class StudentAttendanceModel extends Model
 
     static public function getRecordTeacherClassSubject($class_id, $subject_id){
         if(!empty($class_id)){
-            $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdby.name as created_name')
+            $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdBy.name as created_name')
             ->join('class', 'class.id', '=','student_attendance.class_id')
             ->join('subject', 'subject.id', '=','student_attendance.subject_id')
             ->join('users as student', 'student.id', '=','student_attendance.student_id')
