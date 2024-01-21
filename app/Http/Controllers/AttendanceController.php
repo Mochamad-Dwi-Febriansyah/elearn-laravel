@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportAttendance;
 use App\Models\ClassSubjectModel;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf as PDF; 
 
 class AttendanceController extends Controller
 {
@@ -163,7 +163,7 @@ class AttendanceController extends Controller
         //
         }
         }
-        $pdf = Pdf::loadView('teacher.attendance.export_attendance', $data)->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('teacher.attendance.export_attendance', $data)->setPaper('a4', 'landscape');
 
         return $pdf->download('Atttendance.pdf');
     }
