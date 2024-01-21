@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportAttendance;
 use App\Models\ClassSubjectModel;
-use Barryvdh\DomPDF\Facade\Pdf;
-use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade\Pdf; 
 
 class AttendanceController extends Controller
 {
@@ -164,15 +163,9 @@ class AttendanceController extends Controller
         //
         }
         }
-        // $pdf = Pdf::loadView('teacher.attendance.export_attendance', $data)->setPaper('a4', 'landscape');
-        $pdf = new Dompdf();
-        $pdf->loadHTML(View('teacher.attendance.export_attendance', $data));
-        $pdf->setPaper('a4', 'landscape');
+        $pdf = Pdf::loadView('teacher.attendance.export_attendance', $data)->setPaper('a4', 'landscape');
 
-        $pdf->render();
-
-        return $pdf->stream('Atttendance.pdf');
-        // return $pdf->download('Atttendance.pdf');
+        return $pdf->download('Atttendance.pdf');
     }
     public function cekAttendance(Request $request){
         $check_attendance = StudentAttendanceModel::CheckAlreadyAttendanceCekAttendance($request->class_id,$request->subject_id,$request->timetable_id,$request->attendance_date);
