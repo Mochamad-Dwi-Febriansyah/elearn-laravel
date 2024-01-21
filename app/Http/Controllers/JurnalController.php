@@ -11,6 +11,9 @@ use App\Models\ClassSubjectTimetableModel;
 use App\Models\JurnalModel;
 use App\Models\JurnalStudentAreAbsentModel;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportJurnal;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class JurnalController extends Controller
 { 
@@ -19,6 +22,29 @@ class JurnalController extends Controller
     //     $data['header_title'] = "Material List";
     //     return view('teacher.jurnal.list', $data);
     // }
+    public function export_excel(Request $request){
+        return Excel::download(new ExportJurnal,  'Jurnal_'.date('d-m-Y').'.xls');
+    }
+    public function export_pdf(Request $request){
+        $data['getClass'] = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
+        $data['getJurnal'] = JurnalModel::getRecord($remove_pagination = 1);
+        $data['getStudentJurnal'] = JurnalStudentAreAbsentModel::getRecord();
+        // dd($data['getStudentJurnal']); 
+        foreach($data['getJurnal'] as $jurnal){
+            $arrJurnalStudent = array();
+            foreach($data['getStudentJurnal'] as $studentJurnal){
+                if($studentJurnal->jurnal_id == $jurnal->id){
+                    $dtst['student_id'] = $studentJurnal->student_id; 
+                    $dtst['student_name'] = $studentJurnal->name.$studentJurnal->last_name; 
+                    $arrJurnalStudent[] = $dtst; 
+                }
+            }  
+            $jurnal->student = $arrJurnalStudent;
+        }
+        // dd($data['getJurnal']);
+        $pdf = Pdf::loadView('teacher.jurnal.export_jurnal', $data)->setPaper('a4', 'landscape');
+        return $pdf->download('Jurnal.pdf');
+    }
     public function MyJurnal(Request $request){
         $data['getRecord'] = JurnalModel::getRecord();
         // dd($data['getRecord']);
@@ -34,6 +60,7 @@ class JurnalController extends Controller
         return view('teacher.jurnal.list', $data);
     }
     public function MyJurnalList(){
+        $data['getClass'] = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
         $data['getJurnal'] = JurnalModel::getRecord();
         $data['getStudentJurnal'] = JurnalStudentAreAbsentModel::getRecord();
         // dd($data['getStudentJurnal']); 
@@ -49,9 +76,10 @@ class JurnalController extends Controller
             $jurnal->student = $arrJurnalStudent;
         }
         // $data['getJurnal']->student = $arrJurnalStudent; 
+        // dd($data['getJurnal']);
         
         $data['header_title'] = "Jurnal List";
-        return view('teacher.jurnal.myList', $data);
+        return view('teacher.jurnal.Mylist', $data);
     }
     // public function MyJurnalList(){
     //     $data['getRecord'] = JurnalModel::getRecord();
@@ -145,8 +173,10 @@ class JurnalController extends Controller
         $save->timetable_id = $request->timetable_id;
         $save->jurnal_date = $request->jurnal_date; 
         $save->kd = $request->kd;
-        $save->indikator = $request->indikator;
-        $save->point = $request->point;
+        $save->indikator = $request->indikator; 
+        $save->catatan = $request->catatan; 
+        $save->semester = $request->semester; 
+        $save->tahun_ajaran = $request->tahun_ajaran; 
         $save->status = 0;
         $save->created_by = Auth::user()->id;
         $save->save();

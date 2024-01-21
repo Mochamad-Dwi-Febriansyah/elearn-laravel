@@ -21,13 +21,38 @@
           <!-- /.col -->
           <div class="col-md-12"> 
             <!-- /.card -->
- 
+            <div class="card">  
+              <div class="card-header">
+                <h3 class="card-title">Search Student Report</h3>
+              </div>
+              <form method="GET" action=""> 
+                <div class="card-body">
+                  <div class="row">  
+                    <div class="form-group col-md-2">
+                      <label>Class</label>
+                      <select name="class_id" class="form-control">
+                        <option value="">Select</option>
+                        @foreach ($getClass as $class)
+                            <option {{ (Request::get('class_id') == $class->class_id) ? 'selected' : '' }} value="{{ $class->class_id }}">{{ $class->class_name }}</option>
+                        @endforeach
+                      </select>
+                    </div>   
+                    <div class="form-group col-md-4">  
+                      <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Search</button>
+                      <a href="{{ url('teacher/my_student') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>
+                    </div> 
+                  </div>
+                </div> 
+              </form>
+            </div> 
+
 
             @include('_message')
 
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">My Student List</h3> 
+                <p style="float: right">{{ $jumlah_siswa }}</p>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0" style="overflow: auto">

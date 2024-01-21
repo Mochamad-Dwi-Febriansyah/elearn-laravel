@@ -78,10 +78,28 @@
                       <label>Indikator</label><br>
                       <textarea name="indikator" id="" cols="40" rows="5"></textarea>
                     </div>
+             
                     <div class="form-group col-md-4">  
-                      <label>point</label><br>
-                      <input type="number" name="point" id="">
+                      <label>Catatan</label><br>
+                      <textarea name="catatan" id="" cols="40" rows="5"></textarea>
                     </div>
+                    <div class="form-group col-md-2">  
+                      <label>Semester</label><br>
+                      <select name="semester"class="form-control">
+                        <option value="">Select Semester</option> 
+                        <option value="1">1</option> 
+                        <option value="2">2</option> 
+                      </select> 
+                    </div>
+                    <div class="form-group col-md-2">  
+                      <label>Tahun Ajaran</label><br>
+                      <select name="tahun_ajaran"class="form-control">
+                        <option value="">Select Tahun</option> 
+                        <option value="2024">2024</option> 
+                        <option value="2025">2025</option> 
+                      </select> 
+                    </div>
+             
                     <div class="form-group col-md-3">  
                       <button class="btn btn-primary" type="submit" style="margin-top: 30px;">Add</button>
                       <a href="{{ url('teacher/my_jurnal') }}" class="btn btn-success" style="margin-top: 30px;">Reset</a>

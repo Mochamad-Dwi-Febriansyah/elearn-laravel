@@ -28,6 +28,31 @@
 
             <div class="card">
               <div class="card-header">
+                <h3 class="card-title">My Class</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0" style="overflow-x:auto;">
+                <table class="table table-striped">
+                  <thead>
+                    <tr> 
+                      <th>Class Name</th>  
+                    </tr>
+                  </thead>
+                  <tbody> 
+                    @foreach ($getClass as $value)
+                    <tr> 
+                        <td>{{ $value->class_name }}</td> 
+                    </tr> 
+                    @endforeach
+                  </tbody>
+                </table>
+               
+              </div>
+              <!-- /.card-body -->
+            </div>
+
+            <div class="card">
+              <div class="card-header">
                 <h3 class="card-title">My Class & Subject List</h3>
               </div>
               <!-- /.card-header -->

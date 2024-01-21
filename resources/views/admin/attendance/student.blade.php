@@ -79,6 +79,7 @@
                                         <td>{{ $value->id }}</td>
                                         <td>{{ $value->name }} {{ $value->last_name }}</td>
                                         <td>
+                                          
                                             <label style="margin-right: 10px;">
                                                 <input value="1" type="radio" {{ ($attendance_type == '1') ? 'checked' : '' }} id="{{ $value->id }}"  class="SaveAttendance" name="attendance{{ $value->id }}">Present
                                             </label>

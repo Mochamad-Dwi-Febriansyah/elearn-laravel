@@ -265,7 +265,11 @@ Route::group(['middleware' => 'teacher'], function() {
     // attendance
     Route::get('teacher/attendance/student', [AttendanceController::class, 'AttendanceStudentTeacher']);
     Route::post('teacher/attendance/student/save', [AttendanceController::class, 'AttendanceStudentSubmit']);
+    Route::post('teacher/attendance/student/generate', [AttendanceController::class, 'AttendanceStudentGenerate']);
     Route::get('teacher/attendance/report', [AttendanceController::class, 'AttendanceReportTeacher']);
+    Route::get('teacher/attendance/report/reportbyclass', [AttendanceController::class, 'AttendanceReportTeacherByClass']);
+    Route::get('teacher/attendance/report/reportbyclass/export_pdf', [AttendanceController::class, 'export_pdf']);
+    Route::post('teacher/attendance/student/cekAttendance', [AttendanceController::class, 'cekAttendance']);
 
     // my_notice_board
     Route::get('teacher/my_notice_board', [CommunicateController::class, 'MyNoticeBoardTeacher']);
@@ -295,6 +299,8 @@ Route::group(['middleware' => 'teacher'], function() {
      Route::get('teacher/my_jurnal/list', [JurnalController::class, 'MyJurnalList']);
      Route::get('teacher/my_jurnal/list/detail/{id}', [JurnalController::class, 'MyJurnalListDetail']);
      Route::post('teacher/my_jurnal', [JurnalController::class, 'MyJurnalAdd']);
+     Route::post('teacher/my_jurnal/list/export_excel', [JurnalController::class, 'export_excel']);
+     Route::get('teacher/my_jurnal/list/export_pdf', [JurnalController::class, 'export_pdf']);
      Route::post('teacher/ajax_get_timetable', [JurnalController::class, 'ajax_get_timetable']);
      Route::post('teacher/ajax_get_student', [JurnalController::class, 'ajax_get_student']);
 

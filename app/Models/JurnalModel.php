@@ -41,7 +41,7 @@ class JurnalModel extends Model
                         ->where('student_id', '=', $student_id)
                         ->first();
     } 
-    static public function getRecord(){ 
+    static public function getRecord($remove_pagination = 0){ 
         $return  = self::select('jurnal.*', 'class_subject_timetable.start_time as timetable_start','class_subject_timetable.end_time as timetable_end', 'week.name as week_name', 'class.name as class_name', 'subject.name as subject_name', 'users.name as created_by_name')
                         ->join('subject', 'subject.id', '=', 'jurnal.subject_id')
                         ->join('class', 'class.id', '=', 'jurnal.class_id')
@@ -50,8 +50,8 @@ class JurnalModel extends Model
                         ->join('week', 'class_subject_timetable.week_id', '=', 'week.id')
                         // ->join('jurnal_student_are_absent', 'jurnal_student_are_absent.jurnal_id', '=', 'jurnal.id')
                         ->where('jurnal.is_delete', '=', 0) ;
-                        if(!empty(Request::get('class_name'))){
-                            $return = $return->where('class.name', 'like', '%'. Request::get('class_name'). '%');
+                        if(!empty(Request::get('class_id'))){
+                            $return = $return->where('class.id', 'like', '%'. Request::get('class_id'). '%');
                         }
                         if(!empty(Request::get('subject_name'))){
                             $return = $return->where('subject.name','like', '%'. Request::get('subject_name'). '%');
@@ -59,8 +59,12 @@ class JurnalModel extends Model
                         if(!empty(Request::get('date'))){
                             $return = $return->whereDate('subject.created_at', '=', Request::get('date'));
                         }
-                        $return = $return->orderBy('jurnal.id', 'desc')
-                        ->paginate(20);
+                        $return = $return->orderBy('jurnal.id', 'desc');
+                        if(!empty($remove_pagination)){
+                            $return = $return->get();
+                        }else{
+                            $return = $return->paginate(50);
+                        }
         
         return $return;
 

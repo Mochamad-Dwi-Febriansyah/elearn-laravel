@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash; 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User; 
+use App\Models\AssignClassTeacherModel; 
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportStudent;
@@ -158,7 +159,9 @@ class StudentController extends Controller
     // teacher side work
     public function MyStudent(){
         $data['getRecord'] = User::getTeacherStudent(Auth::user()->id);
+        $data['getClass'] = AssignClassTeacherModel::getMyAssigenClass(Auth::user()->id); 
         $data['header_title'] = "My Student List";
+        $data['jumlah_siswa'] = count($data['getRecord']);
         return view('teacher.my_student', $data);
     }
 }

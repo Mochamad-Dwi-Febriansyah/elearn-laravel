@@ -189,6 +189,9 @@ class User extends Authenticatable
                             ->where('assign_class_teacher.is_delete', '=',0)
                             ->where('users.user_type', '=',3)
                             ->where('users.is_delete', '=',0); 
+                            if(!empty(Request::get('class_id'))){
+                                $return = $return->where('users.class_id', 'like', '%'. Request::get('class_id'). '%');
+                            }
         $return = $return->orderBy('users.id', 'desc') 
                             ->groupBy('users.id')
                             ->paginate(20);

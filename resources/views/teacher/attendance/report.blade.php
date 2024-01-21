@@ -48,14 +48,14 @@
                         @endforeach
                       </select>
                     </div>  
-                    <div class="form-group col-md-2">
+                    {{-- <div class="form-group col-md-2">
                       <label>Start Attendance Date</label>
                     <input type="date" name="start_attendance_date" value="{{ Request::get('start_attendance_date') }}" class="form-control">
                     </div>  
                     <div class="form-group col-md-2">
                       <label>End Attendance Date</label>
                     <input type="date" name="end_attendance_date" value="{{ Request::get('end_attendance_date') }}" class="form-control">
-                    </div>   
+                    </div>    --}}
                     <div class="form-group col-md-2">
                       <label>Attendance Type</label>
                       <select name="attendance_type" class="form-control">
@@ -75,9 +75,13 @@
               </form>
             </div> 
 
+  
+
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Attendance list</h3>
+                    <h3 class="card-title">Attendance list</h3> 
+                    <a href="{{ url('teacher/attendance/report/reportbyclass') }}" class="btn btn-info" style="float: right;">Report By Class</a>
+                   
                 </div>
                 <div class="card-body p-0" style="overflow: auto">
                     <table class="table table-striped">
@@ -171,5 +175,40 @@
             }
         });
     });
+    $(function() {
+    $('#getClass').change(function() {
+      var class_id = $(this).val();
+      // console.log(class_id);
+      $.ajax({
+        type: "POST",
+        url: "{{ url('teacher/ajax_get_subject') }}",
+        data: {
+          '_token' : '{{ csrf_token() }}',
+          class_id : class_id
+        },
+        dataType : "json",
+        success : function(data){
+          $('#getSubject').html(data.success);
+        }  
+      }); 
+      $('#getSubject').change(function() { 
+        var subject_id = $(this).val();
+        $.ajax({
+          type : "POST",
+          url : "{{ url('teacher/ajax_get_timetable') }}",
+          data : {
+            '_token' : '{{ csrf_token() }}',
+            class_id : class_id,
+            subject_id : subject_id
+          },
+          dataType : "json",
+          success : function(data){
+            $('#getTimetable').html(data.success);
+          }
+        });
+      });
+    });
+      
+  });
     </script>
 @endsection

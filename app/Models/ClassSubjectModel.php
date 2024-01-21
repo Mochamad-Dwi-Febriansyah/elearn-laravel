@@ -83,6 +83,14 @@ return $return;
                         ->where('subject_id', '=', $subject_id)
                         ->first();
     }
+    static public function getAlreadyFirstKhusus($class_id, $subject_id){
+        return self::select('class_subject.id' ,'subject.name as subject_name', 'class.name as class_name')
+                        ->join('subject', 'subject.id', '=', 'class_subject.subject_id')
+                        ->join('class', 'class.id', '=', 'class_subject.class_id')
+                        ->where('class_id', '=', $class_id)
+                        ->where('subject_id', '=', $subject_id)
+                        ->first();
+    }
     static public function getAssignSubjectID($class_id){
         return self::where('class_id', '=', $class_id)
                         ->where('is_delete', '=', 0)

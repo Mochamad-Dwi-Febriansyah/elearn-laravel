@@ -74,8 +74,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Homework List</h3>
-              </div> 
+                <h3 class="card-title">Homework List</h3> 
               <div class="card-body p-0" style="overflow-x:auto;">
                 <table class="table table-striped">
                   <thead>

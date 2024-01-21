@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportAttendance;
+use App\Models\ClassSubjectModel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AttendanceController extends Controller
 {
@@ -23,6 +25,28 @@ class AttendanceController extends Controller
         $data['header_title'] = "Attendance Student";  
         return view('admin.attendance.student', $data);
     }
+    public function AttendanceStudentGenerate(Request $request){
+        $getStudent = User::getStudentClass($request->get('class_id'));
+        foreach($getStudent as $student){
+            $check_attendance = StudentAttendanceModel::CheckAlreadyAttendance($student->id,$request->class_id,$request->attendance_date);
+            if(!empty($check_attendance)){
+                $attendance = $check_attendance;
+            }else{
+                $attendance = new StudentAttendanceModel;
+                $attendance->student_id = $student->id;
+                $attendance->class_id = $request->class_id;
+                $attendance->subject_id = $request->subject_id;  
+                $attendance->timetable_id = $request->timetable_id;  
+                $attendance->attendance_date = $request->attendance_date;
+                $attendance->created_by = Auth::user()->id;
+                $attendance->attendance_type = 1;
+            }
+            $attendance->save();
+
+        }
+        $json['message'] = "Attendance Successfully Generated";
+        echo json_encode($json);
+    }
     public function AttendanceStudentSubmit(Request $request){
         $check_attendance = StudentAttendanceModel::CheckAlreadyAttendance($request->student_id,$request->class_id,$request->attendance_date);
 
@@ -32,6 +56,8 @@ class AttendanceController extends Controller
             $attendance = new StudentAttendanceModel;
             $attendance->student_id = $request->student_id;
             $attendance->class_id = $request->class_id;
+            $attendance->subject_id = $request->subject_id;
+            $attendance->timetable_id = $request->timetable_id;
             $attendance->attendance_date = $request->attendance_date;
             $attendance->created_by = Auth::user()->id;
         }
@@ -63,19 +89,94 @@ class AttendanceController extends Controller
         $data['header_title'] = "Attendance Student";  
         return view('teacher.attendance.student', $data);
     }
-    public function AttendanceReportTeacher(){
+    public function AttendanceReportTeacher(Request $request){
+        $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
+        $classarray = array();
+        foreach($getClass as $value){
+            $classarray[] = $value->class_id;
+        } 
+        $data['getClass'] = $getClass;
+        $data['getRecord'] = StudentAttendanceModel::getRecordTeacher($classarray);
+        // dd($data['getRecord']); 
+        $data['header_title'] = "Attendance Report";  
+        return view('teacher.attendance.report', $data);
+    }
+    public function AttendanceReportTeacherByClass(Request $request){ 
         $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
         $classarray = array();
         foreach($getClass as $value){
             $classarray[] = $value->class_id;
         }
-        
+        // dd($classarray);
         $data['getClass'] = $getClass;
-        $data['getRecord'] = StudentAttendanceModel::getRecordTeacher($classarray);
+        $data['getAttendanceDate'] = StudentAttendanceModel::getRecordDate($request->get('class_id'), $request->get('subject_id'));
+        if(!empty($request->get('class_id')) && !empty($request->get('subject_id'))){
+        $data['getStudent'] = User::getStudentClass($request->get('class_id'));
+        $data['getAttendanceClassSubject'] = StudentAttendanceModel::getRecordTeacherClassSubjectBaru($request->get('class_id'), $request->get('subject_id'));
+        // dd($data['getAttendanceClassSubject']);
+        foreach ($data['getStudent'] as $student) {
+            $arrDate = array();
+            foreach ($data['getAttendanceDate'] as $getDate) { 
+                foreach ($data['getAttendanceClassSubject']  as $attendance) {
+                    if(($getDate->attendance_date==$attendance->attendance_date) && ($student->id==$attendance->student_id)){
+                        $d['attendance_date'] = $attendance->attendance_date;
+                        $d['attendance_type'] = $attendance->attendance_type;
+                        $arrDate[] = $d;
+                    }
+                    $student->attendance = $arrDate;
+                }
+           }
+        //    dd($data['getStudent']);
+        }
+          
+        //  dd($data['getStudent'][0]); 
+         }
         $data['header_title'] = "Attendance Report";  
-        return view('teacher.attendance.report', $data);
+        return view('teacher.attendance.reportbyclass', $data);
+        }
+
+    public function export_pdf(Request $request){
+        // $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);
+        // $classarray = array();
+        // foreach($getClass as $value){
+        //     $classarray[] = $value->class_id;
+        // }
+        // $data['getClass'] = $getClass; 
+        $data['getClass'] = ClassSubjectModel::getAlreadyFirstKhusus($request->get('class_id'), $request->get('subject_id')); 
+        // dd($data['getClass']);
+        $data['getAttendanceDate'] = StudentAttendanceModel::getRecordDate($request->get('class_id'), $request->get('subject_id')); 
+        if(!empty($request->get('class_id')) && !empty($request->get('subject_id'))){
+            $data['getStudent'] = User::getStudentClass($request->get('class_id'));
+            $data['getAttendanceClassSubject'] = StudentAttendanceModel::getRecordTeacherClassSubjectBaru($request->get('class_id'), $request->get('subject_id'));
+        foreach ($data['getStudent'] as $student) {
+            $arrDate = array();
+            foreach ($data['getAttendanceDate'] as $getDate) { 
+                foreach ($data['getAttendanceClassSubject']  as $attendance) {
+                    if(($getDate->attendance_date==$attendance->attendance_date) && ($student->id==$attendance->student_id)){
+                        $d['attendance_date'] = $attendance->attendance_date;
+                        $d['attendance_type'] = $attendance->attendance_type;
+                        $arrDate[] = $d;
+                    }
+                    $student->attendance = $arrDate;
+                }
+           }
+        //
+        }
+        }
+        $pdf = Pdf::loadView('teacher.attendance.export_attendance', $data)->setPaper('a4', 'landscape');
+
+        return $pdf->download('Atttendance.pdf');
     }
-    
+    public function cekAttendance(Request $request){
+        $check_attendance = StudentAttendanceModel::CheckAlreadyAttendanceCekAttendance($request->class_id,$request->subject_id,$request->timetable_id,$request->attendance_date);
+        if(empty($check_attendance)){
+            $html = '';
+            $html .= '<button class="btn btn-primary">Generate Attendance</button>'; 
+        }
+        $json['success'] = $html;
+        echo json_encode($json);
+    }
+   
     // student side
     public function MyAttendanceStudent(){ 
         $data['getClass'] = StudentAttendanceModel::getClassStudent(Auth::user()->id);
