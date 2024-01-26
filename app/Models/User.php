@@ -380,7 +380,7 @@ class User extends Authenticatable
                         ->where('users.user_type', '=',3)
                         ->where('users.is_delete', '=',0)
                         ->where('users.class_id', '=',$class_id)
-                        ->orderBy('users.id', 'desc')
+                        ->orderBy('users.id', 'asc')
                         ->get();
     
     }

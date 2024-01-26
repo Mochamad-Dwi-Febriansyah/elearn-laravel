@@ -92,7 +92,7 @@ class StudentAttendanceModel extends Model
                 $return = $return->where('student_attendance.subject_id', '=', Request::get('subject_id'));
             }
 
-            $return = $return->orderBy('student_attendance.id', 'desc')
+            $return = $return->orderBy('student_attendance.id', 'asc')
             // ->groupBy('student_attendance.attendance_date')
             ->paginate(50);
 

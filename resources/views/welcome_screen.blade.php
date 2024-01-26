@@ -12,7 +12,7 @@
         <div class="landing-page-title">
             <h1 class="title">selamat datang di website<h1 class="title-mini">PAK O.</h1></h1><br>
             <a href="{{ url('/login') }}"><h2 class="sub-title-login">Login</h2></a>
-            <p class="jargon">Daftar Project yang belum di kerjakan dan Remidi</p> 
+            {{-- <p class="jargon">Daftar Project yang belum di kerjakan dan Remidi</p> 
             <table class="table-mandiri table">
                 <thead>
                     <tr>
@@ -43,7 +43,7 @@
                         <td><span style="color: #0011FF; cursor: pointer" data-bs-toggle="modal" data-bs-target="#exampleModal">Click Me</span></td>
                     </tr>
                 </tbody>
-            </table>
+            </table> --}}
             <div class="img-guru">
                 <img src="{{ url('dist/img/guru-bg.webp') }}" alt="">
             </div>
