@@ -273,8 +273,26 @@ class HomeworkController extends Controller
             $homework->save();
     
             return redirect('student/homework/my_homework')->with('success', 'Homework successfully Submitted');
-        }else{
-            abort(404);
+        }else{ 
+            $cek_homework_submit = HomeworkSubmitModel::cekSubmittedHomework($homework_id, Auth::user()->id);
+            $cek_homework_submit->delete();
+            $homework = new HomeworkSubmitModel;
+            $homework->homework_id = $homework_id;
+            $homework->student_id = Auth::user()->id;
+            $homework->description = $request->description;
+            if(!empty($request->file('document_file'))){ 
+                $ext = $request->file('document_file')->getClientOriginalExtension();
+                $file = $request->file('document_file');
+                $randomStr = date('Ymdhis').Str::random(20);
+                $filename = strtolower($randomStr).'.'.$ext;
+                $file->move('upload/homework/', $filename);
+                
+                $homework->document_file = $filename;
+            }
+            $homework->submission_late = $request->submission_late;
+            $homework->save();
+    
+            return redirect('student/homework/my_homework')->with('success', 'Homework successfully Submitted');
         }
     }
     public function HomeworkSubmitedStudent(){
