@@ -198,6 +198,19 @@ class JurnalController extends Controller
             }
             
         } 
-        return redirect('teacher/my_jurnal')->with('success', "Subject Successfully Add Jurnal");
+        return redirect('teacher/my_jurnal')->with('success', "Successfully Add Jurnal");
     }
+    public function JurnaldeleteTeacher($id){
+        $getRecord = JurnalModel::getSingle($id);
+        if(!empty($getRecord)){
+            $getRecord->is_delete = 1;
+            $getRecord->save();
+
+            return redirect()->back()->with('success', "Jurnal Successfully Delete");
+        }else{
+            abort(404);
+        }
+        $id->delete();
+    }
+    
 }

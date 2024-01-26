@@ -87,22 +87,22 @@
                 <h1 class="card-title py-3" style="font-size: 2.3rem; font-weight: 300">{{ $getRecord->tugas_title }}</h1>
                 <span class="card-title pb-2" style="font-size: 1.2rem; border-bottom: 1px solid #dee2e6">
                   <p class="m-0"><b>Dibuka : </b> 
-                    @if ( date('d-m-Y', strtotime($getRecord->submission_date)) <= date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') )
-                    <span class="bg-success" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span>
-                    @elseif ( date('d-m-Y', strtotime($getRecord->submission_date)) > date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') )
-                    <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span>
-                    @else
-                    <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span>
-                    @endif 
+                    {{-- @if ( date('d-m-Y', strtotime($getRecord->submission_date)) <= date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') ) --}}
+                    <span class="" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span>
+                    {{-- @elseif ( date('d-m-Y', strtotime($getRecord->submission_date)) > date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') ) --}}
+                    {{-- <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span> --}}
+                    {{-- @else --}}
+                    {{-- <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_date }}</span> --}}
+                    {{-- @endif  --}}
                     </p>
                   <p  class="m-0"><b>Ditutup : </b> 
-                    @if ( date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_date)) <= date('d-m-Y')) 
-                    <span class="bg-success" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span>
-                    @elseif ( date('d-m-Y', strtotime($getRecord->submission_limits)) > date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_date)) >= date('d-m-Y') )
-                    <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span>
-                    @else
-                    <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span>
-                    @endif
+                    {{-- @if ( date('d-m-Y', strtotime($getRecord->submission_limits)) >= date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_date)) <= date('d-m-Y'))  --}}
+                    <span class="" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span>
+                    {{-- @elseif ( date('d-m-Y', strtotime($getRecord->submission_limits)) > date('d-m-Y') && date('d-m-Y', strtotime($getRecord->submission_date)) >= date('d-m-Y') ) --}}
+                    {{-- <span class="bg-warning" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span> --}}
+                    {{-- @else --}}
+                    {{-- <span class="bg-danger" style="padding: 2px 5px; border-radius: 5px">{{ $getRecord->submission_limits }}</span> --}}
+                    {{-- @endif --}}
                   </p>
                 </span>
                 <div class="py-3" style="font-size: 1.2rem">
@@ -111,11 +111,11 @@
                   </p>
                 </div>
                 <div class="py-3" style="font-size: 1.2rem">
-                  @if ( date('d-m-Y H:i:s', strtotime($getRecord->submission_date)) > date('d-m-Y H:i:s'))
-                  <a class="btn btn-secondary" >Kirim Tugas</a>
-                  @else
+                  {{-- @if ( date('d-m-Y H:i:s', strtotime($getRecord->submission_date)) > date('d-m-Y H:i:s')) --}}
+                  {{-- <a class="btn btn-secondary" >Kirim Tugas</a> --}}
+                  {{-- @else --}}
                   <a href="{{ url('student/homework/my_homework/submit_homework/'.$getRecord->id) }}" class="btn btn-primary">Kirim Tugas</a>
-                  @endif  
+                  {{-- @endif   --}}
                 </div>
 
               </div>  

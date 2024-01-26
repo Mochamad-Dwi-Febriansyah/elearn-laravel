@@ -127,12 +127,12 @@ class HomeworkController extends Controller
     public function HomeworkTeacher(){
         $class_ids = array(); 
         $record = array();  
-        $getClass = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id); 
+        $data['getClass'] = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id); 
         // dd($getClass);
         // foreach ($getClass as $class) { 
         //     $class_ids[] = $class->class_id;
         // }
-        foreach ($getClass as $class) {
+        foreach ($data['getClass'] as $class) {
             $p = HomeworkModel::getRecordTeacher($class->class_id) ;
             $record[] = $p;
         }
@@ -253,23 +253,29 @@ class HomeworkController extends Controller
         return view('student.homework.submit', $data);
     }
     public function SubmitHomeworkInsert($homework_id, Request $request){
-        $homework = new HomeworkSubmitModel;
-        $homework->homework_id = $homework_id;
-        $homework->student_id = Auth::user()->id;
-        $homework->description = $request->description;
-        if(!empty($request->file('document_file'))){ 
-            $ext = $request->file('document_file')->getClientOriginalExtension();
-            $file = $request->file('document_file');
-            $randomStr = date('Ymdhis').Str::random(20);
-            $filename = strtolower($randomStr).'.'.$ext;
-            $file->move('upload/homework/', $filename);
-            
-            $homework->document_file = $filename;
+        $cek_homework_submit = HomeworkSubmitModel::cekSubmittedHomework($homework_id, Auth::user()->id);
+        // dd($cek_homework_submit);
+        if(empty($cek_homework_submit)){
+            $homework = new HomeworkSubmitModel;
+            $homework->homework_id = $homework_id;
+            $homework->student_id = Auth::user()->id;
+            $homework->description = $request->description;
+            if(!empty($request->file('document_file'))){ 
+                $ext = $request->file('document_file')->getClientOriginalExtension();
+                $file = $request->file('document_file');
+                $randomStr = date('Ymdhis').Str::random(20);
+                $filename = strtolower($randomStr).'.'.$ext;
+                $file->move('upload/homework/', $filename);
+                
+                $homework->document_file = $filename;
+            }
+            $homework->submission_late = $request->submission_late;
+            $homework->save();
+    
+            return redirect('student/homework/my_homework')->with('success', 'Homework successfully Submitted');
+        }else{
+            abort(404);
         }
-        $homework->submission_late = $request->submission_late;
-        $homework->save();
-
-        return redirect('student/homework/my_homework')->with('success', 'Homework successfully Submitted');
     }
     public function HomeworkSubmitedStudent(){
         $data['getRecord'] = HomeworkSubmitModel::getRecordStudent(Auth::user()->id);
@@ -277,7 +283,8 @@ class HomeworkController extends Controller
         return view('student.homework.submitted_list', $data);
     }
     public function HomeworkSubmitedStudentDetail($submitted_id){
-        $data['getRecord'] = HomeworkSubmitModel::getSingleRecord($submitted_id);
+        $data['getRecord'] = HomeworkSubmitModel::getSingleRecord($submitted_id);   
+        // dd($data['getRecord']->getHomework);
         $data['header_title'] = "My Submited Homework"; 
         return view('student.homework.submitted_list_detail', $data);
     }

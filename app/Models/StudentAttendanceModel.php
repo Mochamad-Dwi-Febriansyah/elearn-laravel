@@ -46,7 +46,7 @@ class StudentAttendanceModel extends Model
                                     $return = $return->where('student_attendance.attendance_type', '=', Request::get('attendance_type'));
                                 }
 
-                                $return = $return->orderBy('student_attendance.id', 'desc');
+                                $return = $return->orderBy('student_attendance.id', 'asc');
                                 if(!empty($remove_pagination)){
                                     $return = $return->get();
                                 }else{

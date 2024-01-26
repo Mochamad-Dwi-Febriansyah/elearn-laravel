@@ -88,8 +88,8 @@
                         <thead>
                             <tr>
                                 <th>Student ID</th>
-                                <td>Student Name</td>
-                                <td>Class Name</td>
+                                <th>Student Name</th>
+                                <th>Class Name</th>
                                 <th>Attendance</th>
                                 <th>Attendance Date</th>
                                 <th>Created By</th>

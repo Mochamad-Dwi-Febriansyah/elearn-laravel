@@ -93,7 +93,7 @@ class HomeworkModel extends Model
                                     } 
     
 
-        $return = $return->orderBy('homework.id', 'asc')
+        $return = $return->orderBy('homework.id', 'desc')
                                     ->paginate(20);
         return $return;
     } 

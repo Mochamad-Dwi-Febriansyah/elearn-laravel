@@ -107,7 +107,7 @@
                       </tr>
                       <tr>
                         <th class="col-3">Deskripsi</th>
-                        <td>{!! $getRecord->getHomework->submission_limits !!}</td>
+                        <td>{!! $getRecord->getHomework->description !!}</td>
                       </tr> 
                       <tr>
                         <td class="text-primary font-weight-bolder">JAWABAN</td>
@@ -123,7 +123,7 @@
                       </tr>
                       <tr>
                         <th class="col-3">Pengiriman Deskripsi</th>
-                        <td>{!! $getRecord->submission_limits !!}</td>
+                        <td>{!! $getRecord->description !!}</td>
                       </tr>
                       <tr>
                         <th class="col-3">Pengiriman Tanggal</th>

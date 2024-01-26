@@ -297,12 +297,14 @@ Route::group(['middleware' => 'teacher'], function() {
      //material
      Route::get('teacher/my_jurnal', [JurnalController::class, 'MyJurnal']);
      Route::get('teacher/my_jurnal/list', [JurnalController::class, 'MyJurnalList']);
-     Route::get('teacher/my_jurnal/list/detail/{id}', [JurnalController::class, 'MyJurnalListDetail']);
+    //  Route::get('teacher/my_jurnal/list/detail/{id}', [JurnalController::class, 'MyJurnalListDetail']);
      Route::post('teacher/my_jurnal', [JurnalController::class, 'MyJurnalAdd']);
      Route::post('teacher/my_jurnal/list/export_excel', [JurnalController::class, 'export_excel']);
      Route::get('teacher/my_jurnal/list/export_pdf', [JurnalController::class, 'export_pdf']);
      Route::post('teacher/ajax_get_timetable', [JurnalController::class, 'ajax_get_timetable']);
      Route::post('teacher/ajax_get_student', [JurnalController::class, 'ajax_get_student']);
+     Route::post('teacher/my_jurnal/list/edit/{id}', [JurnalController::class, 'JurnalupdateTeacher']);
+     Route::get('teacher/my_jurnal/list/delete/{id}', [JurnalController::class, 'JurnaldeleteTeacher']);
 
 });
 Route::group(['middleware' => 'student'], function() {

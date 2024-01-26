@@ -192,7 +192,7 @@ class User extends Authenticatable
                             if(!empty(Request::get('class_id'))){
                                 $return = $return->where('users.class_id', 'like', '%'. Request::get('class_id'). '%');
                             }
-        $return = $return->orderBy('users.id', 'desc') 
+        $return = $return->orderBy('users.id', 'asc') 
                             ->groupBy('users.id')
                             ->paginate(20);
 
