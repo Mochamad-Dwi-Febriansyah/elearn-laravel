@@ -31,10 +31,10 @@
                     <div class="row">
                       <div class="form-group col-md-2">
                         <label>Class</label><br>
-                        <select name="class_id" id="getClass" class="form-control">
+                        <select name="class_name" id="getClass" class="form-control">
                           <option value="">Select</option>
                           @foreach ($getClass as $class)
-                              <option {{ (Request::get('class_id') == $class->id) ? 'selected' : '' }} value="{{ $class->class_id }}">{{ $class->class_name }}</option>
+                              <option {{ (Request::get('class_name') == $class->id) ? 'selected' : '' }} value="{{ $class->class_name }}">{{ $class->class_name }}</option>
                           @endforeach
                         </select>
                       </div>
