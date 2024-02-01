@@ -79,13 +79,15 @@
                                                   {{-- <td>{{ $item['attendance_type'] }}<br> {{ $item['attendance_date'] }} </td> --}}
                                                   <td>
                                                     @if ($item['attendance_type'] == 1)
-                                                        Present
+                                                        H
                                                     @elseif($item['attendance_type'] == 2)
-                                                        Late
+                                                        T
                                                     @elseif($item['attendance_type'] == 3)
-                                                        Absent
+                                                        A
                                                     @elseif($item['attendance_type'] == 4)
-                                                        Half Day 
+                                                        S
+                                                    @elseif($item['attendance_type'] == 5)
+                                                        I
                                                     @endif
                                                   </td>
                                               @endif

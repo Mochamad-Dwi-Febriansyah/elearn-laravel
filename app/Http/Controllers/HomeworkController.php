@@ -276,6 +276,7 @@ class HomeworkController extends Controller
         }else{ 
             $cek_homework_submit = HomeworkSubmitModel::cekSubmittedHomework($homework_id, Auth::user()->id);
             $cek_homework_submit->delete();
+            
             $homework = new HomeworkSubmitModel;
             $homework->homework_id = $homework_id;
             $homework->student_id = Auth::user()->id;

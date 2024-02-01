@@ -96,16 +96,19 @@
                                         <td>{{ $value->name }} {{ $value->last_name }}</td>
                                         <td>
                                             <label style="margin-right: 10px;">
-                                                <input value="1" type="radio" {{ ($attendance_type == '1') ? 'checked' : '' }} id="{{ $value->id }}"  class="SaveAttendance" name="attendance{{ $value->id }}">Present
+                                                <input value="1" type="radio" {{ ($attendance_type == '1') ? 'checked' : '' }} id="{{ $value->id }}"  class="SaveAttendance" name="attendance{{ $value->id }}">H
                                             </label>
                                             <label style="margin-right: 10px;">
-                                                <input value="2" type="radio" {{ ($attendance_type == '2') ? 'checked' : '' }} id="{{ $value->id }}" class="SaveAttendance" name="attendance{{ $value->id }}">Late
+                                                <input value="2" type="radio" {{ ($attendance_type == '2') ? 'checked' : '' }} id="{{ $value->id }}" class="SaveAttendance" name="attendance{{ $value->id }}">T
                                             </label>
                                             <label style="margin-right: 10px;">
-                                                <input value="3" type="radio" {{ ($attendance_type == '3') ? 'checked' : '' }} id="{{ $value->id }}" class="SaveAttendance" name="attendance{{ $value->id }}">Absent
+                                                <input value="3" type="radio" {{ ($attendance_type == '3') ? 'checked' : '' }} id="{{ $value->id }}" class="SaveAttendance" name="attendance{{ $value->id }}">A
                                             </label>
                                             <label style="margin-right: 10px;">
-                                                <input value="4" type="radio" {{ ($attendance_type == '4') ? 'checked' : '' }} id="{{ $value->id }}" class="SaveAttendance" name="attendance{{ $value->id }}">Half Day
+                                                <input value="4" type="radio" {{ ($attendance_type == '4') ? 'checked' : '' }} id="{{ $value->id }}" class="SaveAttendance" name="attendance{{ $value->id }}">S
+                                            </label>
+                                            <label style="margin-right: 10px;">
+                                                <input value="5" type="radio" {{ ($attendance_type == '5') ? 'checked' : '' }} id="{{ $value->id }}" class="SaveAttendance" name="attendance{{ $value->id }}">I
                                             </label>
                                         </td>
                                     </tr>

@@ -105,13 +105,15 @@
                                   <td>{{ $value->class_name }}</td>
                                   <td>
                                       @if ($value->attendance_type == 1)
-                                          Present
+                                          H
                                           @elseif($value->attendance_type == 2) 
-                                          Late
+                                          T
                                           @elseif($value->attendance_type == 3) 
-                                          Absent
+                                          A
                                           @elseif($value->attendance_type == 4) 
-                                          Half Day
+                                          S
+                                          @elseif($value->attendance_type == 5) 
+                                          I
                                           @endif
                                   </td>
                                   <td>{{ date('d-m-Y', strtotime($value->attendance_date)) }}</td> 
