@@ -222,8 +222,10 @@ class HomeworkController extends Controller
         }
     }
     public function SubmittedTeacherEditNilai($homework_id, Request $request){
+        // dd($request->all());
         $save = HomeworkSubmitModel::getSIngle($homework_id);
         $save->nilai = $request->nilai;
+        $save->catatan = $request->catatan;
         $save->save();
 
         $json['message'] = "Sukses Mengedit Nilai"; 

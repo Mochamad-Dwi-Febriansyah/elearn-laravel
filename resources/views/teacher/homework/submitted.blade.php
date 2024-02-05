@@ -66,7 +66,7 @@
                       <th>Document</th> 
                       <th>Description</th>
                       <th>Created Date</th> 
-                      <th>Nilai</th>
+                      <th>Nilai & Catatan</th> 
                       <th>Submission Late</th> 
                     </tr>
                   </thead>
@@ -86,9 +86,10 @@
                           <form  class="EditNilai" name="post" homework_id="{{ $value->id }}">
                             @csrf
                             <div class="row"> 
-                              <div class="form-group d-flex">
+                              <div class="form-group d-flex align-items-start">
                                 <input type="number" name="nilai" class="form-control" style="width: 75px" max="100" min="0" value="{{ $value->nilai }}">
-                                <button type="submit"   class="btn btn-primary btn-sm" style="margin-left: 3px">edit</button>
+                                <textarea name="catatan" class="form-control" id="" cols="20" rows="2" >{{ $value->catatan }}</textarea>
+                                <button type="submit"   class="btn btn-primary btn-sm" style="margin-left: 3px;">edit</button>
                               </div>
                             </div>
                           </form>
