@@ -142,6 +142,10 @@
                         </td>
                       </tr>
                       <tr>
+                        <th class="col-3">Catatan</th>
+                        <td>{{ $getRecord->catatan }}</td>
+                      </tr>
+                      <tr>
                         <th class="col-3">Pegiriman Telat</th>
                         <td>
                           @if ($getRecord->submission_late == '-')

@@ -92,6 +92,7 @@
                       {{-- <th>Pengiriman Deskripsi</th>  --}}
                       <th >Pengiriman Tanggal</th> 
                       <th>Nilai</th>
+                      <th>Catatan</th>
                       <th>Pegiriman Telat</th>
                       <th>Aksi</th>
   
@@ -131,6 +132,9 @@
                             <span class="bg-warning" style="border-radius: 5px; padding: 3px 7px;white-space: nowrap;">Belum</span><br>
                             <span class="bg-warning" style="border-radius: 5px; padding: 3px 7px;white-space: nowrap;">dinilai</span>
                           @endif
+                        </td>
+                        <td>
+                          {{ $value->catatan }}
                         </td>
                         <td style="white-space: nowrap;">
                           @if ($value->submission_late == '-')

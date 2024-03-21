@@ -68,14 +68,15 @@
                       <th>Class</th>
                       <th>Gender</th>
                       <th>Date of Birth</th>
-                      <th>Caste</th>
+                      {{-- <th>Caste</th> --}}
                       <th>Religion</th>
                       <th>Mobile Number</th>
                       <th>Admisson Date</th>
-                      <th>Blood Group</th>
-                      <th>Height</th>
-                      <th>Weight</th> 
+                      {{-- <th>Blood Group</th> --}}
+                      {{-- <th>Height</th> --}}
+                      {{-- <th>Weight</th>  --}}
                       <th>Created Date</th> 
+                      <th>Actions</th>
                     </tr>
                   </thead>
                   <tbody> 
@@ -98,7 +99,7 @@
                           {{ date('d-m-Y', strtotime($value->date_of_birth))  }}
                         @endif
                       </td>
-                      <td>{{ $value->caste }}</td>
+                      {{-- <td>{{ $value->caste }}</td> --}}
                       <td>{{ $value->religion }}</td>
                       <td>{{ $value->mobile_number }}</td>
                       <td>
@@ -106,10 +107,13 @@
                           {{ date('d-m-Y', strtotime($value->admission_date))  }}
                         @endif
                       </td> 
-                      <td>{{ $value->blood_group }}</td>
-                      <td>{{ $value->height }}</td>
-                      <td>{{ $value->weight }}</td>
+                      {{-- <td>{{ $value->blood_group }}</td> --}}
+                      {{-- <td>{{ $value->height }}</td> --}}
+                      {{-- <td>{{ $value->weight }}</td> --}}
                       <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
+                      <td style="min-width: 139px"> 
+                        <a href="{{ url('chat?receiver_id='. base64_encode($value->id)) }}" class="btn btn-success btn-sm">Send Message</a>
+                      </td>
                     </tr>
                     @endforeach
                   </tbody>
