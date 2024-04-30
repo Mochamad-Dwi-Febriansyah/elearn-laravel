@@ -62,11 +62,11 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Student Name</th>  
+                      <th style="max-width: 100px">Student Name</th>  
                       <th>Document</th> 
-                      <th>Description</th>
+                      <th style="max-width: 300px">Description</th>
                       <th>Created Date</th> 
-                      <th>Nilai & Catatan</th> 
+                      <th style="min-width: 250px">Nilai & Catatan</th> 
                       <th>Submission Late</th> 
                     </tr>
                   </thead>
@@ -74,21 +74,21 @@
                     @forelse ($getRecord as $value) 
                     <tr>
                         <td>{{ $value->id }}</td>
-                        <td>{{ $value->users_name }} {{ $value->last_name }}</td>
+                        <td style="max-width: 100px">{{ $value->users_name }} {{ $value->last_name }}</td>
                         <td>
                             @if (!empty($value->getDocument()))
                                 <a href="{{ $value->getDocument() }}" class="btn btn-primary" download>Download</a>
                             @endif
                         </td>
-                        <td>{!! $value->description !!}</td>
+                        <td style="max-width: 300px">{!! $value->description !!}</td>
                         <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
-                        <td>
+                        <td style="min-width: 250px">
                           <form  class="EditNilai" name="post" homework_id="{{ $value->id }}">
                             @csrf
                             <div class="row"> 
-                              <div class="form-group d-flex align-items-start">
-                                <input type="number" name="nilai" class="form-control" style="width: 75px" max="100" min="0" value="{{ $value->nilai }}">
-                                <textarea name="catatan" class="form-control" id="" cols="20" rows="2" >{{ $value->catatan }}</textarea>
+                              <div class="form-group d-flex flex-column align-items-start">
+                                <input type="number" name="nilai" class="form-control" style="width: 100%" max="100" min="0" value="{{ $value->nilai }}">
+                                <textarea name="catatan" class="form-control" id="" cols="30" rows="3" >{{ $value->catatan }}</textarea>
                                 <button type="submit"   class="btn btn-primary btn-sm" style="margin-left: 3px;">edit</button>
                               </div>
                             </div>
