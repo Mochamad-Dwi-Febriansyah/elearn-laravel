@@ -12,6 +12,7 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportStudent;
 use App\Imports\ImportUser;
+use App\Models\ProjekAkhirAnggota;
 
 class StudentController extends Controller
 {
@@ -163,5 +164,38 @@ class StudentController extends Controller
         $data['header_title'] = "My Student List";
         $data['jumlah_siswa'] = count($data['getRecord']);
         return view('teacher.my_student', $data);
+    }
+    public function ajax_get_student(Request $request){ 
+        $class_id = $request->class_id;
+        $getStudent = User::getStudentClass($class_id);
+        $cekAnggota = ProjekAkhirAnggota::getRecord();
+        
+        // Mendapatkan array dari semua student_id yang ada di $cekAnggota
+        $anggotaIds = $cekAnggota->pluck('student_id')->toArray();
+
+        // Mengecualikan siswa yang sudah menjadi anggota projek akhir
+        $studentsWithoutProject = $getStudent->whereNotIn('id', $anggotaIds); 
+
+        // dd($getStudent);
+        // dd($getStudent->count());
+        $html = '';
+        // $html .= '<label style="font-weight: normal; margin-right: 8px">
+        //                 <input type="checkbox" value="" name="" id="">
+        //         </label>';
+        foreach($studentsWithoutProject as $value){
+            if($value->id === intval($request->student_id)){
+                // dd(gettype(intval($request->student_id)));
+                //   $html .= '<label style="font-weight: normal; margin-right: 8px">'.$value->name.$value->last_name.'</label>';
+                  $html .= '<label style="font-weight: normal; margin-right: 8px">
+                            <input type="hidden"  value="'.$value->id.'" name="student_id[]" id="">
+                    </label>';
+            }else{
+                $html .= '<label style="font-weight: normal; margin-right: 8px">
+                        <input type="radio" class="ml-4" value="'.$value->id.'" name="student_id[]" id=""> ' .$value->name.$value->last_name.'
+                </label>'; 
+                    } 
+        }
+        $json['success'] = $html; 
+        echo json_encode($json);
     }
 }

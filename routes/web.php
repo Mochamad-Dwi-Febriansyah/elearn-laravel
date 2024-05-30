@@ -22,6 +22,7 @@ use App\Http\Controllers\FeesCollectionController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\JurnalController;
+use App\Http\Controllers\ProjekAkhirController;
 
 
 /*
@@ -272,6 +273,12 @@ Route::group(['middleware' => 'teacher'], function() {
     Route::post('teacher/attendance/student/cekAttendance', [AttendanceController::class, 'cekAttendance']);
 
     // my_notice_board
+    Route::get('teacher/my_projek_akhir', [ProjekAkhirController::class, 'MyProjectAkhir']);
+    Route::get('teacher/my_projek_akhir/edit/{id}', [ProjekAkhirController::class, 'editMyProjectAkhir']);
+    Route::post('teacher/my_projek_akhir/edit/{id}', [ProjekAkhirController::class, 'UpdateMyProjectAkhir']);
+    Route::get('teacher/my_projek_akhir/hapus/{id}', [ProjekAkhirController::class, 'DeleteMyProjectAkhir']);
+
+    // my_notice_board
     Route::get('teacher/my_notice_board', [CommunicateController::class, 'MyNoticeBoardTeacher']);
 
     // homework
@@ -285,6 +292,8 @@ Route::group(['middleware' => 'teacher'], function() {
 
     Route::get('teacher/homework/homework/submitted/{id}', [HomeworkController::class, 'SubmittedTeacher']);
     Route::post('teacher/homework/homework/submitted/edit_nilai/{id_user}', [HomeworkController::class, 'SubmittedTeacherEditNilai']);
+
+    Route::post('teacher/homework/homework/submitted/{id}', [HomeworkController::class, 'export_nilai_excel']);
 
      //material
      Route::get('teacher/material/material', [MaterialController::class, 'materialTeacher']);
@@ -365,6 +374,9 @@ Route::group(['middleware' => 'student'], function() {
 
     Route::get('student/my_material', [MaterialController::class, 'MyMaterial']); 
     Route::get('student/my_material/subject={subject_id}', [MaterialController::class, 'MyMaterialDetail']); 
+
+    Route::post('projek_akhir', [ProjekAkhirController::class, 'postProjekAkhir']);
+    Route::post('student/ajax_get_student', [StudentController::class, 'ajax_get_student']);
 
 });
 Route::group(['middleware' => 'parent'], function() {

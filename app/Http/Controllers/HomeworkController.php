@@ -12,6 +12,8 @@ use App\Models\HomeworkSubmitModel;
 use App\Models\AssignClassTeacherModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportsNilaiTugasExport;
 
 class HomeworkController extends Controller
 {
@@ -216,6 +218,7 @@ class HomeworkController extends Controller
             $data['homework_id'] = $homework_id;
             $data['getRecord'] = HomeworkSubmitModel::getRecord($homework_id);
             $data['header_title'] = "Submitted Homework";
+            // dd($data['getRecord']);
             return view('teacher.homework.submitted', $data);
         }else{
             abort(404);
@@ -230,6 +233,11 @@ class HomeworkController extends Controller
 
         $json['message'] = "Sukses Mengedit Nilai"; 
         echo json_encode($json);    
+    }
+
+    public function export_nilai_excel($id){
+        // dd($id);
+        return Excel::download(new ExportsNilaiTugasExport($id), 'nilai_'.date('d-m-Y').'.xls');
     }
 
     // student side

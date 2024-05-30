@@ -55,7 +55,12 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Submitted Homework List</h3>
+                <h3 class="card-title">Submitted Homework List</h3> 
+                <form action="{{ url('teacher/homework/homework/submitted/'.$homework_id) }}" method="post" style="float: right;">
+                  @csrf
+                  {{-- <input type="hidden" name="class_id" value="{{ Request::get('class_id') }}">  --}}
+                  <button class="btn btn-primary" style=" margin-right: 4px">Export Excel</button>
+                </form> 
               </div> 
               <div class="card-body p-0" style="overflow-x:auto;">
                 <table class="table table-striped">
@@ -134,7 +139,7 @@
       dataType : "json",
       success : function(data) {
         alert(data.message);
-        location.reload();
+        // location.reload();
       }
 
     });
