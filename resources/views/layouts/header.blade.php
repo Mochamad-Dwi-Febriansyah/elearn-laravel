@@ -357,14 +357,14 @@
                 </p>
               </a>
             </li> 
-            {{-- <li class="nav-item">
+            <li class="nav-item">
               <a href="{{ url('teacher/marks_register') }}" class="nav-link  @if(Request::segment(2) == 'marks_register') active @endif">
                 <i class="nav-icon far fa-user"></i>
                 <p>
                   Marks Register
                 </p>
               </a>
-            </li>  --}}
+            </li> 
 
             <li class="nav-item @if(Request::segment(2) == 'attendance') menu-is-opening menu-open @endif">
               <a href="#" class="nav-link @if(Request::segment(2) == 'attendance') active @endif">
@@ -425,7 +425,15 @@
                 </li>  
               </ul>
             </li> 
-           
+
+            <li class="nav-item">
+              <a href="{{ url('teacher/my_projek_akhir') }}" class="nav-link  @if(Request::segment(2) == 'my_projek_akhir') active @endif">
+                <i class="nav-icon far fa-user"></i>
+                <p>
+                  Projek Akhir
+                </p>
+              </a>
+            </li> 
 
             <li class="nav-item">
               <a href="{{ url('teacher/my_notice_board') }}" class="nav-link  @if(Request::segment(2) == 'my_notice_board') active @endif">

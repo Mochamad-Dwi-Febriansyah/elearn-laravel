@@ -15,6 +15,8 @@ use App\Models\HomeworkModel;
 use App\Models\HomeworkSubmitModel;
 use App\Models\NoticeBoardModel;
 use App\Models\StudentAttendanceModel;
+use App\Models\ProjekAkhir;
+use App\Models\ProjekAkhirAnggota;
 
 class DashboardController extends Controller
 {
@@ -51,6 +53,14 @@ class DashboardController extends Controller
                 $data['TotalHomeWork'] = HomeworkModel::getRecordStudentCount(Auth::user()->class_id, Auth::user()->id);
                 $data['TotalSubmittedHomeWork'] = HomeworkSubmitModel::getRecordStudentCount(Auth::user()->id);
                 $data['TotalAttendance'] = StudentAttendanceModel::getRecordStudentCount(Auth::user()->id);
+                // $getAlreadyFirst = ProjekAkhir::getAlreadyFirst(Auth::user()->class_id, Auth::user()->id);
+                // if(!empty($getAlreadyFirst)){
+                $cekProjekAnggota = ProjekAkhir::cekProjekAnggota(Auth::user()->class_id, Auth::user()->id); 
+                if(!empty($cekProjekAnggota)){
+                    $cekProjekAnggota['anggota'] =  ProjekAkhirAnggota::getAnggota($cekProjekAnggota->id);  
+                    $data['getAlreadyProjekAkhir']= $cekProjekAnggota;
+                }
+                // dd($data);
                 return view('student.dashboard', $data);
             }
             else if(Auth::user()->user_type == 4){
