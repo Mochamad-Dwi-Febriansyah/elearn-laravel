@@ -72,7 +72,7 @@
                       {{ $item->user_name }} {{ $item->user_last_name }}<br>
                       @endforeach
                       </td> 
-                      <td>{{ $value->tanggal_pengerjaan }}</td>
+                      <td>{{ $value->tanggal_pengerjaan }}</br> {{ $value->waktu_mulai }} - {{ $value->waktu_selesai }}</td>
                       <td>{{ $value->tempat_pengerjaan }}</td>
                       <td>{{ $value->catatan }}</td>
                       <td>{{ $value->nilai }}</td>

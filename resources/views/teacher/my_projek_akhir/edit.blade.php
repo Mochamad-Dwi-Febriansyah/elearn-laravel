@@ -32,12 +32,22 @@
                       <div style="color:red">{{ $errors->first('nama_projek') }}</div>
                     </div>  
                     <div class="form-group col-md-6">
-                      <label>Tanggal Pengerjaan<span style="color: red"></span></label> 
+                      <label>Tanggal Pelaksanaan<span style="color: red"></span></label> 
                       <input type="date" class="form-control" name="tanggal_pengerjaan"  value="{{ old('tanggal_pengerjaan',$getRecord->tanggal_pengerjaan) }}" required placeholder="Tanggal Pengerjaan">
                       <div style="color:red">{{ $errors->first('tanggal_pengerjaan') }}</div>
                     </div>
+                    <div class="form-group col-md-3">
+                      <label>Waktu Mulai<span style="color: red"></span></label> 
+                      <input type="time" class="form-control" name="waktu_mulai"  value="{{ old('waktu_mulai',$getRecord->waktu_mulai) }}" required >
+                      <div style="color:red">{{ $errors->first('waktu_mulai') }}</div>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label>Waktu Selesai<span style="color: red"></span></label> 
+                      <input type="time" class="form-control" name="waktu_selesai"  value="{{ old('waktu_selesai',$getRecord->waktu_selesai) }}" required >
+                      <div style="color:red">{{ $errors->first('waktu_selesai') }}</div>
+                    </div>
                     <div class="form-group col-md-6">
-                      <label>Tempat Pengerjaan <span style="color: red"></span></label>
+                      <label>Tempat Pelaksanaan <span style="color: red"></span></label>
                       <input type="text" class="form-control" name="tempat_pengerjaan"  value="{{ old('tempat_pengerjaan',$getRecord->tempat_pengerjaan) }}" required placeholder="Tempat Pengerjaan">
                       <div style="color:red">{{ $errors->first('tempat_pengerjaan') }}</div>
                     </div>  

@@ -38,7 +38,7 @@ class ProjekAkhirController extends Controller
         if(!empty($request->student_id)){
                         $save = new ProjekAkhir;
                         $save->class_id = $request->class_id;
-                        $save->nama_projek = $request->nama_projek; 
+                        $save->nama_projek = $request->nama_projek;
                         $save->created_by = $request->student_created_projek;
                         $save->save();  
             foreach($request->student_id as $student_id){ 
@@ -66,6 +66,8 @@ class ProjekAkhirController extends Controller
     public function UpdateMyProjectAkhir($id, Request $request){
         $save = ProjekAkhir::getSingle($id);
         $save->tanggal_pengerjaan = $request->tanggal_pengerjaan;
+        $save->waktu_mulai = $request->waktu_mulai;
+        $save->waktu_selesai = $request->waktu_selesai;
         $save->tempat_pengerjaan = $request->tempat_pengerjaan; 
         $save->catatan = $request->catatan; 
         $save->nilai = $request->nilai; 

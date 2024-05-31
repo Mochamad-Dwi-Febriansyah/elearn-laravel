@@ -92,7 +92,7 @@
 
       <div class="row mb-2">
         <div class="col-12">
-          <h1 class="mt-5 mx-4 text-center">Uji Proyek Akhir</h1>
+          <h2 class="mt-4 text-center">Uji Proyek Akhir</h2>
         </div> 
       </div> 
       <div class="row">
@@ -104,39 +104,49 @@
           @if(!empty($getAlreadyProjekAkhir))
           <div class="card-body" style="overflow-x:auto;">
             <table class="table table-striped table-scroll">
-              <thead>
-                <tr> 
-                  {{-- <th>Kelas</th> --}}
+              <tbody>
+                <tr>
                   <th>Nama Projek</th>
-                  <th>Anggota Kelompok</th>
-                  <th>Tanggal Pelaksanaan</th>
-                  <th>Tempat Pelaksanaan</th>
-                  <th>Catatan</th>
-                  <th>Nilai</th>
-                  <th>Status</th>
+                  <td>{{ $getAlreadyProjekAkhir->nama_projek }}</td>
                 </tr>
-              </thead>
-              <tbody>  
-                <tr> 
-                      <td>{{ $getAlreadyProjekAkhir->nama_projek }}</td>
-                      <td>
-                        @foreach ($getAlreadyProjekAkhir->anggota as $value)
-                        {{ $value->user_name }} {{ $value->user_last_name }}<br>
-                        @endforeach
-                      </td>
-                      <td>{{ $getAlreadyProjekAkhir->tanggal_pengerjaan }}</td>
-                      <td>{{ $getAlreadyProjekAkhir->tempat_pengerjaan }}</td>
-                      <td>{{ $getAlreadyProjekAkhir->catatan }}</td>
-                      <td>{{ $getAlreadyProjekAkhir->nilai }}</td>
-                      @if ($getAlreadyProjekAkhir->status == 0)
-                      <td class="bg-warning">Menunggu Verifikasi</td>
-                        @elseif($getAlreadyProjekAkhir->status == 1) 
-                       <td class="bg-success">Disetujui</td> 
-                        @elseif($getAlreadyProjekAkhir->status == 2) 
-                        <td class="bg-danger">Ditolak</td>
-                        @endif
-                      </td> 
-                    </tr> 
+                <tr>
+                  <th>Anggota Kelompok</th>
+                  <td>
+                    @foreach ($getAlreadyProjekAkhir->anggota as $value)
+                    {{ $value->user_name }} {{ $value->user_last_name }}<br>
+                    @endforeach
+                  </td>
+                </tr>
+                <tr>
+                  <th>Tanggal Pelaksanaan</th>
+                  <td> {{ $getAlreadyProjekAkhir->tanggal_pengerjaan }}</td>
+                </tr>
+                <tr>
+                  <th>Waktu Pelaksanaan</th>
+                  <td>{{ $getAlreadyProjekAkhir->waktu_mulai }} - {{ $getAlreadyProjekAkhir->waktu_selesai }}</td>
+                </tr>
+                <tr>
+                  <th>Tempat Pelaksanaan</th>
+                  <td> {{ $getAlreadyProjekAkhir->tempat_pengerjaan }}</td>
+                </tr>
+                <tr>
+                  <th>Catatan</th>
+                  <td> {{ $getAlreadyProjekAkhir->catatan }}</td>
+                </tr>
+                <tr>
+                  <th>Nilai</th>
+                  <td> {{ $getAlreadyProjekAkhir->nilai }}</td>
+                </tr>
+                <tr>
+                  <th>Status</th>
+                  @if ($getAlreadyProjekAkhir->status == 0)
+                  <td class="bg-warning">Menunggu Verifikasi</td>
+                    @elseif($getAlreadyProjekAkhir->status == 1) 
+                   <td class="bg-success">Disetujui</td> 
+                    @elseif($getAlreadyProjekAkhir->status == 2) 
+                    <td class="bg-danger">Ditolak</td>
+                    @endif
+                </tr>
               </tbody>
             </table>
           </div>
