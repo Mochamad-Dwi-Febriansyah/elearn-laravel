@@ -65,10 +65,12 @@
                     
                     @foreach($getRecord as $value)
                     <tr>
+                      {{ $value }}
                       <td>{{ $value->id }}</td> 
                       <td>{{ $value->nama_projek }}</td> 
                       <td>
                       @foreach ($value->anggota as $item)
+                      
                       {{ $item->user_name }} {{ $item->user_last_name }}<br>
                       @endforeach
                       </td> 
