@@ -64,8 +64,7 @@
                 <tbody>  
                     
                     @foreach($getRecord as $value)
-                    <tr>
-                      {{ $value }}
+                    <tr> 
                       <td>{{ $value->id }}</td> 
                       <td>{{ $value->nama_projek }}</td> 
                       <td>

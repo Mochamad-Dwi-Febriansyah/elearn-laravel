@@ -20,10 +20,6 @@ class ProjekAkhirController extends Controller
         foreach($projek as $p){
             $dataProjek = array();
             foreach($anggota as $a){
-<<<<<<< HEAD
-                // dd(intval($a->projek_akhir_id));
-=======
->>>>>>> refs/remotes/origin/main
                 if($p->id === intval($a->projek_akhir_id)){
                     $dat = array();
                     $dat = $a;
