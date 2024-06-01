@@ -20,17 +20,20 @@ class ProjekAkhirController extends Controller
         foreach($projek as $p){
             $dataProjek = array();
             foreach($anggota as $a){
-                if($p->id === $a->projek_akhir_id){
+                // dd(intval($a->projek_akhir_id));
+                if($p->id === intval($a->projek_akhir_id)){
                     $dat = array();
                     $dat = $a;
+                    // dd($dat);
                     $dataProjek[] = $dat;
                 }
             }
             $p['anggota'] = $dataProjek;
+            // dd($p);
             $newArr[] = $p; 
         } 
         $data['getRecord'] = $newArr;
-        // dd($data['getRecord']);
+        // dd($newArr);
         return view('teacher.my_projek_akhir.my_projek_akhir', $data);
     }
     // student side
