@@ -27,6 +27,11 @@ class HomeworkSubmitModel extends Model
         ->where('homework_submit.student_id', '=', $student_id)->first();
         return $return;
     }
+    static public function getSubmitHomeworkByClassSubject($homework_id){
+        $return = HomeworkSubmitModel::select('homework_submit.*')
+        ->where('homework_submit.homework_id', '=', $homework_id)->get();
+        return $return;
+    }
     static public function getHomeworkReport(){
         $return = HomeworkSubmitModel::select('homework_submit.*', 'class.name as class_name', 'subject.name as subject_name', 'users.name as first_name', 'users.last_name')
                     ->join('users','users.id', '=','homework_submit.student_id') 

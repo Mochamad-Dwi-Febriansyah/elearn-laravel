@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportNilaiByClass;
 use Illuminate\Http\Request;
 use App\Models\ClassModel;
 use App\Models\SubjectModel;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportsNilaiTugasExport;
+use Barryvdh\DomPDF\Facade\Pdf; 
 
 class HomeworkController extends Controller
 {
@@ -126,11 +128,11 @@ class HomeworkController extends Controller
     }
 
     // teacher side
-    public function HomeworkTeacher(){
+    public function HomeworkTeacher(Request $request){
         $class_ids = array(); 
         $record = array();  
         $data['getClass'] = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id); 
-        // dd($getClass);
+        // dd($data['getClass']);
         // foreach ($getClass as $class) { 
         //     $class_ids[] = $class->class_id;
         // }
@@ -148,8 +150,51 @@ class HomeworkController extends Controller
                 $data['getRecord'][] = $q;
             }
         }
-        // dd($data['getRecord']);
+
+        if(!empty($request->get('class_id'))  && !empty($request->get('subject_id'))){ 
+            // $class_id = ClassModel::getClassByclassName($request->get('class_name'));
+            // dd($class_id->id);
+            $data['getClasses'] = ClassModel::getSingle($request->get('class_id'));
+            $data['getSubject'] = SubjectModel::getSingle($request->get('subject_id'));
+            $data['getStudent'] = User::getStudentClass($request->get('class_id'));
+            // dd($data['getClasses']);
+            $data['getHomework'] = HomeworkModel::getRecordTeacherClassSubject($request->get('class_id'), !empty($request->get('subject_id')));
+            // dd($data['getHomework']);
+            foreach($data['getStudent'] as $student){
+                $dataHomework = array();
+                foreach($data['getHomework'] as $hmwrk){
+                    $data['getSubmitHomework'] = HomeworkSubmitModel::getSubmitHomeworkByClassSubject($hmwrk->id);
+                    // $dataHomework[] = $data['getSubmitHomework'];
+                    foreach($data['getSubmitHomework'] as $smbt){
+                        if(($hmwrk->id == $smbt->homework_id) && ($student->id == $smbt->student_id)){
+                            $d['tugas_id'] = $hmwrk->id;
+                            $d['tugas_title'] = $hmwrk->tugas_title;
+                            $d['nilai'] = $smbt->nilai;
+                            $dataHomework[] = $d;
+                        }
+                        $student->data_homework = $dataHomework;
+                    }
+                }
+                // dd($student);
+            }
+            // dd($data['getStudent'][0]);
+            // $data['getSubmitHomework'] = HomeworkSubmitModel::getSubmitHomeworkByClassSubject($request->get('class_id'), !empty($request->get('subject_id')));
+            // dd($data['getStudent']);
+            $pdf = Pdf::loadView('teacher.homework.export_homework', $data)->setPaper('a4', 'landscape');
+    
+            return $pdf->download('Homework.pdf');
+        }
+
+        // $pdf = Pdf::loadView('teacher.homework.homework', $data)->setPaper('a4', 'landscape');
+
+        // return $pdf->download('Atttendance.pdf');
+
+
+
         return view('teacher.homework.list', $data);
+    }
+    public function export_nilai_excel_class($class_id, $subject_id){
+        return Excel::download(new ExportNilaiByClass($class_id, $subject_id), 'nilai_'.date('d-m-Y').'.xls');
     }
     public function addTeacher(){ 
         $data['getClass'] = AssignClassTeacherModel::getMyClassSubjectGroup(Auth::user()->id);

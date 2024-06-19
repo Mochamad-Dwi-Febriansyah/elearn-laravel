@@ -31,16 +31,18 @@
                     <div class="row">
                       <div class="form-group col-md-2">
                         <label>Class</label><br>
-                        <select name="class_name" id="getClass" class="form-control">
+                        <select name="class_id" id="getClass" class="form-control">
                           <option value="">Select</option>
                           @foreach ($getClass as $class)
-                              <option {{ (Request::get('class_name') == $class->id) ? 'selected' : '' }} value="{{ $class->class_name }}">{{ $class->class_name }}</option>
+                              <option {{ (Request::get('class_id') == $class->id) ? 'selected' : '' }} value="{{ $class->class_id }}">{{ $class->class_name }}</option>
                           @endforeach
                         </select>
                       </div>
-                      <div class="form-group col-md-2">
-                        <label>Subject</label>
-                        <input type="text" class="form-control" name="subject_name" value="{{ Request::get('subject_name') }}" placeholder="Subject Name">
+                      <div class="form-group col-md-3"> 
+                        <label>Subject <span style="color: red">*</span></label><br>
+                        <select name="subject_id" id="getSubject"  class="form-control">
+                          <option value="{{ Request::get('subject_id') }}">Select Subject</option> 
+                        </select> 
                       </div> 
                       <div class="form-group col-md-2">
                           <label>From Homework Date</label>
@@ -80,6 +82,14 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Homework List</h3> 
+                @if(!empty(Request::get('class_id')) && !empty(Request::get('subject_id')))
+                <a href="{{ url('teacher/attendance/report/reportbyclass/export_pdf?class_id='.Request::get('class_id')).'&subject_id='.Request::get('subject_id')}}" class="btn btn-info" style="float: right">export PDF</a>
+                <form action="{{ url('teacher/homework/homework/class/'.Request::get('class_id').'/subject/'.Request::get('subject_id')) }}" method="post" style="float: right;">
+                  @csrf
+                  {{-- <input type="hidden" name="class_id" value="{{ Request::get('class_id') }}">  --}}
+                  <button class="btn btn-primary" style=" margin-right: 4px">Export Excel</button>
+                </form>
+                @endif
               </div>
               <div class="card-body p-0" style="overflow-x:auto;">
                 <table class="table table-striped">
@@ -154,4 +164,43 @@
       </div> 
     </section> 
   </div> 
+@endsection
+
+@section('script')
+<script>
+  $(function(){
+    $('#getClass').change(function() {
+      var class_id = $(this).val();
+      // console.log(class_id);
+      $.ajax({
+        type: "POST",
+        url: "{{ url('teacher/ajax_get_subject') }}",
+        data: {
+          '_token' : '{{ csrf_token() }}',
+          class_id : class_id
+        },
+        dataType : "json",
+        success : function(data){
+          $('#getSubject').html(data.success);
+        }  
+      }); 
+      }); 
+    $('#getSubject').change(function() { 
+        var subject_id = $(this).val();
+        $.ajax({
+          type : "POST",
+          url : "{{ url('teacher/ajax_get_timetable') }}",
+          data : {
+            '_token' : '{{ csrf_token() }}',
+            class_id : class_id,
+            subject_id : subject_id
+          },
+          dataType : "json",
+          success : function(data){
+            $('#getTimetable').html(data.success);
+          }
+          });
+        });
+  })
+</script>
 @endsection

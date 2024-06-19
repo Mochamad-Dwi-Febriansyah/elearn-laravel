@@ -67,8 +67,8 @@ class HomeworkModel extends Model
                                     ->where('homework.class_id' ,'=', $class_ids)
                                     ->where('homework.is_delete', '=', 0);
 
-                                    if(!empty(Request::get('class_name'))){
-                                        $return = $return->where('class.name', 'like', '%'. Request::get('class_name'). '%');
+                                    if(!empty(Request::get('class_id'))){
+                                        $return = $return->where('class.id', 'like', '%'. Request::get('class_id'). '%');
                                     }
                                     if(!empty(Request::get('subject_name'))){
                                         $return = $return->where('subject.name', 'like', '%'. Request::get('subject_name'). '%');
@@ -91,6 +91,21 @@ class HomeworkModel extends Model
                                     if(!empty(Request::get('to_created_date'))){
                                         $return = $return->whereDate('homework.created_at', '<=', Request::get('to_created_date'));
                                     } 
+    
+
+        $return = $return->orderBy('homework.id', 'desc')
+                                    ->paginate(20);
+        return $return;
+    } 
+    static public function getRecordTeacherClassSubject($class_id, $subject_id){ 
+        $return = HomeworkModel::select('homework.*', 'class.name as class_name', 'subject.name as subject_name', 'users.name as created_by_name')
+                                    ->join('users','users.id', '=','homework.created_by')
+                                    ->join('class','class.id', '=','homework.class_id')
+                                    ->join('subject','subject.id', '=','homework.subject_id')
+                                    ->where('homework.class_id' ,'=', $class_id)
+                                    ->where('homework.subject_id' ,'=', $subject_id)
+                                    ->where('homework.is_delete', '=', 0);
+
     
 
         $return = $return->orderBy('homework.id', 'desc')
