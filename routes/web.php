@@ -295,6 +295,7 @@ Route::group(['middleware' => 'teacher'], function() {
     
     Route::post('teacher/homework/homework/submitted/{id}', [HomeworkController::class, 'export_nilai_excel']);
     Route::post('teacher/homework/homework/class/{class_id}/subject/{subject_id}', [HomeworkController::class, 'export_nilai_excel_class']);
+    Route::get('teacher/homework/homework/reportbyclass/export_pdf/class_id/{class_id}/subject_id/{subject_id}', [HomeworkController::class, 'export_nilai_pdf_class']);
 
      //material
      Route::get('teacher/material/material', [MaterialController::class, 'materialTeacher']);

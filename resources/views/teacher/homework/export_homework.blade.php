@@ -64,7 +64,7 @@
         <div class="sub-heading-box">
             <table>
                 <thead>
-                    @if ($getClass)
+                    @if ($getClasses)
                         <tr>
                             <th style="text-align: left" >Kelas</th>
                             <td>:</td>

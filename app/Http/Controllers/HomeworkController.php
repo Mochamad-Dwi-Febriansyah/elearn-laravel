@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportsNilaiTugasExport;
-use Barryvdh\DomPDF\Facade\Pdf; 
+use Barryvdh\DomPDF\Facade\Pdf;
+use Svg\Tag\Rect;
 
 class HomeworkController extends Controller
 {
@@ -151,14 +152,58 @@ class HomeworkController extends Controller
             }
         }
 
-        if(!empty($request->get('class_id'))  && !empty($request->get('subject_id'))){ 
+        // if(!empty($request->get('class_id_export'))  && !empty($request->get('subject_id_export'))){ 
+        //     // $class_id = ClassModel::getClassByclassName($request->get('class_name'));
+        //     // dd($class_id->id);
+        //     $data['getClasses'] = ClassModel::getSingle($request->get('class_id_export'));
+        //     $data['getSubject'] = SubjectModel::getSingle($request->get('subject_id_export'));
+        //     $data['getStudent'] = User::getStudentClass($request->get('class_id_export'));
+        //     // dd($data['getClasses']);
+        //     $data['getHomework'] = HomeworkModel::getRecordTeacherClassSubject($request->get('class_id_export'), !empty($request->get('subject_id_export')));
+        //     // dd($data['getHomework']);
+        //     foreach($data['getStudent'] as $student){
+        //         $dataHomework = array();
+        //         foreach($data['getHomework'] as $hmwrk){
+        //             $data['getSubmitHomework'] = HomeworkSubmitModel::getSubmitHomeworkByClassSubject($hmwrk->id);
+        //             // $dataHomework[] = $data['getSubmitHomework'];
+        //             foreach($data['getSubmitHomework'] as $smbt){
+        //                 if(($hmwrk->id == $smbt->homework_id) && ($student->id == $smbt->student_id)){
+        //                     $d['tugas_id'] = $hmwrk->id;
+        //                     $d['tugas_title'] = $hmwrk->tugas_title;
+        //                     $d['nilai'] = $smbt->nilai;
+        //                     $dataHomework[] = $d;
+        //                 }
+        //                 $student->data_homework = $dataHomework;
+        //             }
+        //         }
+        //         // dd($student);
+        //     }
+        //     // dd($data['getStudent'][0]);
+        //     // $data['getSubmitHomework'] = HomeworkSubmitModel::getSubmitHomeworkByClassSubject($request->get('class_id'), !empty($request->get('subject_id')));
+        //     // dd($data['getStudent']);
+        //     $pdf = Pdf::loadView('teacher.homework.export_homework', $data)->setPaper('a4', 'landscape');
+    
+        //     return $pdf->download('Homework.pdf');
+        // }
+
+        // $pdf = Pdf::loadView('teacher.homework.homework', $data)->setPaper('a4', 'landscape');
+
+        // return $pdf->download('Atttendance.pdf');
+
+
+
+        return view('teacher.homework.list', $data);
+    }
+
+    public function export_nilai_pdf_class($class_id, $subject_id){
+        if(!empty($class_id)  && !empty($subject_id)){ 
             // $class_id = ClassModel::getClassByclassName($request->get('class_name'));
             // dd($class_id->id);
-            $data['getClasses'] = ClassModel::getSingle($request->get('class_id'));
-            $data['getSubject'] = SubjectModel::getSingle($request->get('subject_id'));
-            $data['getStudent'] = User::getStudentClass($request->get('class_id'));
+            $data['getClasses'] = ClassModel::getSingle($class_id);
+            $data['getSubject'] = SubjectModel::getSingle($subject_id);
+            $data['getStudent'] = User::getStudentClass($class_id);
             // dd($data['getClasses']);
-            $data['getHomework'] = HomeworkModel::getRecordTeacherClassSubject($request->get('class_id'), !empty($request->get('subject_id')));
+            $data['getHomework'] = HomeworkModel::getRecordTeacherClassSubject($class_id, !empty($subject_id));
             // dd($data['getHomework']);
             foreach($data['getStudent'] as $student){
                 $dataHomework = array();
@@ -185,13 +230,6 @@ class HomeworkController extends Controller
             return $pdf->download('Homework.pdf');
         }
 
-        // $pdf = Pdf::loadView('teacher.homework.homework', $data)->setPaper('a4', 'landscape');
-
-        // return $pdf->download('Atttendance.pdf');
-
-
-
-        return view('teacher.homework.list', $data);
     }
     public function export_nilai_excel_class($class_id, $subject_id){
         return Excel::download(new ExportNilaiByClass($class_id, $subject_id), 'nilai_'.date('d-m-Y').'.xls');
