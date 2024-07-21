@@ -58,7 +58,8 @@ class DashboardController extends Controller
                 $cekProjekAnggota = ProjekAkhir::cekProjekAnggota(Auth::user()->class_id, Auth::user()->id); 
                 if(!empty($cekProjekAnggota)){
                     $cekProjekAnggota['anggota'] =  ProjekAkhirAnggota::getAnggota($cekProjekAnggota->id);  
-                    $data['getAlreadyProjekAkhir']= $cekProjekAnggota;
+                    $data['getAlreadyProjekAkhir']= null;
+                    // $data['getAlreadyProjekAkhir']= $cekProjekAnggota;
                 }
                 // dd($data);
                 return view('student.dashboard', $data);
