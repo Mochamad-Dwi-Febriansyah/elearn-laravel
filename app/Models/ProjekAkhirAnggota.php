@@ -28,6 +28,7 @@ class ProjekAkhirAnggota extends Model
         return self::select('users.name as user_name', 'users.last_name as user_last_name')
                         ->join('users', 'users.id', '=', 'projek_akhir_anggota.student_id')
                         ->where('projek_akhir_id', '=', $projek_akhir_id) 
+                        ->where('projek_akhir.is_delete', '=', 0)
                         ->get();
     }
 }
