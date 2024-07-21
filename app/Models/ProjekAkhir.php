@@ -21,6 +21,7 @@ class ProjekAkhir extends Model
     static public function getRecord(){
         $return = ProjekAkhir::select('projek_akhir.*')
                                     // ->join('users','users.id', '=','projek_akhir.created_by') 
+                                    ->where('projek_akhir.is_delete', '=', 0)
                                     ->join('class', 'class.id', '=','projek_akhir.class_id');
                                     if(!empty(Request::get('class_name'))){
                                         $return = $return->where('class.name', 'like', '%'. Request::get('class_name'). '%');
@@ -36,6 +37,7 @@ class ProjekAkhir extends Model
                         ->where('class_id', '=', $class_id)
                         ->join('class', 'class.id', '=', 'projek_akhir.class_id')
                         ->where('student_id', '=', $student_id)
+                        ->where('projek_akhir.is_delete', '=', 0)
                         ->first();
     }
     static public function cekProjekAnggota($class_id, $student_id){
@@ -44,6 +46,7 @@ class ProjekAkhir extends Model
                         ->join('projek_akhir_anggota', 'projek_akhir_anggota.projek_akhir_id', '=', 'projek_akhir.id')
                         ->where('class_id', '=', $class_id)
                         ->where('projek_akhir_anggota.student_id', '=', $student_id)
+                        ->where('projek_akhir.is_delete', '=', 0)
                         ->first();
     }
     static public function getAlreadyFirstGroupbyNamaProyek($class_id, $projek_name){
@@ -52,6 +55,7 @@ class ProjekAkhir extends Model
                         ->where('nama_projek', '=', $projek_name)
                         ->join('class', 'class.id', '=', 'projek_akhir.class_id')
                         ->join('users', 'users.id', '=', 'projek_akhir.student_id')
+                        ->where('projek_akhir.is_delete', '=', 0)
                         ->get();
     }
     // static public function getAlreadyFirstH($class_id, $student_id){

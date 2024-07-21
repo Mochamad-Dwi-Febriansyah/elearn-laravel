@@ -63,6 +63,7 @@ class ClassTimetableController extends Controller
     }
     public function insert_update(Request $request){ 
         ClassSubjectTimetableModel::where('class_id', '=',$request->class_id)->where('subject_id', '=',$request->subject_id)->delete();
+        dd($request->timetable );
         foreach($request->timetable as $timetable){
             if(!empty($timetable['week_id']) && !empty($timetable['start_time']) && !empty($timetable['end_time']) && !empty($timetable['room_number'])){
                 $save = new ClassSubjectTimetableModel;
@@ -109,7 +110,7 @@ class ClassTimetableController extends Controller
             $result[] = $dataS;
         }
         $data['getRecord'] = $result;
-
+        dd($data['getRecord']);
         $data['header_title'] = "My Timetable";
         return view('student.my_timetable', $data);
     }

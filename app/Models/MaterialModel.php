@@ -52,6 +52,7 @@ class MaterialModel extends Model
             ->join('class','class.id', '=','material.class_id')
             ->join('subject','subject.id', '=','material.subject_id')
             ->where('material.class_id', '=', $class_id)
+            ->where('material.is_delete', '=', 0)
             ->where('material.subject_id', '=', $subject_id); 
         $return = $return->orderBy('material.id', 'desc')
                                     ->paginate(20);

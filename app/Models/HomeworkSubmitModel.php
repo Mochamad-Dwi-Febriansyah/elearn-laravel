@@ -37,7 +37,8 @@ class HomeworkSubmitModel extends Model
                     ->join('users','users.id', '=','homework_submit.student_id') 
                     ->join('homework','homework.id', '=','homework_submit.homework_id') 
                     ->join('class','class.id', '=','homework.class_id') 
-                    ->join('subject','subject.id', '=','homework.subject_id');
+                    ->join('subject','subject.id', '=','homework.subject_id')
+                    ->where('homework_submit.is_delete', '=', 0);
                     
                     if(!empty(Request::get('first_name'))){
                         $return = $return->where('users.name', 'like', '%'. Request::get('first_name') . '%'); 
@@ -76,7 +77,8 @@ class HomeworkSubmitModel extends Model
     }
     static public function getRecord($homework_id){
         $return = HomeworkSubmitModel::select('homework_submit.*', 'users.name as users_name', 'users.last_name') 
-                ->join('users','users.id', '=','homework_submit.student_id')         
+                ->join('users','users.id', '=','homework_submit.student_id')     
+                ->where('homework_submit.is_delete', '=', 0)    
                 ->where('homework_submit.homework_id', '=', $homework_id);
 
                 if(!empty(Request::get('first_name'))){
@@ -102,6 +104,7 @@ class HomeworkSubmitModel extends Model
                                     ->join('homework','homework.id', '=','homework_submit.homework_id') 
                                     ->join('class','class.id', '=','homework.class_id') 
                                     ->join('subject','subject.id', '=','homework.subject_id')
+                                    ->where('homework_submit.is_delete', '=', 0)
                                     ->where('homework_submit.student_id', '=', $student_id);
  
 
@@ -141,6 +144,7 @@ class HomeworkSubmitModel extends Model
                                     ->join('class','class.id', '=','homework.class_id') 
                                     ->join('subject','subject.id', '=','homework.subject_id')
                                     ->where('homework_submit.student_id', '=', $student_id) 
+                                    ->where('homework_submit.is_delete', '=', 0)
                                     ->count();
         return $return;
     }
@@ -150,6 +154,7 @@ class HomeworkSubmitModel extends Model
                                     ->join('class','class.id', '=','homework.class_id') 
                                     ->join('subject','subject.id', '=','homework.subject_id')
                                     ->whereIn('homework_submit.student_id', $student_ids) 
+                                    ->where('homework_submit.is_delete', '=', 0)
                                     ->count();
         return $return;
     }
