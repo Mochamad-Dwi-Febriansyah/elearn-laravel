@@ -20,7 +20,9 @@ class StudentAttendanceModel extends Model
         $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name', 'student.name as student_name', 'student.last_name as student_last_name', 'createdBy.name as created_name')
                                 ->join('class', 'class.id', '=','student_attendance.class_id')
                                 ->join('users as student', 'student.id', '=','student_attendance.student_id')
-                                ->join('users as createdBy', 'createdBy.id', '=','student_attendance.created_by');
+                                ->join('users as createdBy', 'createdBy.id', '=','student_attendance.created_by')
+                                ->where('student_attendance.is_delete', '=',0);
+
 
                                 if(!empty(Request::get('student_id'))){
                                     $return = $return->where('student_attendance.student_id', '=', Request::get('student_id'));
@@ -62,6 +64,7 @@ class StudentAttendanceModel extends Model
             ->join('subject', 'subject.id', '=','student_attendance.subject_id')
             ->join('users as student', 'student.id', '=','student_attendance.student_id')
             ->join('users as createdBy', 'createdBy.id', '=','student_attendance.created_by')
+            ->where('student_attendance.is_delete', '=',0)
             ->whereIn('student_attendance.class_id', $class_ids);
 
             if(!empty(Request::get('student_id'))){
@@ -106,6 +109,7 @@ class StudentAttendanceModel extends Model
         if(!empty($class_id)){
             $return = StudentAttendanceModel::select('student_attendance.attendance_date')
             ->where('student_attendance.subject_id', '=', $subject_id)
+            ->where('student_attendance.is_delete', '=',0)
             ->where('student_attendance.class_id', $class_id);
             // ->whereIn('student_attendance.class_id', $class_ids);
 
@@ -144,6 +148,7 @@ class StudentAttendanceModel extends Model
             ->join('users as student', 'student.id', '=','student_attendance.student_id')
             ->join('users as createdBy', 'createdBy.id', '=','student_attendance.created_by')
             ->where('student_attendance.subject_id', '=', $subject_id)
+            ->where('student_attendance.is_delete', '=',0)
             ->where('student_attendance.class_id', $class_id);
 
             if(!empty(Request::get('student_id'))){
@@ -188,6 +193,7 @@ class StudentAttendanceModel extends Model
     
          $return = StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name')
             ->join('class', 'class.id', '=','student_attendance.class_id')
+            ->where('student_attendance.is_delete', '=',0)
             ->where('student_attendance.student_id', '=', $student_id);
              
             if(!empty(Request::get('class_id'))){
@@ -214,6 +220,7 @@ class StudentAttendanceModel extends Model
          $return = StudentAttendanceModel::select('student_attendance.id')
             ->join('class', 'class.id', '=','student_attendance.class_id')
             ->where('student_attendance.student_id', '=', $student_id)
+            ->where('student_attendance.is_delete', '=',0)
             ->count(); 
             return $return; 
        
@@ -222,6 +229,7 @@ class StudentAttendanceModel extends Model
          $return = StudentAttendanceModel::select('student_attendance.id')
             ->join('class', 'class.id', '=','student_attendance.class_id')
             ->whereIn('student_attendance.student_id', $student_ids)
+            ->where('student_attendance.is_delete', '=',0)
             ->count(); 
             return $return; 
        
@@ -231,6 +239,7 @@ class StudentAttendanceModel extends Model
         return  StudentAttendanceModel::select('student_attendance.*', 'class.name as class_name')
             ->join('class', 'class.id', '=','student_attendance.class_id')
             ->where('student_attendance.student_id', '=', $student_id) 
+            ->where('student_attendance.is_delete', '=',0)
             ->groupBy('student_attendance.class_id')
             ->get(); 
     }

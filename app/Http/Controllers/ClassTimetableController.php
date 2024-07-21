@@ -110,7 +110,7 @@ class ClassTimetableController extends Controller
             $result[] = $dataS;
         }
         $data['getRecord'] = $result;
-        dd($data['getRecord']);
+        // dd($data['getRecord']);
         $data['header_title'] = "My Timetable";
         return view('student.my_timetable', $data);
     }
